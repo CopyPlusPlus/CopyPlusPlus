@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+
 //.net framework 4.6 not supported
 //using System.Text.Json;
 using System.Web;
@@ -22,6 +23,7 @@ namespace CopyPlusPlus
     {
         //Is the translate API being changed or not
         public static bool changeStatus = false;
+
         private bool switch1Check;
         private bool switch2Check;
         private bool switch3Check;

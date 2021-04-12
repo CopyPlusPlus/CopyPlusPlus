@@ -39,9 +39,9 @@ namespace CopyPlusPlus
 
             //生成随机数,随机读取API
             Random random = new Random();
-            int i = random.Next(1, 3);
-            Properties.Settings.Default.AppID = API.baidu_api[i, 1];
-            Properties.Settings.Default.SecretKey = API.baidu_api[i, 2];
+            int i = random.Next(0, 2);
+            Properties.Settings.Default.AppID = API.baidu_api[i, 0];
+            Properties.Settings.Default.SecretKey = API.baidu_api[i, 1];
 
             switch1Check = Properties.Settings.Default.Switch1Check;
             switch2Check = Properties.Settings.Default.Switch2Check;

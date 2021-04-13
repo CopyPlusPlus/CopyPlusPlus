@@ -173,7 +173,7 @@ namespace CopyPlusPlus
 
         private void Github_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("explorer.exe", "https://github.com/CopyPlusPlus/CopyPlusPlus");
+            Process.Start("explorer.exe", "https://github.com/wy-luke/CopyPlusPlus-NetFramework");
         }
 
         private static string BaiduTrans(string appId, string secretKey, string q = "apple")

@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Copy++ 本软件完全免费" Height="410" Width="400" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closed="MainWindow_Closed">
     <Grid Height="395" Width="400" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-        <TextBlock x:Name="text_abstract" HorizontalAlignment="Center" Margin="0,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="60" Width="380" Padding="5,10,5,0" FontSize="14" LineHeight="24" FontStretch="Normal"><Run Text="复制文本后，软件会自动处理。只需打开相应功能，然后直接粘贴即可。祝写作顺利，走向人生巅峰！" /></TextBlock>
+        <TextBlock x:Name="text_abstract" HorizontalAlignment="Center" Margin="0,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="60" Width="380" Padding="5,10,5,0" FontSize="14" LineHeight="24" FontStretch="Normal"><Run Text="复制文本后，软件会自动处理。只需打开相应功能，然后直接粘贴即可。祝创作顺利，走向人生巅峰！" /></TextBlock>
 
         <Grid Margin="0,73,0,259">
             <WrapPanel Margin="0,30,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="380">

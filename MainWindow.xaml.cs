@@ -24,10 +24,13 @@ namespace CopyPlusPlus
         //Is the translate API being changed or not
         public static bool changeStatus = false;
 
-        private bool switch1Check;
-        private bool switch2Check;
-        private bool switch3Check;
-        private bool switch4Check;
+        public bool switch1Check;
+        public bool switch2Check;
+        public bool switch3Check;
+        public bool switch4Check;
+
+        public string translate_id;
+        public string translate_key;
 
         public SharpClipboard clipboard;
 
@@ -40,16 +43,21 @@ namespace CopyPlusPlus
             //生成随机数,随机读取API
             Random random = new Random();
             int i = random.Next(0, 2);
-            Properties.Settings.Default.AppID = API.baidu_api[i, 0];
-            Properties.Settings.Default.SecretKey = API.baidu_api[i, 1];
+            //Properties.Settings.Default.AppID = API.baidu_api[i, 0];
+            //Properties.Settings.Default.SecretKey = API.baidu_api[i, 1];
+            translate_id = API.baidu_api[i, 0];
+            translate_key = API.baidu_api[i, 1];
 
+            //读取上次关闭时保存的每个Switch的状态
             switch1Check = Properties.Settings.Default.Switch1Check;
             switch2Check = Properties.Settings.Default.Switch2Check;
             switch3Check = Properties.Settings.Default.Switch3Check;
             switch4Check = Properties.Settings.Default.Switch4Check;
-            if (switch1Check == true)
+
+            //Switch1默认为开启,所以判断为false,其他反之
+            if (switch1Check == false)
             {
-                switch1.IsChecked = true;
+                switch1.IsChecked = false;
             }
             if (switch2Check == true)
             {
@@ -121,8 +129,15 @@ namespace CopyPlusPlus
                 {
                     if (changeStatus == false)
                     {
-                        string appId = Properties.Settings.Default.AppID;
-                        string secretKey = Properties.Settings.Default.SecretKey;
+                        string appId = translate_id;
+                        string secretKey = translate_key;
+                        if (Properties.Settings.Default.AppID != "none" && Properties.Settings.Default.SecretKey != "none")
+                        {
+                            appId = Properties.Settings.Default.AppID;
+                            secretKey = Properties.Settings.Default.SecretKey;
+                        }
+
+                        //这个if已经无效
                         if (appId == "none" || secretKey == "none")
                         {
                             //MessageBox.Show("请先设置翻译接口", "Copy++");
@@ -150,10 +165,13 @@ namespace CopyPlusPlus
                     }
                 }
 
-                //Prevent loop
+                //stop monitoring to prevent loop
                 clipboard.StopMonitoring();
+
                 Clipboard.SetText(text);
                 Clipboard.Flush();
+
+                //restart monitoring
                 InitializeClipboardMonitor();
             }
 
@@ -173,7 +191,7 @@ namespace CopyPlusPlus
 
         private void Github_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("explorer.exe", "https://github.com/wy-luke/CopyPlusPlus-NetFramework");
+            Process.Start("explorer.exe", "https://github.com/CopyPlusPlus/CopyPlusPlus-NetFramework");
         }
 
         private static string BaiduTrans(string appId, string secretKey, string q = "apple")
@@ -241,14 +259,16 @@ namespace CopyPlusPlus
         //打开翻译按钮
         private void TranslateSwitch_Check(object sender, RoutedEventArgs e)
         {
-            string appId = Properties.Settings.Default.AppID;
-            string secretKey = Properties.Settings.Default.SecretKey;
-            if (appId == "none" || secretKey == "none")
-            {
-                //MessageBox.Show("请先设置翻译接口", "Copy++");
-                Show_InputAPIWindow();
-            }
-            switch3Check = true;
+            //已内置key,故不用检查
+
+            //string appId = Properties.Settings.Default.AppID;
+            //string secretKey = Properties.Settings.Default.SecretKey;
+            //if (appId == "none" || secretKey == "none")
+            //{
+            //    //MessageBox.Show("请先设置翻译接口", "Copy++");
+            //    Show_InputAPIWindow();
+            //}
+            //switch3Check = true;
         }
 
         //点击"翻译"文字
@@ -317,10 +337,6 @@ namespace CopyPlusPlus
             }
         }
 
-        public static void Switch3Uncheck()
-        {
-            //switch3.IsChecked = false;
-        }
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
@@ -330,11 +346,12 @@ namespace CopyPlusPlus
             Properties.Settings.Default.Switch3Check = switch3Check;
             Properties.Settings.Default.Switch4Check = switch4Check;
 
-            //判断Swith3状态,避免bug
-            if (Properties.Settings.Default.AppID == "none" || Properties.Settings.Default.SecretKey == "none")
-            {
-                Properties.Settings.Default.Switch3Check = false;
-            }
+            //已内置Key,无需判断
+            ////判断Swith3状态,避免bug
+            //if (Properties.Settings.Default.AppID == "none" || Properties.Settings.Default.SecretKey == "none")
+            //{
+            //    Properties.Settings.Default.Switch3Check = false;
+            //}
 
             Properties.Settings.Default.Save();
         }

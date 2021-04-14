@@ -75,6 +75,7 @@ namespace CopyPlusPlus
             {
                 //MainWindow.Switch3Uncheck();
                 //this.Owner.switch3.Ischecked = false;
+
             }
 
             MainWindow.changeStatus = false;

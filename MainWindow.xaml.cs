@@ -43,8 +43,6 @@ namespace CopyPlusPlus
             //生成随机数,随机读取API
             Random random = new Random();
             int i = random.Next(0, API.baidu_api.GetLength(0) - 1);
-            //Properties.Settings.Default.AppID = API.baidu_api[i, 0];
-            //Properties.Settings.Default.SecretKey = API.baidu_api[i, 1];
             translate_id = API.baidu_api[i, 0];
             translate_key = API.baidu_api[i, 1];
 

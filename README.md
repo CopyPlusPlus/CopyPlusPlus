@@ -1,5 +1,5 @@
 
-![fm.png](https://i.loli.net/2021/04/16/v6xChGe1RFmDiIJ.png){:height="60%" width="60%"}
+![fm.png](https://i.loli.net/2021/04/16/v6xChGe1RFmDiIJ.png)
 
 ---------------------------------------------
 
@@ -39,7 +39,7 @@
 
 像这样
 
-![1.png](https://i.loli.net/2021/04/16/2py5kIKSo6fm4ec.png){:height="80%" width="80%"}
+![1.png](https://i.loli.net/2021/04/16/2py5kIKSo6fm4ec.png)
 
 又比如
 
@@ -125,7 +125,7 @@ so 麻烦
 
 1. 打开软件，是下图这样的，然后最小化软件即可。
 
-    ![Snipaste.png](https://i.loli.net/2021/04/16/Md4QGYc9rTAv13N.png){:height="80%" width="80%"}
+    ![Snipaste.png](https://i.loli.net/2021/04/16/Md4QGYc9rTAv13N.png)
 
 2. 打开你要看(fu zhi)的论文。
 
@@ -139,24 +139,24 @@ so 麻烦
 
 7. 打开“翻译结果弹窗显示”时，复制文本后，翻译结果会弹窗显示，如下图。
 
-    ![Snipaste.png](https://i.loli.net/2021/04/16/fVHtAbmFY1EuQCo.png){:height="80%" width="80%"}
+    ![Snipaste.png](https://i.loli.net/2021/04/16/fVHtAbmFY1EuQCo.png)
 
 8. Windows 7用户打开时，可能会弹窗报错，如下图。此时点“是”，然后下载安装32位（X86）运行库即可。也可以在公众号内回复“运行”，获取安装包。如果还是打不开，可以在公众号里联系我，寻求帮助。
 
-    ![Snipaste.png](https://i.loli.net/2021/04/16/fVzGrXElF795uip.png){:height="80%" width="80%"}
+    ![Snipaste.png](https://i.loli.net/2021/04/16/fVzGrXElF795uip.png)
 
 ---------------------------------------------
 
 # 公众号
 
-![wechatgzh.jpg](https://i.loli.net/2021/04/16/hPJTjxvbp6Gm85w.jpg){:height="40%" width="40%"}
+![wechatgzh.jpg](https://i.loli.net/2021/04/16/hPJTjxvbp6Gm85w.jpg)
 
 # 捐助
 
 微信支付
 
-![Wechat.png](https://i.loli.net/2021/04/16/MxXyNonIkTOhgdV.png){:height="50%" width="50%"}
+![Wechat.png](https://i.loli.net/2021/04/16/MxXyNonIkTOhgdV.png)
 
 支付宝
 
-![AliPay.png](https://i.loli.net/2021/04/16/KxwRV3uWLfBaj8M.png){:height="50%" width="50%"}
+![AliPay.png](https://i.loli.net/2021/04/16/KxwRV3uWLfBaj8M.png)

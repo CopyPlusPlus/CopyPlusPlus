@@ -93,6 +93,8 @@ namespace CopyPlusPlus
                 // Get the cut/copied text.
                 string text = e.Content.ToString();
 
+                text = text.Replace("", "");
+
                 if (switch1Check == true || switch2Check == true)
                 {
                     for (int counter = 0; counter < text.Length - 1; counter++)

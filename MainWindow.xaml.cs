@@ -133,7 +133,7 @@ namespace CopyPlusPlus
                     if (changeStatus == false)
                     {
                         //判断中文
-                        if (!JudgeChinese(text[0]))
+                        if (!Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
                         {
                             string appId = translate_id;
                             string secretKey = translate_key;
@@ -190,21 +190,6 @@ namespace CopyPlusPlus
 
                 // Do something with 'clipboard.ClipboardObject' or 'e.Content' here...
             }
-        }
-
-        private bool JudgeChinese(char t)
-        {
-            if (Regex.IsMatch(t.ToString(), @"[\u4e00-\u9fa5]"))
-            {
-                Console.WriteLine("是汉字");
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("不是汉字");
-                return false;
-            }
-
         }
 
         private void Todolist_Checked(object sender, RoutedEventArgs e)

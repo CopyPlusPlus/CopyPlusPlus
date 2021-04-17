@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 //.net framework 4.6 not supported
 //using System.Text.Json;
@@ -94,7 +95,7 @@ namespace CopyPlusPlus
                 string text = e.Content.ToString();
 
                 text = text.Replace("", "");
-                
+
                 //Console.WriteLine("123");
 
                 if (switch1Check == true || switch2Check == true)
@@ -131,39 +132,42 @@ namespace CopyPlusPlus
                 {
                     if (changeStatus == false)
                     {
-                        string appId = translate_id;
-                        string secretKey = translate_key;
-                        if (Properties.Settings.Default.AppID != "none" && Properties.Settings.Default.SecretKey != "none")
+                        //判断中文
+                        if (!JudgeChinese(text[0]))
                         {
-                            appId = Properties.Settings.Default.AppID;
-                            secretKey = Properties.Settings.Default.SecretKey;
-                        }
-
-                        //这个if已经无效
-                        if (appId == "none" || secretKey == "none")
-                        {
-                            //MessageBox.Show("请先设置翻译接口", "Copy++");
-                            Show_InputAPIWindow();
-                        }
-                        else
-                        {
-                            text = BaiduTrans(appId, secretKey, text);
-
-                            //翻译结果弹窗
-                            if (switch4Check == true)
+                            string appId = translate_id;
+                            string secretKey = translate_key;
+                            if (Properties.Settings.Default.AppID != "none" && Properties.Settings.Default.SecretKey != "none")
                             {
+                                appId = Properties.Settings.Default.AppID;
+                                secretKey = Properties.Settings.Default.SecretKey;
+                            }
 
-                                //MessageBox.Show(text);
-                                TranslateResult translateResult = new TranslateResult();
-                                translateResult.textBox.Text = text;
+                            //这个if已经无效
+                            if (appId == "none" || secretKey == "none")
+                            {
+                                //MessageBox.Show("请先设置翻译接口", "Copy++");
+                                Show_InputAPIWindow();
+                            }
+                            else
+                            {
+                                text = BaiduTrans(appId, secretKey, text);
 
-                                //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
-                                //translateResult.Left = System.Windows.Forms.Control.MousePosition.X;
-                                //translateResult.Top = System.Windows.Forms.Control.MousePosition.Y;
-                                translateResult.Show();
+                                //翻译结果弹窗
+                                if (switch4Check == true)
+                                {
+                                    //MessageBox.Show(text);
+                                    TranslateResult translateResult = new TranslateResult();
+                                    translateResult.textBox.Text = text;
 
-                                //var left = translateResult.Left;
-                                //var top = translateResult.Top;
+                                    //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
+                                    //translateResult.Left = System.Windows.Forms.Control.MousePosition.X;
+                                    //translateResult.Top = System.Windows.Forms.Control.MousePosition.Y;
+                                    translateResult.Show();
+
+                                    //var left = translateResult.Left;
+                                    //var top = translateResult.Top;
+                                }
                             }
                         }
                     }
@@ -186,6 +190,21 @@ namespace CopyPlusPlus
 
                 // Do something with 'clipboard.ClipboardObject' or 'e.Content' here...
             }
+        }
+
+        private bool JudgeChinese(char t)
+        {
+            if (Regex.IsMatch(t.ToString(), @"[\u4e00-\u9fa5]"))
+            {
+                Console.WriteLine("是汉字");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("不是汉字");
+                return false;
+            }
+
         }
 
         private void Todolist_Checked(object sender, RoutedEventArgs e)

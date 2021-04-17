@@ -149,8 +149,10 @@ namespace CopyPlusPlus
                         {
                             text = BaiduTrans(appId, secretKey, text);
 
+                            //翻译结果弹窗
                             if (switch4Check == true)
                             {
+
                                 //MessageBox.Show(text);
                                 TranslateResult translateResult = new TranslateResult();
                                 translateResult.textBox.Text = text;

@@ -94,6 +94,8 @@ namespace CopyPlusPlus
                 string text = e.Content.ToString();
 
                 text = text.Replace("", "");
+                
+                //Console.WriteLine("123");
 
                 if (switch1Check == true || switch2Check == true)
                 {

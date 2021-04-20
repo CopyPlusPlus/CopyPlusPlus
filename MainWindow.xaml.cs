@@ -115,6 +115,10 @@ namespace CopyPlusPlus
                                     continue;
                                 }
                                 text = text.Remove(counter + 1, 2);
+                                if (Regex.IsMatch(text[counter].ToString(), "[a-zA-Z]"))
+                                {
+                                    text = text.Insert(counter, " ");
+                                }
                             }
                         }
 

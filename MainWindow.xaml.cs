@@ -115,9 +115,17 @@ namespace CopyPlusPlus
                                     continue;
                                 }
                                 text = text.Remove(counter + 1, 2);
+
+                                //判断英文单词结尾,则加一个空格
                                 if (Regex.IsMatch(text[counter].ToString(), "[a-zA-Z]"))
                                 {
-                                    text = text.Insert(counter, " ");
+                                    text = text.Insert(counter + 1, " ");
+                                }
+
+                                //判断"-"结尾,则去除"-"
+                                if (text[counter].ToString() == "-")
+                                {
+                                    text = text.Remove(counter,1);
                                 }
                             }
                         }

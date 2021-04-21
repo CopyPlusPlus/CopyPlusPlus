@@ -187,12 +187,10 @@ namespace CopyPlusPlus
 
                 //stop monitoring to prevent loop
                 Clipboard.StopMonitoring();
-                try
-                {
-                    System.Windows.Clipboard.SetText(text, TextDataFormat.Text);
-                    System.Windows.Clipboard.Flush();
-                }
-                catch { }
+
+                System.Windows.Clipboard.SetDataObject(text);
+                //System.Windows.Clipboard.Flush();
+
 
 
                 //restart monitoring

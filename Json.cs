@@ -1,12 +1,12 @@
 ﻿public class Rootobject
 {
-    public string From { get; set; }
-    public string To { get; set; }
-    public TransResult[] TransResult { get; set; }
+    public string from { get; set; }
+    public string to { get; set; }
+    public Trans_Result[] trans_result { get; set; }
 }
 
-public class TransResult
+public class Trans_Result
 {
-    public string Src { get; set; }
-    public string Dst { get; set; }
+    public string src { get; set; }
+    public string dst { get; set; }
 }

@@ -125,7 +125,7 @@ namespace CopyPlusPlus
                                 //判断"-"结尾,则去除"-"
                                 if (text[counter].ToString() == "-")
                                 {
-                                    text = text.Remove(counter,1);
+                                    text = text.Remove(counter, 1);
                                 }
                             }
                         }
@@ -187,9 +187,13 @@ namespace CopyPlusPlus
 
                 //stop monitoring to prevent loop
                 Clipboard.StopMonitoring();
+                try
+                {
+                    System.Windows.Clipboard.SetText(text, TextDataFormat.Text);
+                    System.Windows.Clipboard.Flush();
+                }
+                catch { }
 
-                System.Windows.Clipboard.SetText(text);
-                System.Windows.Clipboard.Flush();
 
                 //restart monitoring
                 InitializeClipboardMonitor();
@@ -254,7 +258,7 @@ namespace CopyPlusPlus
             //var result = System.Text.Json.JsonSerializer.Deserialize<Rootobject>(retString);
             var result = JsonConvert.DeserializeObject<Rootobject>(retString);
 
-            return result.TransResult[0].Dst;
+            return result.trans_result[0].dst;
         }
 
         // 计算MD5值

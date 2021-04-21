@@ -11,9 +11,9 @@ namespace CopyPlusPlus
     {
         // Holds a value determining if this is the first time the box has been clicked
         // So that the text value is not always wiped out.
-        private bool hasBeenClicked1 = false;
+        private bool _hasBeenClicked1 = false;
 
-        private bool hasBeenClicked2 = false;
+        private bool _hasBeenClicked2 = false;
 
         public KeyInput()
         {
@@ -43,18 +43,18 @@ namespace CopyPlusPlus
             TextBox box = sender as TextBox;
             if (box.Name == "textBox1")
             {
-                if (!hasBeenClicked1)
+                if (!_hasBeenClicked1)
                 {
                     box.Text = String.Empty;
-                    hasBeenClicked1 = true;
+                    _hasBeenClicked1 = true;
                 }
             }
             if (box.Name == "textBox2")
             {
-                if (!hasBeenClicked2)
+                if (!_hasBeenClicked2)
                 {
                     box.Text = String.Empty;
-                    hasBeenClicked2 = true;
+                    _hasBeenClicked2 = true;
                 }
             }
         }
@@ -71,7 +71,7 @@ namespace CopyPlusPlus
             }
             Properties.Settings.Default.Save();
 
-            MainWindow.changeStatus = false;
+            MainWindow.ChangeStatus = false;
         }
     }
 }

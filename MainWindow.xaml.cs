@@ -23,17 +23,17 @@ namespace CopyPlusPlus
     public partial class MainWindow : Window
     {
         //Is the translate API being changed or not
-        public static bool changeStatus = false;
+        public static bool ChangeStatus = false;
 
-        public bool switch1Check;
-        public bool switch2Check;
-        public bool switch3Check;
-        public bool switch4Check;
+        public bool Switch1Check;
+        public bool Switch2Check;
+        public bool Switch3Check;
+        public bool Switch4Check;
 
-        public string translate_id;
-        public string translate_key;
+        public string TranslateId;
+        public string TranslateKey;
 
-        public SharpClipboard clipboard;
+        public SharpClipboard Clipboard;
 
         public MainWindow()
         {
@@ -43,30 +43,30 @@ namespace CopyPlusPlus
 
             //生成随机数,随机读取API
             Random random = new Random();
-            int i = random.Next(0, API.baidu_api.GetLength(0) - 1);
-            translate_id = API.baidu_api[i, 0];
-            translate_key = API.baidu_api[i, 1];
+            int i = random.Next(0, Api.BaiduApi.GetLength(0) - 1);
+            TranslateId = Api.BaiduApi[i, 0];
+            TranslateKey = Api.BaiduApi[i, 1];
 
             //读取上次关闭时保存的每个Switch的状态
-            switch1Check = Properties.Settings.Default.Switch1Check;
-            switch2Check = Properties.Settings.Default.Switch2Check;
-            switch3Check = Properties.Settings.Default.Switch3Check;
-            switch4Check = Properties.Settings.Default.Switch4Check;
+            Switch1Check = Properties.Settings.Default.Switch1Check;
+            Switch2Check = Properties.Settings.Default.Switch2Check;
+            Switch3Check = Properties.Settings.Default.Switch3Check;
+            Switch4Check = Properties.Settings.Default.Switch4Check;
 
             //Switch1默认为开启,所以判断为false,其他反之
-            if (switch1Check == false)
+            if (Switch1Check == false)
             {
                 switch1.IsChecked = false;
             }
-            if (switch2Check == true)
+            if (Switch2Check == true)
             {
                 switch2.IsChecked = true;
             }
-            if (switch3Check == true)
+            if (Switch3Check == true)
             {
                 switch3.IsChecked = true;
             }
-            if (switch4Check == true)
+            if (Switch4Check == true)
             {
                 switch4.IsChecked = true;
             }
@@ -75,15 +75,15 @@ namespace CopyPlusPlus
         //Initializes a new instance of SharpClipboard
         public void InitializeClipboardMonitor()
         {
-            clipboard = new SharpClipboard();
+            Clipboard = new SharpClipboard();
             //Attach your code to the ClipboardChanged event to listen to cuts/copies
-            clipboard.ClipboardChanged += ClipboardChanged;
-            //disable issueing ClipboardChanged event when start
-            clipboard.ObserveLastEntry = false;
+            Clipboard.ClipboardChanged += ClipboardChanged;
+            //disable calling ClipboardChanged event when start
+            Clipboard.ObserveLastEntry = false;
             //disable monitoring files
-            clipboard.ObservableFormats.Files = false;
+            Clipboard.ObservableFormats.Files = false;
             //disable monitoring images
-            clipboard.ObservableFormats.Images = false;
+            Clipboard.ObservableFormats.Images = false;
         }
 
         private void ClipboardChanged(Object sender, SharpClipboard.ClipboardChangedEventArgs e)
@@ -98,11 +98,11 @@ namespace CopyPlusPlus
 
                 //Console.WriteLine("123");
 
-                if (switch1Check == true || switch2Check == true)
+                if (Switch1Check == true || Switch2Check == true)
                 {
                     for (int counter = 0; counter < text.Length - 1; counter++)
                     {
-                        if (switch1Check == true)
+                        if (Switch1Check == true)
                         {
                             if (text[counter + 1].ToString() == "\r")
                             {
@@ -122,7 +122,7 @@ namespace CopyPlusPlus
                             }
                         }
 
-                        if (switch2Check == true)
+                        if (Switch2Check == true)
                         {
                             if (text[counter].ToString() == " ")
                             {
@@ -132,15 +132,15 @@ namespace CopyPlusPlus
                     }
                 }
 
-                if (switch3Check == true)
+                if (Switch3Check == true)
                 {
-                    if (changeStatus == false)
+                    if (ChangeStatus == false)
                     {
                         //判断中文
                         if (!Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
                         {
-                            string appId = translate_id;
-                            string secretKey = translate_key;
+                            string appId = TranslateId;
+                            string secretKey = TranslateKey;
                             if (Properties.Settings.Default.AppID != "none" && Properties.Settings.Default.SecretKey != "none")
                             {
                                 appId = Properties.Settings.Default.AppID;
@@ -158,7 +158,7 @@ namespace CopyPlusPlus
                                 text = BaiduTrans(appId, secretKey, text);
 
                                 //翻译结果弹窗
-                                if (switch4Check == true)
+                                if (Switch4Check == true)
                                 {
                                     //MessageBox.Show(text);
                                     TranslateResult translateResult = new TranslateResult();
@@ -178,10 +178,10 @@ namespace CopyPlusPlus
                 }
 
                 //stop monitoring to prevent loop
-                clipboard.StopMonitoring();
+                Clipboard.StopMonitoring();
 
-                Clipboard.SetText(text);
-                Clipboard.Flush();
+                System.Windows.Clipboard.SetText(text);
+                System.Windows.Clipboard.Flush();
 
                 //restart monitoring
                 InitializeClipboardMonitor();
@@ -246,7 +246,7 @@ namespace CopyPlusPlus
             //var result = System.Text.Json.JsonSerializer.Deserialize<Rootobject>(retString);
             var result = JsonConvert.DeserializeObject<Rootobject>(retString);
 
-            return result.trans_result[0].dst;
+            return result.TransResult[0].Dst;
         }
 
         // 计算MD5值
@@ -302,7 +302,7 @@ namespace CopyPlusPlus
             {
                 MessageBox.Show(keyinput, "请先设置翻译接口", "Copy++");
             }
-            changeStatus = true;
+            ChangeStatus = true;
         }
 
         private void SwitchUncheck(object sender, RoutedEventArgs e)
@@ -311,19 +311,19 @@ namespace CopyPlusPlus
             string switchName = switchButton.Name;
             if (switchName == "switch1")
             {
-                switch1Check = false;
+                Switch1Check = false;
             }
             if (switchName == "switch2")
             {
-                switch2Check = false;
+                Switch2Check = false;
             }
             if (switchName == "switch3")
             {
-                switch3Check = false;
+                Switch3Check = false;
             }
             if (switchName == "switch4")
             {
-                switch4Check = false;
+                Switch4Check = false;
             }
         }
 
@@ -333,19 +333,19 @@ namespace CopyPlusPlus
             string switchName = switchButton.Name;
             if (switchName == "switch1")
             {
-                switch1Check = true;
+                Switch1Check = true;
             }
             if (switchName == "switch2")
             {
-                switch2Check = true;
+                Switch2Check = true;
             }
             if (switchName == "switch3")
             {
-                switch3Check = true;
+                Switch3Check = true;
             }
             if (switchName == "switch4")
             {
-                switch4Check = true;
+                Switch4Check = true;
             }
         }
 
@@ -353,10 +353,10 @@ namespace CopyPlusPlus
         private void MainWindow_Closed(object sender, EventArgs e)
         {
             //记录每个Switch的状态,以便下次打开恢复
-            Properties.Settings.Default.Switch1Check = switch1Check;
-            Properties.Settings.Default.Switch2Check = switch2Check;
-            Properties.Settings.Default.Switch3Check = switch3Check;
-            Properties.Settings.Default.Switch4Check = switch4Check;
+            Properties.Settings.Default.Switch1Check = Switch1Check;
+            Properties.Settings.Default.Switch2Check = Switch2Check;
+            Properties.Settings.Default.Switch3Check = Switch3Check;
+            Properties.Settings.Default.Switch4Check = Switch4Check;
 
             //已内置Key,无需判断
             ////判断Swith3状态,避免bug

@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Hardcodet.Wpf.TaskbarNotification;
+using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
@@ -35,11 +37,18 @@ namespace CopyPlusPlus
 
         public SharpClipboard Clipboard;
 
+        public TaskbarIcon NotifyIcon;
+
         public MainWindow()
         {
             InitializeComponent();
 
             InitializeClipboardMonitor();
+
+            NotifyIcon = (TaskbarIcon)FindResource("MyNotifyIcon");
+
+            NotifyIcon.Visibility = Visibility.Collapsed;
+
 
             //生成随机数,随机读取API
             Random random = new Random();
@@ -376,6 +385,9 @@ namespace CopyPlusPlus
             //}
 
             Properties.Settings.Default.Save();
+
+
+            NotifyIcon.Visibility = Visibility.Visible;
         }
     }
 }

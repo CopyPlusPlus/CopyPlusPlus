@@ -12,7 +12,8 @@ using CopyPlusPlus.Properties;
 using Hardcodet.Wpf.TaskbarNotification;
 using Newtonsoft.Json;
 using ToggleSwitch;
-using WK.Libraries.SharpClipboardNS; 
+
+//using WK.Libraries.SharpClipboardNS;
 //.net framework 4.6 not supported
 //using System.Text.Json;
 
@@ -25,8 +26,9 @@ namespace CopyPlusPlus
     {
         //Is the translate API being changed or not, bool声明默认值为false
         public static bool ChangeStatus;
+        private bool _firstClipboardChange = true;
 
-        public SharpClipboard Clipboard;
+        //public SharpClipboard Clipboard;
 
         public TaskbarIcon NotifyIcon;
 
@@ -38,11 +40,13 @@ namespace CopyPlusPlus
         public string TranslateId;
         public string TranslateKey;
 
+        private ClipboardManager _windowClipboardManager;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            InitializeClipboardMonitor();
+            //InitializeClipboardMonitor();
 
             NotifyIcon = (TaskbarIcon) FindResource("MyNotifyIcon");
 
@@ -68,113 +72,112 @@ namespace CopyPlusPlus
             if (Switch4Check) switch4.IsChecked = true;
         }
 
-        //Initializes a new instance of SharpClipboard
-        public void InitializeClipboardMonitor()
+        protected override void OnSourceInitialized(EventArgs e)
         {
-            Clipboard = new SharpClipboard();
-            //Attach your code to the ClipboardChanged event to listen to cuts/copies
-            Clipboard.ClipboardChanged += ClipboardChanged;
-            //disable calling ClipboardChanged event when start
-            Clipboard.ObserveLastEntry = false;
-            //disable monitoring files
-            Clipboard.ObservableFormats.Files = false;
-            //disable monitoring images
-            Clipboard.ObservableFormats.Images = false;
+            base.OnSourceInitialized(e);
+
+            //Initialize the clipboard now that we have a window soruce to use
+            _windowClipboardManager = new ClipboardManager(this);
+            _windowClipboardManager.ClipboardChanged += ClipboardChanged;
         }
 
-        private void ClipboardChanged(object sender, SharpClipboard.ClipboardChangedEventArgs e)
+        private void ClipboardChanged(object sender, EventArgs e)
         {
-            // Is the content copied of text type?
-            if (e.ContentType == SharpClipboard.ContentTypes.Text)
+            if (_firstClipboardChange)
             {
-                // Get the cut/copied text.
-                var text = e.Content.ToString();
+                // Handle your clipboard update
+                if (Clipboard.ContainsText())
+                {
+                    Debug.WriteLine(Clipboard.GetText());
 
-                text = text.Replace("", "");
+                    // Get the cut/copied text.
+                    var text = Clipboard.GetText();
 
-                //Console.WriteLine("123");
+                    text = text.Replace("", "");
 
-                if (Switch1Check || Switch2Check)
-                    for (var counter = 0; counter < text.Length - 1; counter++)
-                    {
-                        if (Switch1Check)
-                            if (text[counter + 1].ToString() == "\r")
-                            {
-                                if (text[counter].ToString() == ".") continue;
-                                if (text[counter].ToString() == "。") continue;
-                                text = text.Remove(counter + 1, 2);
+                    //Console.WriteLine("123");
 
-                                //判断英文单词结尾,则加一个空格
-                                if (Regex.IsMatch(text[counter].ToString(), "[a-zA-Z]"))
-                                    text = text.Insert(counter + 1, " ");
-
-                                //判断"-"结尾,则去除"-"
-                                if (text[counter].ToString() == "-") text = text.Remove(counter, 1);
-                            }
-
-                        if (Switch2Check)
-                            if (text[counter].ToString() == " ")
-                                text = text.Remove(counter, 1);
-                    }
-
-                if (Switch3Check)
-                    if (ChangeStatus == false)
-                        //判断中文
-                        if (!Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
+                    if (Switch1Check || Switch2Check)
+                        for (var counter = 0; counter < text.Length - 1; counter++)
                         {
-                            var appId = TranslateId;
-                            var secretKey = TranslateKey;
-                            if (Settings.Default.AppID != "none" && Settings.Default.SecretKey != "none")
-                            {
-                                appId = Settings.Default.AppID;
-                                secretKey = Settings.Default.SecretKey;
-                            }
-
-                            //这个if已经无效
-                            if (appId == "none" || secretKey == "none")
-                            {
-                                //MessageBox.Show("请先设置翻译接口", "Copy++");
-                                Show_InputAPIWindow();
-                            }
-                            else
-                            {
-                                text = BaiduTrans(appId, secretKey, text);
-
-                                //翻译结果弹窗
-                                if (Switch4Check)
+                            if (Switch1Check)
+                                if (text[counter + 1].ToString() == "\r")
                                 {
-                                    //MessageBox.Show(text);
-                                    var translateResult = new TranslateResult();
-                                    translateResult.textBox.Text = text;
+                                    if (text[counter].ToString() == ".") continue;
+                                    if (text[counter].ToString() == "。") continue;
+                                    text = text.Remove(counter + 1, 2);
 
-                                    //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
-                                    //translateResult.Left = System.Windows.Forms.Control.MousePosition.X;
-                                    //translateResult.Top = System.Windows.Forms.Control.MousePosition.Y;
-                                    translateResult.Show();
+                                    //判断英文单词结尾,则加一个空格
+                                    if (Regex.IsMatch(text[counter].ToString(), "[a-zA-Z]"))
+                                        text = text.Insert(counter + 1, " ");
 
-                                    //var left = translateResult.Left;
-                                    //var top = translateResult.Top;
+                                    //判断"-"结尾,则去除"-"
+                                    if (text[counter].ToString() == "-") text = text.Remove(counter, 1);
                                 }
-                            }
+
+                            if (Switch2Check)
+                                if (text[counter].ToString() == " ")
+                                    text = text.Remove(counter, 1);
                         }
 
-                //stop monitoring to prevent loop
-                Clipboard.StopMonitoring();
+                    if (Switch3Check)
+                        if (ChangeStatus == false)
+                            //判断中文
+                            if (!Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
+                            {
+                                var appId = TranslateId;
+                                var secretKey = TranslateKey;
+                                if (Settings.Default.AppID != "none" && Settings.Default.SecretKey != "none")
+                                {
+                                    appId = Settings.Default.AppID;
+                                    secretKey = Settings.Default.SecretKey;
+                                }
 
-                System.Windows.Clipboard.SetDataObject(text);
-                //System.Windows.Clipboard.Flush();
+                                //这个if已经无效
+                                if (appId == "none" || secretKey == "none")
+                                {
+                                    //MessageBox.Show("请先设置翻译接口", "Copy++");
+                                    Show_InputAPIWindow();
+                                }
+                                else
+                                {
+                                    text = BaiduTrans(appId, secretKey, text);
+
+                                    //翻译结果弹窗
+                                    if (Switch4Check)
+                                    {
+                                        //MessageBox.Show(text);
+                                        var translateResult = new TranslateResult {textBox = {Text = text}};
+
+                                        //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
+                                        //translateResult.Left = System.Windows.Forms.Control.MousePosition.X;
+                                        //translateResult.Top = System.Windows.Forms.Control.MousePosition.Y;
+                                        translateResult.Show();
+
+                                        //var left = translateResult.Left;
+                                        //var top = translateResult.Top;
+                                    }
+                                }
+                            }
+
+                    //stop monitoring to prevent loop
+                    //Clipboard.StopMonitoring();
+                    _windowClipboardManager.ClipboardChanged -= ClipboardChanged;
+
+                    Clipboard.SetDataObject(text);
+                    //System.Windows.Clipboard.Flush();
 
 
-                //restart monitoring
-                InitializeClipboardMonitor();
+                    //restart monitoring
+                    //InitializeClipboardMonitor();
+                    _windowClipboardManager.ClipboardChanged += ClipboardChanged;
+                }
+
+                _firstClipboardChange = false;
             }
-
-            // If the cut/copied content is complex, use 'Other'.
-            else if (e.ContentType == SharpClipboard.ContentTypes.Other)
+            else
             {
-                //do nothing
-
-                // Do something with 'clipboard.ClipboardObject' or 'e.Content' here...
+                _firstClipboardChange = true;
             }
         }
 

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
+    xmlns:copyPlusPlus="clr-namespace:CopyPlusPlus"
     x:Class="CopyPlusPlus.MainWindow"
         mc:Ignorable="d"
         Title="Copy++ v2.0 本软件完全免费" Height="410" Width="400" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Topmost="True">
@@ -64,11 +65,20 @@
         <TextBlock x:Name="textBlock_gzh" HorizontalAlignment="Left" Margin="249,0,0,156" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="10" TextAlignment="Center" Width="102"><Run Text="欢迎关注我的公众号" /><LineBreak /><Run Language="zh-cn" Text="后续更新将会在此发布" /></TextBlock>
 
         <Line X1="0" Y1="10" X2="400" Y2="10" Stroke="#FF3A4FEE" StrokeThickness="2" Margin="0,236,0,0" VerticalAlignment="Top" Height="20" />
-        
+
         <TextBlock x:Name="textBlock_pay" HorizontalAlignment="Center" Margin="0,251,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Text="如果您觉得好用，欢迎捐助" TextAlignment="Center" FontWeight="Bold" ToolTip="感谢感谢感谢, 感谢您的支持!" />
         <Image Source="/image/Wechat.png" Margin="55,0,0,8" Width="100" Height="100" VerticalAlignment="Bottom" HorizontalAlignment="Left" ToolTip="欢迎使用微信支付" />
         <Image Source="/image/AliPay.png" Margin="0,0,55,8" Width="102" Height="102" VerticalAlignment="Bottom" HorizontalAlignment="Right" ToolTip="欢迎使用支付宝" />
         <Label x:Name="label_wechat" Content="微 信 支 付" HorizontalAlignment="Left" Margin="71,0,0,103" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" />
         <Label x:Name="label_alipay" Content="支 付 宝" HorizontalAlignment="Left" Margin="268,0,0,103" VerticalAlignment="Bottom" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" />
     </Grid>
+    <!--<Window.InputBindings>
+        <KeyBinding  
+            Modifiers="Control"
+                     Key="N"
+                     Command="{copyPlusPlus:ShowWindowCommand}"/>
+    </Window.InputBindings>
+    <Window.DataContext>
+        <copyPlusPlus:HotKeyCommand />
+    </Window.DataContext>-->
 </Window>

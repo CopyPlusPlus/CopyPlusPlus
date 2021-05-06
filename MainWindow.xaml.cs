@@ -52,7 +52,6 @@ namespace CopyPlusPlus
 
             NotifyIcon.Visibility = Visibility.Collapsed;
 
-
             //生成随机数,随机读取API
             var random = new Random();
             var i = random.Next(0, Api.BaiduApi.GetLength(0) - 1);
@@ -337,5 +336,7 @@ namespace CopyPlusPlus
         {
             if (Application.Current.MainWindow != null) Application.Current.MainWindow.Close();
         }
+
+        
     }
 }

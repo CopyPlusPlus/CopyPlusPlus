@@ -186,6 +186,7 @@
     </ApplicationDefinition>
     <Compile Include="API.cs" />
     <Compile Include="ClipboardManager.cs" />
+    <Compile Include="HotKeyCommand.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="KeyInput.xaml.cs">
       <DependentUpon>KeyInput.xaml</DependentUpon>

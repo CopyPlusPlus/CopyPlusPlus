@@ -1,31 +1,34 @@
-﻿using Hardcodet.Wpf.TaskbarNotification;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-
-//.net framework 4.6 not supported
-//using System.Text.Json;
 using System.Web;
 using System.Windows;
 using System.Windows.Input;
+using CopyPlusPlus.Properties;
+using Hardcodet.Wpf.TaskbarNotification;
+using Newtonsoft.Json;
 using ToggleSwitch;
-using WK.Libraries.SharpClipboardNS;
+using WK.Libraries.SharpClipboardNS; 
+//.net framework 4.6 not supported
+//using System.Text.Json;
 
 namespace CopyPlusPlus
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        //Is the translate API being changed or not
-        public static bool ChangeStatus = false;
+        //Is the translate API being changed or not, bool声明默认值为false
+        public static bool ChangeStatus;
+
+        public SharpClipboard Clipboard;
+
+        public TaskbarIcon NotifyIcon;
 
         public bool Switch1Check;
         public bool Switch2Check;
@@ -35,50 +38,34 @@ namespace CopyPlusPlus
         public string TranslateId;
         public string TranslateKey;
 
-        public SharpClipboard Clipboard;
-
-        public TaskbarIcon NotifyIcon;
-
         public MainWindow()
         {
             InitializeComponent();
 
             InitializeClipboardMonitor();
 
-            NotifyIcon = (TaskbarIcon)FindResource("MyNotifyIcon");
+            NotifyIcon = (TaskbarIcon) FindResource("MyNotifyIcon");
 
             NotifyIcon.Visibility = Visibility.Collapsed;
 
 
             //生成随机数,随机读取API
-            Random random = new Random();
-            int i = random.Next(0, Api.BaiduApi.GetLength(0) - 1);
+            var random = new Random();
+            var i = random.Next(0, Api.BaiduApi.GetLength(0) - 1);
             TranslateId = Api.BaiduApi[i, 0];
             TranslateKey = Api.BaiduApi[i, 1];
 
             //读取上次关闭时保存的每个Switch的状态
-            Switch1Check = Properties.Settings.Default.Switch1Check;
-            Switch2Check = Properties.Settings.Default.Switch2Check;
-            Switch3Check = Properties.Settings.Default.Switch3Check;
-            Switch4Check = Properties.Settings.Default.Switch4Check;
+            Switch1Check = Settings.Default.Switch1Check;
+            Switch2Check = Settings.Default.Switch2Check;
+            Switch3Check = Settings.Default.Switch3Check;
+            Switch4Check = Settings.Default.Switch4Check;
 
             //Switch1默认为开启,所以判断为false,其他反之
-            if (Switch1Check == false)
-            {
-                switch1.IsChecked = false;
-            }
-            if (Switch2Check == true)
-            {
-                switch2.IsChecked = true;
-            }
-            if (Switch3Check == true)
-            {
-                switch3.IsChecked = true;
-            }
-            if (Switch4Check == true)
-            {
-                switch4.IsChecked = true;
-            }
+            if (Switch1Check == false) switch1.IsChecked = false;
+            if (Switch2Check) switch2.IsChecked = true;
+            if (Switch3Check) switch3.IsChecked = true;
+            if (Switch4Check) switch4.IsChecked = true;
         }
 
         //Initializes a new instance of SharpClipboard
@@ -95,73 +82,52 @@ namespace CopyPlusPlus
             Clipboard.ObservableFormats.Images = false;
         }
 
-        private void ClipboardChanged(Object sender, SharpClipboard.ClipboardChangedEventArgs e)
+        private void ClipboardChanged(object sender, SharpClipboard.ClipboardChangedEventArgs e)
         {
             // Is the content copied of text type?
             if (e.ContentType == SharpClipboard.ContentTypes.Text)
             {
                 // Get the cut/copied text.
-                string text = e.Content.ToString();
+                var text = e.Content.ToString();
 
                 text = text.Replace("", "");
 
                 //Console.WriteLine("123");
 
-                if (Switch1Check == true || Switch2Check == true)
-                {
-                    for (int counter = 0; counter < text.Length - 1; counter++)
+                if (Switch1Check || Switch2Check)
+                    for (var counter = 0; counter < text.Length - 1; counter++)
                     {
-                        if (Switch1Check == true)
-                        {
+                        if (Switch1Check)
                             if (text[counter + 1].ToString() == "\r")
                             {
-                                if (text[counter].ToString() == ".")
-                                {
-                                    continue;
-                                }
-                                if (text[counter].ToString() == "。")
-                                {
-                                    continue;
-                                }
+                                if (text[counter].ToString() == ".") continue;
+                                if (text[counter].ToString() == "。") continue;
                                 text = text.Remove(counter + 1, 2);
 
                                 //判断英文单词结尾,则加一个空格
                                 if (Regex.IsMatch(text[counter].ToString(), "[a-zA-Z]"))
-                                {
                                     text = text.Insert(counter + 1, " ");
-                                }
 
                                 //判断"-"结尾,则去除"-"
-                                if (text[counter].ToString() == "-")
-                                {
-                                    text = text.Remove(counter, 1);
-                                }
+                                if (text[counter].ToString() == "-") text = text.Remove(counter, 1);
                             }
-                        }
 
-                        if (Switch2Check == true)
-                        {
+                        if (Switch2Check)
                             if (text[counter].ToString() == " ")
-                            {
                                 text = text.Remove(counter, 1);
-                            }
-                        }
                     }
-                }
 
-                if (Switch3Check == true)
-                {
+                if (Switch3Check)
                     if (ChangeStatus == false)
-                    {
                         //判断中文
                         if (!Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
                         {
-                            string appId = TranslateId;
-                            string secretKey = TranslateKey;
-                            if (Properties.Settings.Default.AppID != "none" && Properties.Settings.Default.SecretKey != "none")
+                            var appId = TranslateId;
+                            var secretKey = TranslateKey;
+                            if (Settings.Default.AppID != "none" && Settings.Default.SecretKey != "none")
                             {
-                                appId = Properties.Settings.Default.AppID;
-                                secretKey = Properties.Settings.Default.SecretKey;
+                                appId = Settings.Default.AppID;
+                                secretKey = Settings.Default.SecretKey;
                             }
 
                             //这个if已经无效
@@ -175,10 +141,10 @@ namespace CopyPlusPlus
                                 text = BaiduTrans(appId, secretKey, text);
 
                                 //翻译结果弹窗
-                                if (Switch4Check == true)
+                                if (Switch4Check)
                                 {
                                     //MessageBox.Show(text);
-                                    TranslateResult translateResult = new TranslateResult();
+                                    var translateResult = new TranslateResult();
                                     translateResult.textBox.Text = text;
 
                                     //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
@@ -191,15 +157,12 @@ namespace CopyPlusPlus
                                 }
                             }
                         }
-                    }
-                }
 
                 //stop monitoring to prevent loop
                 Clipboard.StopMonitoring();
 
                 System.Windows.Clipboard.SetDataObject(text);
                 //System.Windows.Clipboard.Flush();
-
 
 
                 //restart monitoring
@@ -230,34 +193,34 @@ namespace CopyPlusPlus
             //q为原文
 
             // 源语言
-            string from = "en";
+            var from = "en";
             // 目标语言
-            string to = "zh";
+            var to = "zh";
 
             // 改成您的APP ID
             //appId = NoAPI.baidu_id;
             // 改成您的密钥
             //secretKey = NoAPI.baidu_secretKey;
 
-            Random rd = new Random();
-            string salt = rd.Next(100000).ToString();
-            string sign = EncryptString(appId + q + salt + secretKey);
-            string url = "http://api.fanyi.baidu.com/api/trans/vip/translate?";
+            var rd = new Random();
+            var salt = rd.Next(100000).ToString();
+            var sign = EncryptString(appId + q + salt + secretKey);
+            var url = "http://api.fanyi.baidu.com/api/trans/vip/translate?";
             url += "q=" + HttpUtility.UrlEncode(q);
             url += "&from=" + from;
             url += "&to=" + to;
             url += "&appid=" + appId;
             url += "&salt=" + salt;
             url += "&sign=" + sign;
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            var request = (HttpWebRequest) WebRequest.Create(url);
             request.Method = "GET";
             request.ContentType = "text/html;charset=UTF-8";
             request.UserAgent = null;
             request.Timeout = 6000;
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Stream myResponseStream = response.GetResponseStream();
-            StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
-            string retString = myStreamReader.ReadToEnd();
+            var response = (HttpWebResponse) request.GetResponse();
+            var myResponseStream = response.GetResponseStream();
+            var myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
+            var retString = myStreamReader.ReadToEnd();
             myStreamReader.Close();
             myResponseStream.Close();
 
@@ -271,18 +234,16 @@ namespace CopyPlusPlus
         // 计算MD5值
         public static string EncryptString(string str)
         {
-            MD5 md5 = MD5.Create();
+            var md5 = MD5.Create();
             // 将字符串转换成字节数组
-            byte[] byteOld = Encoding.UTF8.GetBytes(str);
+            var byteOld = Encoding.UTF8.GetBytes(str);
             // 调用加密方法
-            byte[] byteNew = md5.ComputeHash(byteOld);
+            var byteNew = md5.ComputeHash(byteOld);
             // 将加密结果转换为字符串
-            StringBuilder sb = new StringBuilder();
-            foreach (byte b in byteNew)
-            {
+            var sb = new StringBuilder();
+            foreach (var b in byteNew)
                 // 将字节转换成16进制表示的字符串，
                 sb.Append(b.ToString("x2"));
-            }
             // 返回加密的字符串
             return sb.ToString();
         }
@@ -310,72 +271,45 @@ namespace CopyPlusPlus
 
         private void Show_InputAPIWindow(bool showMessage = true)
         {
-            KeyInput keyinput = new KeyInput
+            var keyinput = new KeyInput
             {
                 Owner = this
             };
 
             keyinput.Show();
 
-            if (showMessage == true)
-            {
-                MessageBox.Show(keyinput, "请先设置翻译接口", "Copy++");
-            }
+            if (showMessage) MessageBox.Show(keyinput, "请先设置翻译接口", "Copy++");
             ChangeStatus = true;
         }
 
         private void SwitchUncheck(object sender, RoutedEventArgs e)
         {
-            HorizontalToggleSwitch switchButton = sender as HorizontalToggleSwitch;
-            string switchName = switchButton.Name;
-            if (switchName == "switch1")
-            {
-                Switch1Check = false;
-            }
-            if (switchName == "switch2")
-            {
-                Switch2Check = false;
-            }
-            if (switchName == "switch3")
-            {
-                Switch3Check = false;
-            }
-            if (switchName == "switch4")
-            {
-                Switch4Check = false;
-            }
+            var switchButton = sender as HorizontalToggleSwitch;
+            var switchName = switchButton.Name;
+            if (switchName == "switch1") Switch1Check = false;
+            if (switchName == "switch2") Switch2Check = false;
+            if (switchName == "switch3") Switch3Check = false;
+            if (switchName == "switch4") Switch4Check = false;
         }
 
         private void SwitchCheck(object sender, RoutedEventArgs e)
         {
-            HorizontalToggleSwitch switchButton = sender as HorizontalToggleSwitch;
-            string switchName = switchButton.Name;
-            if (switchName == "switch1")
-            {
-                Switch1Check = true;
-            }
-            if (switchName == "switch2")
-            {
-                Switch2Check = true;
-            }
-            if (switchName == "switch3")
-            {
-                Switch3Check = true;
-            }
-            if (switchName == "switch4")
-            {
-                Switch4Check = true;
-            }
+            var switchButton = sender as HorizontalToggleSwitch;
+            var switchName = switchButton.Name;
+            if (switchName == "switch1") Switch1Check = true;
+            if (switchName == "switch2") Switch2Check = true;
+            if (switchName == "switch3") Switch3Check = true;
+            if (switchName == "switch4") Switch4Check = true;
         }
 
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
             //记录每个Switch的状态,以便下次打开恢复
-            Properties.Settings.Default.Switch1Check = Switch1Check;
-            Properties.Settings.Default.Switch2Check = Switch2Check;
-            Properties.Settings.Default.Switch3Check = Switch3Check;
-            Properties.Settings.Default.Switch4Check = Switch4Check;
+            Settings.Default.Switch1Check = Switch1Check;
+            Settings.Default.Switch2Check = Switch2Check;
+            Settings.Default.Switch3Check = Switch3Check;
+            Settings.Default.Switch4Check = Switch4Check;
 
             //已内置Key,无需判断
             ////判断Swith3状态,避免bug
@@ -384,7 +318,7 @@ namespace CopyPlusPlus
             //    Properties.Settings.Default.Switch3Check = false;
             //}
 
-            Properties.Settings.Default.Save();
+            Settings.Default.Save();
 
 
             NotifyIcon.Visibility = Visibility.Visible;

@@ -94,5 +94,17 @@ namespace CopyPlusPlus.Properties {
                 this["Switch4Check"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool FirstClose {
+            get {
+                return ((bool)(this["FirstClose"]));
+            }
+            set {
+                this["FirstClose"] = value;
+            }
+        }
     }
 }

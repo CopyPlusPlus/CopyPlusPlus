@@ -19,6 +19,7 @@
                     IconSource="../copy.ico"
                     ToolTipText="Copy++"
                     LeftClickCommand="{Binding ShowWindowCommand}"
+                    DoubleClickCommand="{Binding ShowWindowCommand}"
                     ContextMenu="{StaticResource SysTrayMenu}"
                     Visibility="Collapsed">
         

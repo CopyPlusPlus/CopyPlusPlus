@@ -48,7 +48,7 @@ namespace CopyPlusPlus
 
             //InitializeClipboardMonitor();
 
-            NotifyIcon = (TaskbarIcon) FindResource("MyNotifyIcon");
+            NotifyIcon = (TaskbarIcon)FindResource("MyNotifyIcon");
 
             NotifyIcon.Visibility = Visibility.Collapsed;
 
@@ -147,7 +147,7 @@ namespace CopyPlusPlus
                                     if (Switch4Check)
                                     {
                                         //MessageBox.Show(text);
-                                        var translateResult = new TranslateResult {textBox = {Text = text}};
+                                        var translateResult = new TranslateResult { textBox = { Text = text } };
 
                                         //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
                                         //translateResult.Left = System.Windows.Forms.Control.MousePosition.X;
@@ -215,12 +215,12 @@ namespace CopyPlusPlus
             url += "&appid=" + appId;
             url += "&salt=" + salt;
             url += "&sign=" + sign;
-            var request = (HttpWebRequest) WebRequest.Create(url);
+            var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             request.ContentType = "text/html;charset=UTF-8";
             request.UserAgent = null;
             request.Timeout = 6000;
-            var response = (HttpWebResponse) request.GetResponse();
+            var response = (HttpWebResponse)request.GetResponse();
             var myResponseStream = response.GetResponseStream();
             var myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
             var retString = myStreamReader.ReadToEnd();
@@ -323,8 +323,19 @@ namespace CopyPlusPlus
 
             Settings.Default.Save();
 
-
             NotifyIcon.Visibility = Visibility.Visible;
+
+            if (!Settings.Default.FirstClose) return;
+
+            //show balloon with custom icon
+            NotifyIcon.ShowBalloonTip("Copy++", "软件已最小化至托盘，点击图标显示主界面，右键可退出", BalloonIcon.Info);
+            Settings.Default.FirstClose = false;
+
+        }
+
+        private void MainWindow_OnStateChanged(object sender, EventArgs e)
+        {
+            if (Application.Current.MainWindow != null) Application.Current.MainWindow.Close();
         }
     }
 }

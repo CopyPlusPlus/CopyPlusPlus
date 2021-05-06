@@ -182,6 +182,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="API.cs" />
+    <Compile Include="ClipboardManager.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="KeyInput.xaml.cs">
       <DependentUpon>KeyInput.xaml</DependentUpon>

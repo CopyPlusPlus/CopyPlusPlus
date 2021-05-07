@@ -321,8 +321,22 @@ namespace CopyPlusPlus
             //}
 
             Settings.Default.Save();
+        }
 
+        private void MainWindow_OnStateChanged(object sender, EventArgs e)
+        {
+            if (WindowState == System.Windows.WindowState.Minimized)
+            {
+                this.Hide();
+                NotifyIcon.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            this.Hide();
             NotifyIcon.Visibility = Visibility.Visible;
+            e.Cancel = true;
 
             if (!Settings.Default.FirstClose) return;
 
@@ -331,12 +345,5 @@ namespace CopyPlusPlus
             Settings.Default.FirstClose = false;
 
         }
-
-        private void MainWindow_OnStateChanged(object sender, EventArgs e)
-        {
-            if (Application.Current.MainWindow != null) Application.Current.MainWindow.Close();
-        }
-
-        
     }
 }

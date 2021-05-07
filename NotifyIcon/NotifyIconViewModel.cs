@@ -19,11 +19,13 @@ namespace CopyPlusPlus.NotifyIcon
             {
                 return new DelegateCommand
                 {
-                    CanExecuteFunc = () => Application.Current.MainWindow == null,
+                    CanExecuteFunc = () => Application.Current.MainWindow != null,
                     CommandAction = () =>
                     {
-                        Application.Current.MainWindow = new MainWindow();
+                        //Application.Current.MainWindow = new MainWindow();
                         Application.Current.MainWindow.Show();
+                        Application.Current.MainWindow.WindowState = WindowState.Normal;
+                        
                     }
                 };
             }

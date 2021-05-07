@@ -7,7 +7,7 @@
     xmlns:copyPlusPlus="clr-namespace:CopyPlusPlus"
     x:Class="CopyPlusPlus.MainWindow"
         mc:Ignorable="d"
-        Title="Copy++ v2.0 本软件完全免费" Height="410" Width="400" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Topmost="True" Icon="copy.ico" Closing="MainWindow_Closing">
+        Title="Copy++ v2.1 本软件完全免费" Height="410" Width="400" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Topmost="True" Icon="copy.ico" Closing="MainWindow_Closing">
     <Grid Height="395" Width="400" VerticalAlignment="Bottom" HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="103*"/>

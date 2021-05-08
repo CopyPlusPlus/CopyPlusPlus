@@ -32,10 +32,10 @@ namespace CopyPlusPlus
 
         public TaskbarIcon NotifyIcon;
 
-        public bool Switch1Check;
-        public bool Switch2Check;
-        public bool Switch3Check;
-        public bool Switch4Check;
+        public static bool Switch1Check;
+        public static bool Switch2Check;
+        public static bool Switch3Check;
+        public static bool Switch4Check;
 
         public string TranslateId;
         public string TranslateKey;
@@ -82,6 +82,11 @@ namespace CopyPlusPlus
 
         private void ClipboardChanged(object sender, EventArgs e)
         {
+            switch1.IsChecked = Switch1Check;
+            switch2.IsChecked = Switch2Check;
+            switch3.IsChecked = Switch3Check;
+            switch4.IsChecked = Switch4Check;           
+
             if (_firstClipboardChange)
             {
                 // Handle your clipboard update
@@ -329,6 +334,7 @@ namespace CopyPlusPlus
             {
                 this.Hide();
                 NotifyIcon.Visibility = Visibility.Visible;
+                NotifyIcon.ShowBalloonTip("Copy++", "软件已最小化至托盘，点击图标显示主界面，右键可退出", BalloonIcon.Info);
             }
         }
 
@@ -338,11 +344,11 @@ namespace CopyPlusPlus
             NotifyIcon.Visibility = Visibility.Visible;
             e.Cancel = true;
 
-            if (!Settings.Default.FirstClose) return;
+            //if (!Settings.Default.FirstClose) return;
 
             //show balloon with custom icon
             NotifyIcon.ShowBalloonTip("Copy++", "软件已最小化至托盘，点击图标显示主界面，右键可退出", BalloonIcon.Info);
-            Settings.Default.FirstClose = false;
+            //Settings.Default.FirstClose = false;
 
         }
     }

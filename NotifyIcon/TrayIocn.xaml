@@ -7,7 +7,8 @@
 
     <ContextMenu x:Shared="false" x:Key="SysTrayMenu">
         <!-- <MenuItem Header="显示界面" Command="{StaticResource ReopenMainWindowCommand}" /> -->
-        <!--<MenuItem Header="关闭全部功能" Command="{}" />--> 
+        <MenuItem Header="恢复软件" Command="{Binding EnableApp}" />
+        <MenuItem Header="禁用软件" Command="{Binding DisableApp}" />
         <!--<Separator />-->
         <MenuItem Header="退出" Command="{Binding ExitApplicationCommand}" />
     </ContextMenu>

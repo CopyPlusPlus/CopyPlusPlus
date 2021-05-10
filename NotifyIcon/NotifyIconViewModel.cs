@@ -25,7 +25,7 @@ namespace CopyPlusPlus.NotifyIcon
                         //Application.Current.MainWindow = new MainWindow();
                         Application.Current.MainWindow.Show();
                         Application.Current.MainWindow.WindowState = WindowState.Normal;
-                        
+
                     }
                 };
             }
@@ -46,7 +46,6 @@ namespace CopyPlusPlus.NotifyIcon
             }
         }
 
-
         /// <summary>
         /// Shuts down the application.
         /// </summary>
@@ -55,6 +54,57 @@ namespace CopyPlusPlus.NotifyIcon
             get
             {
                 return new DelegateCommand { CommandAction = () => Application.Current.Shutdown() };
+            }
+        }
+
+        private bool disableStatus = false;
+        private bool switch1;
+        private bool switch2;
+        private bool switch3;
+        private bool switch4;
+        public ICommand DisableApp
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CanExecuteFunc = () => Application.Current.MainWindow != null,
+                    CommandAction = () =>
+                    {
+                        switch1 = MainWindow.Switch1Check;
+                        switch2 = MainWindow.Switch2Check;
+                        switch3 = MainWindow.Switch3Check;
+                        switch4 = MainWindow.Switch4Check;
+
+                        MainWindow.Switch1Check = false;
+                        MainWindow.Switch2Check = false;
+                        MainWindow.Switch3Check = false;
+                        MainWindow.Switch4Check = false;
+                        disableStatus = true;
+                    }
+                };
+            }
+        }
+
+        public ICommand EnableApp
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CanExecuteFunc = () => Application.Current.MainWindow != null,
+                    CommandAction = () =>
+                    {
+                        if (disableStatus)
+                        {
+                            MainWindow.Switch1Check = switch1;
+                            MainWindow.Switch2Check = switch2;
+                            MainWindow.Switch3Check = switch3;
+                            MainWindow.Switch4Check = switch4;
+                            disableStatus = false;
+                        }
+                    }
+                };
             }
         }
     }

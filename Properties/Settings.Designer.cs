@@ -106,5 +106,16 @@ namespace CopyPlusPlus.Properties {
                 this["FirstClose"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime LastOpenDate {
+            get {
+                return ((global::System.DateTime)(this["LastOpenDate"]));
+            }
+            set {
+                this["LastOpenDate"] = value;
+            }
+        }
     }
 }

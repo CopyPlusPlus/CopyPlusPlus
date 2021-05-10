@@ -52,6 +52,21 @@ namespace CopyPlusPlus
 
             NotifyIcon.Visibility = Visibility.Collapsed;
 
+            if (Settings.Default.LastOpenDate.ToString() == "0001/1/1 0:00:00")
+            {
+                Settings.Default.LastOpenDate = DateTime.Today;
+            }
+            else
+            {
+                TimeSpan daySpan = DateTime.Today.Subtract(Settings.Default.LastOpenDate);
+                if (daySpan.Days > 7)
+                {
+                    //MessageBox.Show("由于软件没有在线更新功能，因此增加了这个提示","提醒您前去公众号检查更新");
+                    Settings.Default.LastOpenDate = DateTime.Today;
+                }
+            }
+
+
             //生成随机数,随机读取API
             var random = new Random();
             var i = random.Next(0, Api.BaiduApi.GetLength(0) - 1);

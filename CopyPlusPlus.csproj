@@ -196,7 +196,7 @@
   <ItemGroup>
     <PackageReference Include="Costura.Fody">
       <Version>5.2.0</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf">

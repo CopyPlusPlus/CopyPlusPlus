@@ -169,3 +169,5 @@ so 麻烦
 **支付宝**
 
 <img src="https://i.loli.net/2021/04/16/KxwRV3uWLfBaj8M.png" alt="image" width="150">
+
+[![Stargazers over time](https://starchart.cc/CopyPlusPlus/CopyPlusPlus-NetFramework.svg)]

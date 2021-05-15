@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Input;
 using CopyPlusPlus.Properties;
 using Hardcodet.Wpf.TaskbarNotification;
+using MahApps.Metro.Controls;
 using Newtonsoft.Json;
 using ToggleSwitch;
 
@@ -22,7 +23,7 @@ namespace CopyPlusPlus
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         //Is the translate API being changed or not, bool声明默认值为false
         public static bool ChangeStatus;
@@ -80,10 +81,10 @@ namespace CopyPlusPlus
             Switch4Check = Settings.Default.Switch4Check;
 
             //Switch1默认为开启,所以判断为false,其他反之
-            if (Switch1Check == false) switch1.IsChecked = false;
-            if (Switch2Check) switch2.IsChecked = true;
-            if (Switch3Check) switch3.IsChecked = true;
-            if (Switch4Check) switch4.IsChecked = true;
+            if (Switch1Check == false) switch1.IsOn = false;
+            if (Switch2Check) switch2.IsOn = true;
+            if (Switch3Check) switch3.IsOn = true;
+            if (Switch4Check) switch4.IsOn = true;
         }
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -97,10 +98,10 @@ namespace CopyPlusPlus
 
         private void ClipboardChanged(object sender, EventArgs e)
         {
-            switch1.IsChecked = Switch1Check;
-            switch2.IsChecked = Switch2Check;
-            switch3.IsChecked = Switch3Check;
-            switch4.IsChecked = Switch4Check;
+            switch1.IsOn = Switch1Check;
+            switch2.IsOn = Switch2Check;
+            switch3.IsOn = Switch3Check;
+            switch4.IsOn = Switch4Check;
 
             if (_firstClipboardChange)
             {

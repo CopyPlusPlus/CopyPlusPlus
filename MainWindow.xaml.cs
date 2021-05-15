@@ -139,6 +139,8 @@ namespace CopyPlusPlus
                                     text = text.Remove(counter, 1);
                         }
 
+                    if (Switch4Check && Switch3Check == false) MessageBox.Show("当前未打开翻译功能，因此翻译弹窗不生效");
+
                     if (Switch3Check)
                         if (ChangeStatus == false)
                             //判断中文
@@ -160,7 +162,9 @@ namespace CopyPlusPlus
                                 }
                                 else
                                 {
+                                    Debug.WriteLine(text);
                                     text = BaiduTrans(appId, secretKey, text);
+                                    Debug.WriteLine(text);
 
                                     //翻译结果弹窗
                                     if (Switch4Check)
@@ -219,7 +223,7 @@ namespace CopyPlusPlus
             //q为原文
 
             // 源语言
-            var from = "en";
+            var from = "auto";
             // 目标语言
             var to = "zh";
 

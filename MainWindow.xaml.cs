@@ -30,7 +30,7 @@ namespace CopyPlusPlus
 
         //public SharpClipboard Clipboard;
 
-        public TaskbarIcon NotifyIcon;
+        public static TaskbarIcon NotifyIcon;
 
         public static bool Switch1Check;
         public static bool Switch2Check;
@@ -100,14 +100,14 @@ namespace CopyPlusPlus
             switch1.IsChecked = Switch1Check;
             switch2.IsChecked = Switch2Check;
             switch3.IsChecked = Switch3Check;
-            switch4.IsChecked = Switch4Check;           
+            switch4.IsChecked = Switch4Check;
 
             if (_firstClipboardChange)
             {
                 // Handle your clipboard update
                 if (Clipboard.ContainsText())
                 {
-                    Debug.WriteLine(Clipboard.GetText());
+                    //Debug.WriteLine(Clipboard.GetText());
 
                     // Get the cut/copied text.
                     var text = Clipboard.GetText();
@@ -166,7 +166,7 @@ namespace CopyPlusPlus
                                     if (Switch4Check)
                                     {
                                         //MessageBox.Show(text);
-                                        var translateResult = new TranslateResult { textBox = { Text = text } };
+                                        var translateResult = new TranslateResult { TextBox = { Text = text } };
 
                                         //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
                                         //translateResult.Left = System.Windows.Forms.Control.MousePosition.X;
@@ -181,15 +181,19 @@ namespace CopyPlusPlus
 
                     //stop monitoring to prevent loop
                     //Clipboard.StopMonitoring();
-                    _windowClipboardManager.ClipboardChanged -= ClipboardChanged;
+                    //_windowClipboardManager.ClipboardChanged -= ClipboardChanged;
+                    //_windowClipboardManager = null;
 
                     Clipboard.SetDataObject(text);
+
+                    //_windowClipboardManager = new ClipboardManager(this);
+                    //_windowClipboardManager.ClipboardChanged += ClipboardChanged;
                     //System.Windows.Clipboard.Flush();
 
 
                     //restart monitoring
                     //InitializeClipboardMonitor();
-                    _windowClipboardManager.ClipboardChanged += ClipboardChanged;
+                    //_windowClipboardManager.ClipboardChanged += ClipboardChanged;
                 }
 
                 _firstClipboardChange = false;
@@ -365,6 +369,11 @@ namespace CopyPlusPlus
             NotifyIcon.ShowBalloonTip("Copy++", "软件已最小化至托盘，点击图标显示主界面，右键可退出", BalloonIcon.Info);
             //Settings.Default.FirstClose = false;
 
+        }
+
+        public static void HideNotifyIcon()
+        {
+            NotifyIcon.Visibility = Visibility.Collapsed;
         }
     }
 }

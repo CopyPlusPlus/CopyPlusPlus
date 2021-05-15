@@ -6,6 +6,6 @@
         xmlns:local="clr-namespace:CopyPlusPlus"
         mc:Ignorable="d" Height="111" Width="227" SizeToContent="Height" ResizeMode="CanResizeWithGrip" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" HorizontalAlignment="Stretch" Topmost="True" WindowStyle="SingleBorderWindow">
 
-    <TextBox x:Name="textBox" Margin="3,1,3,5" Text="TextBox" TextWrapping="Wrap" HorizontalAlignment="Stretch" Padding="3,3,3,3" IsUndoEnabled="False" FontSize="16"/>
+    <TextBox x:Name="TextBox" Margin="3,1,3,5" Text="TextBox" TextWrapping="Wrap" HorizontalAlignment="Stretch" Padding="3,3,3,3" IsUndoEnabled="False" FontSize="16" AllowDrop="False"/>
 
 </Window>

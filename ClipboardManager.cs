@@ -24,7 +24,7 @@ namespace CopyPlusPlus
         public ClipboardManager(Window windowSource)
         {
             HwndSource source = PresentationSource.FromVisual(windowSource) as HwndSource;
-            if(source == null)
+            if (source == null)
             {
                 throw new ArgumentException(
                     "Window source MUST be initialized first, such as in the Window's OnSourceInitialized handler."
@@ -39,6 +39,8 @@ namespace CopyPlusPlus
             // register for clipboard events
             NativeMethods.AddClipboardFormatListener(windowHandle);
         }
+
+
 
         private void OnClipboardChanged()
         {

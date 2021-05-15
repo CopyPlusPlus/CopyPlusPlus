@@ -7,7 +7,7 @@
     xmlns:copyPlusPlus="clr-namespace:CopyPlusPlus"
     x:Class="CopyPlusPlus.MainWindow"
         mc:Ignorable="d"
-        Title="Copy++ v2.1 本软件完全免费" Height="410" Width="400" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Topmost="True" Closing="MainWindow_Closing">
+        Title="Copy++ v2.2 本软件完全免费" Height="410" Width="400" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Closing="MainWindow_Closing" Topmost="True">
     <Grid Height="395" Width="400" VerticalAlignment="Bottom" HorizontalAlignment="Center">
         <TextBlock x:Name="TextAbstract" HorizontalAlignment="Center" Margin="0,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="60" Width="380" Padding="5,10,5,0" FontSize="14" LineHeight="24" FontStretch="Normal" ToolTip="关注公众号, 获取详细教程"><Run Text="复制文本后，软件会自动处理，只需打开相应功能，然后直接粘贴即可。" /><Run Text="祝君创作顺利，走向人生巅峰！" FontWeight="Bold" /></TextBlock>
 

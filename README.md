@@ -5,9 +5,6 @@
 
 <img src="https://i.loli.net/2021/04/16/v6xChGe1RFmDiIJ.png" alt="image" width="400">
 
-<br>
-<br>
-
 本软件可以：
 
 1. 自动合并在复制**PDF、CAJ**等格式时，产生的多余换行，并且能够**保留文章原有换行**。
@@ -21,6 +18,12 @@
 5. 每个功能都有独立开关。
 
 6. 免费，小巧，仅**1.08Mb**，并且**无需安装**，打开即用，方便快捷。
+
+### 公众号
+
+<img src="https://i.loli.net/2021/04/16/hPJTjxvbp6Gm85w.jpg" alt="image" width="150">
+
+欢迎您的关注,感谢支持！
 
 <br>
 
@@ -149,14 +152,6 @@ so 麻烦
 8. **Windows 7**用户打开时，可能会弹窗报错，如下图。此时点 **“是”** ，然后下载安装 **32位（X86）** 运行库即可。也可以在公众号内回复 **“运行”** ，获取安装包。如果还是打不开，可以在 **公众号(二维码在下面)** 里联系我，寻求帮助。
 
     <img src="https://i.loli.net/2021/04/16/fVzGrXElF795uip.png" alt="image" width="300">
-
-<br>
-
-# 公众号
-
-<img src="https://i.loli.net/2021/04/16/hPJTjxvbp6Gm85w.jpg" alt="image" width="150">
-
-欢迎您的关注,感谢支持！
 
 <br>
 

@@ -6,18 +6,46 @@
     xmlns:toggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
     xmlns:copyPlusPlus="clr-namespace:CopyPlusPlus" 
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     x:Class="CopyPlusPlus.MainWindow"
         mc:Ignorable="d"
         Title="Copy++ v2.2 本软件完全免费" Height="410" Width="400" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Closing="MainWindow_Closing" Topmost="True" mah:ValidationHelper.ShowValidationErrorOnMouseOver="True" mah:ValidationHelper.CloseOnMouseLeftButtonDown="True">
+    <mah:MetroWindow.TitleTemplate>
+        <DataTemplate>
+            <TextBlock Text="{TemplateBinding Content}"
+                       TextTrimming="CharacterEllipsis"
+                       VerticalAlignment="Center"
+                       Margin="8 -1 8 0"
+                       FontWeight="Bold" FontFamily="Microsoft YaHei UI"
+                        />
+        </DataTemplate>
+    </mah:MetroWindow.TitleTemplate>
+
     <Grid Height="395" Width="400" VerticalAlignment="Bottom" HorizontalAlignment="Center">
         <TextBlock x:Name="TextAbstract" HorizontalAlignment="Center" Margin="0,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="60" Width="380" Padding="5,10,5,0" FontSize="14" LineHeight="24" FontStretch="Normal" ToolTip="关注公众号, 获取详细教程"><Run Text="复制文本后，软件会自动处理，只需打开相应功能，然后直接粘贴即可。" /><Run Text="祝君创作顺利，走向人生巅峰！" FontWeight="Bold" /></TextBlock>
 
         <Grid Margin="0,73,0,259" Background="#FFEBEBEB">
+            <Grid Margin="5,0,274,33" ToolTip="复制文本后，直接粘贴到Word中即可生效">
+                <mah:ToggleSwitch x:Name="Switch1" MinWidth="27" Height="30" Width="120" ContentDirection="LeftToRight" Content="合并换行   " FontWeight="Bold" ContentPadding="0,0,-7,0" FontFamily="Microsoft YaHei UI"  />
+                <iconPacks:PackIconJamIcons Kind="Alert" Margin="61,10,0,0" Height="12" Width="11" />
+            </Grid>
+            <Grid Margin="5,28,274,5" ToolTip="仅对中文有效">
+                <mah:ToggleSwitch x:Name="Switch2" MinWidth="27" Height="30" Width="120" ContentDirection="LeftToRight" Content="去除空格   " FontWeight="Bold" ContentPadding="0,0,-7,0" FontFamily="Microsoft YaHei UI"  />
+                <iconPacks:PackIconJamIcons Kind="Alert" Margin="61,10,0,0" Height="12" Width="11" />
+            </Grid>
+            <Grid Margin="137,0,170,33">
+                <mah:ToggleSwitch x:Name="Switch3" MinWidth="27" Height="30" Width="92" ContentDirection="LeftToRight" Content="翻译   " FontWeight="Bold" ContentPadding="0,0,-7,0" FontFamily="Microsoft YaHei UI" />
+                <iconPacks:PackIconJamIcons Kind="Alert" Margin="34,10,0,0" Height="12" Width="11" />
+            </Grid>
+            <Grid Margin="241,0,37,33">
+                <mah:ToggleSwitch x:Name="Switch4" MinWidth="27" Height="30" Width="120" ContentDirection="LeftToRight" Content="结果弹窗   " FontWeight="Bold" ContentPadding="0,0,-7,0" FontFamily="Microsoft YaHei UI" />
+                <iconPacks:PackIconJamIcons Kind="Alert" Margin="62,10,0,0" Height="12" Width="11" />
+            </Grid>
+            <mah:DropDownButton HorizontalAlignment="Left" Height="25" Margin="188,32,0,0" VerticalAlignment="Top" Width="72">
+                <mah:DropDownButton.Items>
+                </mah:DropDownButton.Items>
+            </mah:DropDownButton>
 
-            <mah:ToggleSwitch x:Name="switch1" Margin="7,5,0,28" MinWidth="27" Height="30" Width="111" OffContent="" OnContent="" ContentDirection="LeftToRight" Content="合并换行" FontWeight="Bold" ContentPadding="0,0,-7,0" />
-            <mah:ToggleSwitch x:Name="switch2" Margin="7,5,0,28" MinWidth="27" Height="30" Width="111" OffContent="" OnContent="" ContentDirection="LeftToRight" Content="合并换行" FontWeight="Bold" ContentPadding="0,0,-7,0" />
-            <mah:ToggleSwitch x:Name="switch3" Margin="7,5,0,28" MinWidth="27" Height="30" Width="111" OffContent="" OnContent="" ContentDirection="LeftToRight" Content="合并换行" FontWeight="Bold" ContentPadding="0,0,-7,0" />
-            <mah:ToggleSwitch x:Name="switch4" Margin="7,5,0,28" MinWidth="27" Height="30" Width="111" OffContent="" OnContent="" ContentDirection="LeftToRight" Content="合并换行" FontWeight="Bold" ContentPadding="0,0,-7,0" />
 
         </Grid>
 

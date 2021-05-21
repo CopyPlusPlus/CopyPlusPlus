@@ -81,10 +81,10 @@ namespace CopyPlusPlus
             Switch4Check = Settings.Default.Switch4Check;
 
             //Switch1默认为开启,所以判断为false,其他反之
-            if (Switch1Check == false) switch1.IsOn = false;
-            if (Switch2Check) switch2.IsOn = true;
-            if (Switch3Check) switch3.IsOn = true;
-            if (Switch4Check) switch4.IsOn = true;
+            if (Switch1Check == false) Switch1.IsOn = false;
+            if (Switch2Check) Switch2.IsOn = true;
+            if (Switch3Check) Switch3.IsOn = true;
+            if (Switch4Check) Switch4.IsOn = true;
         }
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -98,10 +98,10 @@ namespace CopyPlusPlus
 
         private void ClipboardChanged(object sender, EventArgs e)
         {
-            switch1.IsOn = Switch1Check;
-            switch2.IsOn = Switch2Check;
-            switch3.IsOn = Switch3Check;
-            switch4.IsOn = Switch4Check;
+            Switch1.IsOn = Switch1Check;
+            Switch2.IsOn = Switch2Check;
+            Switch3.IsOn = Switch3Check;
+            Switch4.IsOn = Switch4Check;
 
             if (_firstClipboardChange)
             {

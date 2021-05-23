@@ -38,10 +38,10 @@
                 <iconPacks:PackIconJamIcons Kind="Alert" Margin="34,10,0,0" Height="12" Width="11" />
             </Grid>
             <Grid Margin="241,0,37,33">
-                <mah:ToggleSwitch x:Name="Switch4" MinWidth="27" Height="30" Width="120" ContentDirection="LeftToRight" Content="结果弹窗   " FontWeight="Bold" ContentPadding="0,0,-7,0" FontFamily="Microsoft YaHei UI" />
+                <mah:ToggleSwitch x:Name="Switch4" MinWidth="27" Height="30" Width="120" ContentDirection="LeftToRight" Content="翻译弹窗   " FontWeight="Bold" ContentPadding="0,0,-7,0" FontFamily="Microsoft YaHei UI" />
                 <iconPacks:PackIconJamIcons Kind="Alert" Margin="62,10,0,0" Height="12" Width="11" />
             </Grid>
-            <mah:DropDownButton HorizontalAlignment="Left" Height="25" Margin="188,32,0,0" VerticalAlignment="Top" Width="72">
+            <mah:DropDownButton HorizontalAlignment="Left" Height="25" Margin="184,32,0,0" VerticalAlignment="Top" Width="90">
                 <mah:DropDownButton.Items>
                 </mah:DropDownButton.Items>
             </mah:DropDownButton>

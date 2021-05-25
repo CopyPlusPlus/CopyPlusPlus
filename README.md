@@ -27,6 +27,22 @@
 
 <br>
 
+### 感谢捐助
+
+**微信支付**
+
+<img src="https://i.loli.net/2021/04/16/MxXyNonIkTOhgdV.png" alt="image" width="150">
+
+**支付宝**
+
+<img src="https://i.loli.net/2021/04/16/KxwRV3uWLfBaj8M.png" alt="image" width="150">
+
+### Star趋势
+
+![Stargazers over time](https://starchart.cc/CopyPlusPlus/CopyPlusPlus-NetFramework.svg)
+
+<br>
+
 # 介绍
 
 又到了 ~~复制~~ 创作毕业论文的时候了
@@ -152,19 +168,3 @@ so 麻烦
 8. **Windows 7**用户打开时，可能会弹窗报错，如下图。此时点 **“是”** ，然后下载安装 **32位（X86）** 运行库即可。也可以在公众号内回复 **“运行”** ，获取安装包。如果还是打不开，可以在 **公众号(二维码在下面)** 里联系我，寻求帮助。
 
     <img src="https://i.loli.net/2021/04/16/fVzGrXElF795uip.png" alt="image" width="300">
-
-<br>
-
-# 捐助
-
-**微信支付**
-
-<img src="https://i.loli.net/2021/04/16/MxXyNonIkTOhgdV.png" alt="image" width="150">
-
-**支付宝**
-
-<img src="https://i.loli.net/2021/04/16/KxwRV3uWLfBaj8M.png" alt="image" width="150">
-
-# Star趋势
-
-![Stargazers over time](https://starchart.cc/CopyPlusPlus/CopyPlusPlus-NetFramework.svg)

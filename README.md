@@ -1,9 +1,7 @@
 
 # Copy++ 让复制变得更加简单
 
-<br>
-
-<img src="https://i.loli.net/2021/04/16/v6xChGe1RFmDiIJ.png" alt="image" width="400">
+<img src="https://i.loli.net/2021/04/16/v6xChGe1RFmDiIJ.png" alt="image" width="300">
 
 本软件可以：
 
@@ -19,31 +17,37 @@
 
 6. 免费，小巧，仅**1.08Mb**，并且**无需安装**，打开即用，方便快捷。
 
-### 公众号
+-----------------------
+
+### 🏝公众号
 
 <img src="https://i.loli.net/2021/04/16/hPJTjxvbp6Gm85w.jpg" alt="image" width="150">
 
-欢迎您的关注,感谢支持！
+求关注，感谢支持！
 
-<br>
+-----------------------
 
-### 感谢捐助
+### 🍖捐助
 
-**微信支付**
+微信支付
 
 <img src="https://i.loli.net/2021/04/16/MxXyNonIkTOhgdV.png" alt="image" width="150">
 
-**支付宝**
+支付宝
 
 <img src="https://i.loli.net/2021/04/16/KxwRV3uWLfBaj8M.png" alt="image" width="150">
 
-### Star趋势
+您的支持就是对我最大的鼓励，万分感谢！
+
+-----------------------
+
+### 📈Star趋势
 
 ![Stargazers over time](https://starchart.cc/CopyPlusPlus/CopyPlusPlus-NetFramework.svg)
 
-<br>
+-----------------------
 
-# 介绍
+## 📖介绍
 
 又到了 ~~复制~~ 创作毕业论文的时候了
 
@@ -145,7 +149,7 @@ so 麻烦
 <br>
 
 
-# 使用说明
+## ⚙️使用说明
 
 1. 打开软件，是下图这样的，然后**最小化**软件即可。
 

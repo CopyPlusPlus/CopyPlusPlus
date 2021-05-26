@@ -12,7 +12,6 @@ using CopyPlusPlus.Properties;
 using Hardcodet.Wpf.TaskbarNotification;
 using MahApps.Metro.Controls;
 using Newtonsoft.Json;
-using ToggleSwitch;
 
 //using WK.Libraries.SharpClipboardNS;
 //.net framework 4.6 not supported
@@ -315,7 +314,7 @@ namespace CopyPlusPlus
 
         private void SwitchUncheck(object sender, RoutedEventArgs e)
         {
-            var switchButton = sender as HorizontalToggleSwitch;
+            var switchButton = sender as ToggleSwitch;
             var switchName = switchButton.Name;
             if (switchName == "switch1") Switch1Check = false;
             if (switchName == "switch2") Switch2Check = false;
@@ -325,7 +324,7 @@ namespace CopyPlusPlus
 
         private void SwitchCheck(object sender, RoutedEventArgs e)
         {
-            var switchButton = sender as HorizontalToggleSwitch;
+            var switchButton = sender as ToggleSwitch;
             var switchName = switchButton.Name;
             if (switchName == "switch1") Switch1Check = true;
             if (switchName == "switch2") Switch2Check = true;

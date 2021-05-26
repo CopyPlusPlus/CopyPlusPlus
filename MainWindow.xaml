@@ -5,7 +5,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:copyPlusPlus="clr-namespace:CopyPlusPlus" 
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     x:Class="CopyPlusPlus.MainWindow"
         mc:Ignorable="d"
         Title="Copy++ v3.0 本软件完全免费" Height="410" Width="425.067" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Closing="MainWindow_Closing" Topmost="True" mah:ValidationHelper.ShowValidationErrorOnMouseOver="True" mah:ValidationHelper.CloseOnMouseLeftButtonDown="True">
@@ -21,29 +20,55 @@
     </mah:MetroWindow.TitleTemplate>
 
     <Grid VerticalAlignment="Bottom">
-        <TextBlock x:Name="TextAbstract" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="60" Width="380" Padding="5,10,5,0" FontSize="14" LineHeight="24" FontStretch="Normal" ToolTip="关注公众号, 获取详细教程"><Run Text="复制文本后，软件会自动处理，只需打开相应功能，然后直接粘贴即可。" /><Run Text="祝君创作顺利，走向人生巅峰！" FontWeight="Bold" /></TextBlock>
+        <TextBlock x:Name="TextAbstract" HorizontalAlignment="Center" Margin="0,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="60" Width="400" Padding="5,10,5,0" FontSize="14" LineHeight="24" FontStretch="Normal" ToolTip="关注公众号, 获取详细教程"><Run Text="复制文本后，软件会自动处理，只需打开相应功能，然后直接粘贴即可。" /><Run Text="祝君创作顺利，走向人生巅峰！" FontWeight="Bold" /></TextBlock>
 
-        <Grid Margin="4,73,4,240" Background="#FFEBEBEB">
+        <Grid Margin="0,61,0,252" Background="#FFEBEBEB" HorizontalAlignment="Center">
             <Grid Margin="5,0,303,37.5" ToolTip="复制文本后，直接粘贴到Word中即可生效" VerticalAlignment="Center">
                 <mah:ToggleSwitch x:Name="Switch1" MinWidth="0" ContentDirection="LeftToRight" Content="合并换行" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" />
             </Grid>
             <Grid Margin="5,30,303,6.5" ToolTip="仅对中文有效" VerticalAlignment="Center">
                 <mah:ToggleSwitch x:Name="Switch2" MinWidth="0" ContentDirection="LeftToRight" Content="去除空格" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" />
             </Grid>
-            <Grid Margin="113,0,223,37.5" VerticalAlignment="Center">
+            <Grid Margin="125,0,208.4,37" VerticalAlignment="Center">
                 <mah:ToggleSwitch x:Name="Switch3" MinWidth="0" ContentDirection="LeftToRight" Content="翻译" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" />
             </Grid>
-            <Grid Margin="193,-1,85,37.5" VerticalAlignment="Center">
-                <mah:ToggleSwitch x:Name="Switch4" MinWidth="0" ContentDirection="LeftToRight" Content="翻译弹窗" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" />
-            </Grid>
-            <Grid Margin="113,31,156,5.5" VerticalAlignment="Center" Height="32">
+            <Grid Margin="125,30,127.4,5" VerticalAlignment="Center" Height="32">
                 <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontSize="14">翻译引擎</TextBlock>
-                <ComboBox x:Name="ComboBox" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                <ComboBox x:Name="TransEngineComboBox" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI">
                     <ComboBoxItem IsSelected="True">百度翻译</ComboBoxItem>
                     <ComboBoxItem>谷歌翻译</ComboBoxItem>
                     <ComboBoxItem>腾讯翻译</ComboBoxItem>
                 </ComboBox>
             </Grid>
+
+            <mah:ToggleSwitch x:Name="Switch4" MinWidth="0" ContentDirection="LeftToRight" Content="弹窗" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" Margin="209,0,0,35" />
+
+            <ComboBox x:Name="TransFromComboBox" HorizontalAlignment="Left" Margin="316,3,0,0" VerticalAlignment="Top" Width="84" FontFamily="Microsoft YaHei UI">
+                <ComboBoxItem IsSelected="True" Content="检测语言"/>
+                <ComboBoxItem Content="中文"/>
+                <ComboBoxItem Content="英语"/>
+                <ComboBoxItem Content="粤语"/>
+                <ComboBoxItem Content="文言文"/>
+                <ComboBoxItem Content="日语"/>
+                <ComboBoxItem Content="韩语"/>
+                <ComboBoxItem Content="法语"/>
+                <ComboBoxItem Content="德语"/>
+                <ComboBoxItem Content="俄语"/>
+                <ComboBoxItem Content="繁体中文"/>
+            </ComboBox>
+            <ComboBox x:Name="TransToComboBox" HorizontalAlignment="Left" Margin="316,34,0,0" VerticalAlignment="Top" Width="84" FontFamily="Microsoft YaHei UI">
+                <ComboBoxItem IsSelected="True" Content="中文"/>
+                <ComboBoxItem Content="英语"/>
+                <ComboBoxItem Content="粤语"/>
+                <ComboBoxItem Content="文言文"/>
+                <ComboBoxItem Content="日语"/>
+                <ComboBoxItem Content="韩语"/>
+                <ComboBoxItem Content="法语"/>
+                <ComboBoxItem Content="德语"/>
+                <ComboBoxItem Content="俄语"/>
+            </ComboBox>
+            <Label x:Name="FromLable" Content="从" HorizontalAlignment="Left" Margin="293,2,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
+            <Label x:Name="ToLable" Content="到" HorizontalAlignment="Left" Margin="293,33,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
         </Grid>
 
         <Line X1="0" Y1="10" X2="450" Y2="10" Stroke="#FF3A4FEE" StrokeThickness="2" Margin="-16,156,-15.6,204" HorizontalAlignment="Center" />

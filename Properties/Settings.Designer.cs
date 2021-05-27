@@ -109,7 +109,7 @@ namespace CopyPlusPlus.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2021-05-03")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2021-04-16")]
         public global::System.DateTime LastOpenDate {
             get {
                 return ((global::System.DateTime)(this["LastOpenDate"]));

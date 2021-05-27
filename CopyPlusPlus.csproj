@@ -15,6 +15,8 @@
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>E:\Develop\CopyPlusPlus\CopyPlusPlus-New\Copy++\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -30,8 +32,6 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -112,6 +112,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="API.cs" />
+    <Compile Include="Language.cs" />
     <Compile Include="ClipboardManager.cs" />
     <Compile Include="HotKeyCommand.cs" />
     <Compile Include="Json.cs" />
@@ -121,6 +122,9 @@
     <Compile Include="NotifyIcon\DelegateCommand.cs" />
     <Compile Include="NotifyIcon\NotifyIconViewModel.cs" />
     <Compile Include="NotifyIcon\ReopenMainWindowCommand.cs" />
+    <Compile Include="NotifyUpdate.xaml.cs">
+      <DependentUpon>NotifyUpdate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TranslateResult.xaml.cs">
       <DependentUpon>TranslateResult.xaml</DependentUpon>
     </Compile>
@@ -144,6 +148,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NotifyUpdate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TranslateResult.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -316,6 +324,9 @@
     <PackageReference Include="TencentCloudSDK">
       <Version>3.0.286</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BaiduTrans\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

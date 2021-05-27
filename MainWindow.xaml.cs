@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
@@ -52,21 +53,6 @@ namespace CopyPlusPlus
 
             NotifyIcon.Visibility = Visibility.Collapsed;
 
-            if (Settings.Default.LastOpenDate.ToString() == "0001/1/1 0:00:00")
-            {
-                Settings.Default.LastOpenDate = DateTime.Today;
-            }
-            else
-            {
-                TimeSpan daySpan = DateTime.Today.Subtract(Settings.Default.LastOpenDate);
-                if (daySpan.Days > 7)
-                {
-                    //MessageBox.Show("由于软件没有在线更新功能，因此增加了这个提示","提醒您前去公众号检查更新");
-                    Settings.Default.LastOpenDate = DateTime.Today;
-                }
-            }
-
-
             //生成随机数,随机读取API
             var random = new Random();
             var i = random.Next(0, Api.BaiduApi.GetLength(0) - 1);
@@ -97,10 +83,10 @@ namespace CopyPlusPlus
 
         private void ClipboardChanged(object sender, EventArgs e)
         {
-            Switch1.IsOn = Switch1Check;
-            Switch2.IsOn = Switch2Check;
-            Switch3.IsOn = Switch3Check;
-            Switch4.IsOn = Switch4Check;
+            //Switch1.IsOn = Switch1Check;
+            //Switch2.IsOn = Switch2Check;
+            //Switch3.IsOn = Switch3Check;
+            //Switch4.IsOn = Switch4Check;
 
             if (_firstClipboardChange)
             {
@@ -116,10 +102,10 @@ namespace CopyPlusPlus
 
                     //Console.WriteLine("123");
 
-                    if (Switch1Check || Switch2Check)
+                    if (Switch1.IsOn || Switch2.IsOn)
                         for (var counter = 0; counter < text.Length - 1; counter++)
                         {
-                            if (Switch1Check)
+                            if (Switch1.IsOn)
                                 if (text[counter + 1].ToString() == "\r")
                                 {
                                     if (text[counter].ToString() == ".") continue;
@@ -130,18 +116,18 @@ namespace CopyPlusPlus
                                     if (Regex.IsMatch(text[counter].ToString(), "[a-zA-Z]"))
                                         text = text.Insert(counter + 1, " ");
 
-                                    //判断"-"结尾,则去除"-"
-                                    if (text[counter].ToString() == "-") text = text.Remove(counter, 1);
+                                    //判断"-"结尾,且前一个字符为英文单词,则去除"-"
+                                    if (text[counter].ToString() == "-" && Regex.IsMatch(text[counter - 1].ToString(), "[a-zA-Z]")) text = text.Remove(counter, 1);
                                 }
-
-                            if (Switch2Check)
+                            //去除空格
+                            if (Switch2.IsOn && Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
                                 if (text[counter].ToString() == " ")
                                     text = text.Remove(counter, 1);
                         }
 
                     if (Switch4Check && Switch3Check == false) MessageBox.Show("当前未打开翻译功能，因此翻译弹窗不生效");
 
-                    if (Switch3Check)
+                    if (Switch3.IsOn)
                         if (ChangeStatus == false)
                             //判断中文
                             if (!Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
@@ -162,12 +148,12 @@ namespace CopyPlusPlus
                                 }
                                 else
                                 {
-                                    Debug.WriteLine(text);
+                                    //Debug.WriteLine(text);
                                     text = BaiduTrans(appId, secretKey, text);
-                                    Debug.WriteLine(text);
+                                    //Debug.WriteLine(text);
 
                                     //翻译结果弹窗
-                                    if (Switch4Check)
+                                    if (Switch4.IsOn)
                                     {
                                         //MessageBox.Show(text);
                                         var translateResult = new TranslateResult { TextBox = { Text = text } };
@@ -208,24 +194,26 @@ namespace CopyPlusPlus
             }
         }
 
-        private void Todolist_Checked(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("欢迎赞助我，加快开发进度！");
-        }
+        //private void Todolist_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    MessageBox.Show("欢迎赞助我，加快开发进度！");
+        //}
 
         private void Github_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("explorer.exe", "https://github.com/CopyPlusPlus/CopyPlusPlus-NetFramework");
         }
 
-        private static string BaiduTrans(string appId, string secretKey, string q = "apple")
+        private string BaiduTrans(string appId, string secretKey, string q = "apple")
         {
             //q为原文
 
             // 源语言
-            var from = "auto";
+            //var from = "auto";
+            var from = CopyPlusPlus.Language.GetLanguage[TransFromComboBox.Text];
             // 目标语言
-            var to = "zh";
+            //var to = "zh";
+            var to = CopyPlusPlus.Language.GetLanguage[TransToComboBox.Text];
 
             // 改成您的APP ID
             //appId = NoAPI.baidu_id;
@@ -378,6 +366,37 @@ namespace CopyPlusPlus
         public static void HideNotifyIcon()
         {
             NotifyIcon.Visibility = Visibility.Collapsed;
+        }
+
+        public void CheckUpdate()
+        {
+            switch (Settings.Default.LastOpenDate.ToString(CultureInfo.CurrentCulture))
+            {
+                //不再检查
+                case "1999/7/24 0:00:00":
+                    return;
+                //第一次打开初始化日期
+                case "2021/4/16 0:00:00":
+                    Settings.Default.LastOpenDate = DateTime.Today;
+                    break;
+                default:
+                {
+                    var daySpan = DateTime.Today.Subtract(Settings.Default.LastOpenDate);
+                    if (daySpan.Days > 10)
+                    {
+                        var notifyUpdate = new NotifyUpdate("打扰啦，提示您一下，您已经使用该版本很久啦！或许已经有新版本了，欢迎前去公众号获取最新版。", "知道啦", "别再提示");
+                        notifyUpdate.Show();
+                        Settings.Default.LastOpenDate = DateTime.Today;
+                    }
+                    break;
+                }
+            }
+            Settings.Default.Save();
+        }
+
+        private void MainWindow_OnContentRendered(object sender, EventArgs e)
+        {
+            CheckUpdate();
         }
     }
 }

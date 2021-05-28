@@ -112,8 +112,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="API.cs" />
-    <Compile Include="Language.cs" />
+    <Compile Include="Languages\BaiduLanguage.cs" />
     <Compile Include="ClipboardManager.cs" />
+    <Compile Include="Languages\GoogleLanguage.cs" />
     <Compile Include="HotKeyCommand.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="KeyInput.xaml.cs">

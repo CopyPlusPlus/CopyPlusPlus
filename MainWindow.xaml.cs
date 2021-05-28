@@ -6,10 +6,13 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Windows;
 using System.Windows.Input;
+using CopyPlusPlus.Languages;
 using CopyPlusPlus.Properties;
+using GoogleTranslateFreeApi;
 using Hardcodet.Wpf.TaskbarNotification;
 using MahApps.Metro.Controls;
 using Newtonsoft.Json;
@@ -88,7 +91,7 @@ namespace CopyPlusPlus
             _windowClipboardManager.ClipboardChanged += ClipboardChanged;
         }
 
-        private void ClipboardChanged(object sender, EventArgs e)
+        private async void ClipboardChanged(object sender, EventArgs e)
         {
             //Switch1.IsOn = Switch1Check;
             //Switch2.IsOn = Switch2Check;
@@ -160,6 +163,20 @@ namespace CopyPlusPlus
                                             ShowTrans(text);
                                             break;
                                         case "谷歌翻译":
+                                            //初始化
+                                            var translator = new GoogleTranslator();
+                                            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                                            
+                                            Language from;
+                                            @from = TransFromComboBox.Text == "检测语言" ? new Language("Automatic", "auto") : GoogleTranslator.GetLanguageByISO(GoogleLanguage.GetLanguage[TransFromComboBox.Text]);
+
+                                            Language to = GoogleTranslator.GetLanguageByISO(GoogleLanguage.GetLanguage[TransToComboBox.Text]);
+
+                                            var result = await translator.TranslateAsync(text, from, to);
+
+                                            //Console.WriteLine($"Result 1: {result.MergedTranslation}");
+                                            text = result.MergedTranslation;
+                                            ShowTrans(text);
                                             break;
                                         case "DeepL":
                                             DeepL(text);
@@ -167,8 +184,6 @@ namespace CopyPlusPlus
                                     }
 
                                     //Debug.WriteLine(text);
-
-
                                 }
                             }
 
@@ -225,10 +240,10 @@ namespace CopyPlusPlus
 
             // 源语言
             //var from = "auto";
-            var from = CopyPlusPlus.Language.GetLanguage[TransFromComboBox.Text];
+            var from = BaiduLanguage.GetLanguage[TransFromComboBox.Text];
             // 目标语言
             //var to = "zh";
-            var to = CopyPlusPlus.Language.GetLanguage[TransToComboBox.Text];
+            var to = BaiduLanguage.GetLanguage[TransToComboBox.Text];
 
             // 改成您的APP ID
             //appId = NoAPI.baidu_id;

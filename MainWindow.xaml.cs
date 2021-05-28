@@ -6,6 +6,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows;
@@ -30,7 +31,7 @@ namespace CopyPlusPlus
     {
         //Is the translate API being changed or not, bool声明默认值为false
         public static bool ChangeStatus;
-        private bool _firstClipboardChange = true;
+        private int _firstClipboardChange = 0;
 
         //public SharpClipboard Clipboard;
 
@@ -62,10 +63,6 @@ namespace CopyPlusPlus
             TranslateKey = Api.BaiduApi[i, 1];
 
             //读取上次关闭时保存的每个Switch的状态
-            //Switch1Check = Settings.Default.Switch1Check;
-            //Switch2Check = Settings.Default.Switch2Check;
-            //Switch3Check = Settings.Default.Switch3Check;
-            //Switch4Check = Settings.Default.Switch4Check;
             Switch1.IsOn = Settings.Default.Switch1Check;
             Switch2.IsOn = Settings.Default.Switch2Check;
             Switch3.IsOn = Settings.Default.Switch3Check;
@@ -74,12 +71,6 @@ namespace CopyPlusPlus
             TransFromComboBox.SelectedIndex = Settings.Default.TransFrom;
             TransToComboBox.SelectedIndex = Settings.Default.TransTo;
             TransEngineComboBox.SelectedIndex = Settings.Default.TransEngine;
-
-            //Switch1默认为开启,所以判断为false,其他反之
-            //if (Switch1Check == false) Switch1.IsOn = false;
-            //if (Switch2Check) Switch2.IsOn = true;
-            //if (Switch3Check) Switch3.IsOn = true;
-            //if (Switch4Check) Switch4.IsOn = true;
         }
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -93,13 +84,9 @@ namespace CopyPlusPlus
 
         private async void ClipboardChanged(object sender, EventArgs e)
         {
-            //Switch1.IsOn = Switch1Check;
-            //Switch2.IsOn = Switch2Check;
-            //Switch3.IsOn = Switch3Check;
-            //Switch4.IsOn = Switch4Check;
-
-            if (_firstClipboardChange)
+            if (_firstClipboardChange == 0)
             {
+                _firstClipboardChange++;
                 // Handle your clipboard update
                 if (Clipboard.ContainsText())
                 {
@@ -135,57 +122,61 @@ namespace CopyPlusPlus
                         }
 
                     if (Switch3.IsOn)
-                        if (ChangeStatus == false)
-                            //判断中文
-                            if (!Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
+                        //判断中文
+                        if (!Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
+                        {
+                            var appId = TranslateId;
+                            var secretKey = TranslateKey;
+                            if (Settings.Default.AppID != "none" && Settings.Default.SecretKey != "none")
                             {
-                                var appId = TranslateId;
-                                var secretKey = TranslateKey;
-                                if (Settings.Default.AppID != "none" && Settings.Default.SecretKey != "none")
-                                {
-                                    appId = Settings.Default.AppID;
-                                    secretKey = Settings.Default.SecretKey;
-                                }
-
-                                //这个if已经无效
-                                if (appId == "none" || secretKey == "none")
-                                {
-                                    //MessageBox.Show("请先设置翻译接口", "Copy++");
-                                    Show_InputAPIWindow();
-                                }
-                                else
-                                {
-                                    //Debug.WriteLine(text);
-                                    switch (TransEngineComboBox.Text)
-                                    {
-                                        case "百度翻译":
-                                            text = BaiduTrans(appId, secretKey, text);
-                                            ShowTrans(text);
-                                            break;
-                                        case "谷歌翻译":
-                                            //初始化
-                                            var translator = new GoogleTranslator();
-                                            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                                            
-                                            Language from;
-                                            @from = TransFromComboBox.Text == "检测语言" ? new Language("Automatic", "auto") : GoogleTranslator.GetLanguageByISO(GoogleLanguage.GetLanguage[TransFromComboBox.Text]);
-
-                                            Language to = GoogleTranslator.GetLanguageByISO(GoogleLanguage.GetLanguage[TransToComboBox.Text]);
-
-                                            var result = await translator.TranslateAsync(text, from, to);
-
-                                            //Console.WriteLine($"Result 1: {result.MergedTranslation}");
-                                            text = result.MergedTranslation;
-                                            ShowTrans(text);
-                                            break;
-                                        case "DeepL":
-                                            DeepL(text);
-                                            break;
-                                    }
-
-                                    //Debug.WriteLine(text);
-                                }
+                                appId = Settings.Default.AppID;
+                                secretKey = Settings.Default.SecretKey;
                             }
+
+                            //这个if已经无效
+                            if (appId == "none" || secretKey == "none")
+                            {
+                                //MessageBox.Show("请先设置翻译接口", "Copy++");
+                                Show_InputAPIWindow();
+                            }
+                            else
+                            {
+                                //Debug.WriteLine(text);
+                                switch (TransEngineComboBox.Text)
+                                {
+                                    case "百度翻译":
+                                        text = BaiduTrans(appId, secretKey, text);
+                                        ShowTrans(text);
+                                        break;
+                                    case "谷歌翻译":
+                                        //初始化
+                                        var translator = new GoogleTranslator();
+                                        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+                                        Language from;
+                                        @from = TransFromComboBox.Text == "检测语言" ? new Language("Automatic", "auto") : GoogleTranslator.GetLanguageByISO(GoogleLanguage.GetLanguage[TransFromComboBox.Text]);
+
+                                        Language to = GoogleTranslator.GetLanguageByISO(GoogleLanguage.GetLanguage[TransToComboBox.Text]);
+
+                                        //var result = await translator.TranslateAsync(text, from, to);
+                                        var result = Task.Run(async () => await translator.TranslateAsync(text, from, to)).Result;
+
+
+                                        //Console.WriteLine($"Result 1: {result.MergedTranslation}");
+                                        text = result.MergedTranslation;
+                                        ShowTrans(text);
+                                        break;
+                                    //会打开多个窗口,未通
+                                    case "DeepL":
+                                        //DeepL(text);
+                                        text = text.Replace(" ", "%20");
+                                        Process.Start("https://www.deepl.com/translator#en/zh/" + text);
+                                        break;
+                                }
+
+                                //Debug.WriteLine(text);
+                            }
+                        }
 
                     //stop monitoring to prevent loop
                     //Clipboard.StopMonitoring();
@@ -204,11 +195,11 @@ namespace CopyPlusPlus
                     //_windowClipboardManager.ClipboardChanged += ClipboardChanged;
                 }
 
-                _firstClipboardChange = false;
+
             }
             else
             {
-                _firstClipboardChange = true;
+                _firstClipboardChange = 0;
             }
         }
 
@@ -441,6 +432,13 @@ namespace CopyPlusPlus
         private void Trans_OnToggled(object sender, RoutedEventArgs e)
         {
             Switch4.IsEnabled = Switch3.IsOn;
+        }
+
+        private void TransEngineComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (TransEngineComboBox.Text == "谷歌翻译")
+            {
+            }
         }
     }
 }

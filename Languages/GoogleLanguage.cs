@@ -7,7 +7,7 @@ namespace CopyPlusPlus.Languages
         public static Dictionary<string, string> GetLanguage = new Dictionary<string, string>()
         {
             {"检测语言", "auto"},
-            {"中文", "zh_ch"},
+            {"中文", "zh-cn"},
             {"英语", "en"},
             {"日语", "ja"},
             {"韩语", "ko"},

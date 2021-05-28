@@ -69,7 +69,7 @@
             </ComboBox>
 
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="312,9,0,0" FontWeight="Bold" FontSize="11" FontFamily="Microsoft YaHei UI">到</TextBlock>
-            <ComboBox x:Name="TransToComboBox" HorizontalAlignment="Left" Margin="325,3,0,0" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" FontSize="11" Width="78">
+            <ComboBox x:Name="TransToComboBox" HorizontalAlignment="Left" Margin="325,3,0,0" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" FontSize="11" Width="78" SelectionChanged="TransToComboBox_SelectionChanged">
                 <ComboBoxItem IsSelected="True" Content="中文"/>
                 <ComboBoxItem Content="英语"/>
                 <ComboBoxItem Content="日语"/>

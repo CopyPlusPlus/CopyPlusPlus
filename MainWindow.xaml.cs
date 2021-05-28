@@ -51,6 +51,8 @@ namespace CopyPlusPlus
         {
             InitializeComponent();
 
+
+
             //InitializeClipboardMonitor();
 
             NotifyIcon = (TaskbarIcon)FindResource("MyNotifyIcon");
@@ -82,16 +84,23 @@ namespace CopyPlusPlus
             _windowClipboardManager.ClipboardChanged += ClipboardChanged;
         }
 
+        private string _textLast = "";
+        //初始化谷歌翻译
+        private GoogleTranslator translator;
         private async void ClipboardChanged(object sender, EventArgs e)
         {
-            if (_firstClipboardChange == 0)
+            //if (_firstClipboardChange == 0)
+            //{
+            //_firstClipboardChange++;
+
+            // Handle your clipboard update
+            if (Clipboard.ContainsText())
             {
-                _firstClipboardChange++;
-                // Handle your clipboard update
-                if (Clipboard.ContainsText())
+                // Get the cut/copied text.
+                var text = Clipboard.GetText();
+
+                if (text != _textLast)
                 {
-                    // Get the cut/copied text.
-                    var text = Clipboard.GetText();
                     // 去掉 CAJ viewer 造成的莫名的空格符号
                     text = text.Replace("", "");
 
@@ -149,22 +158,24 @@ namespace CopyPlusPlus
                                         ShowTrans(text);
                                         break;
                                     case "谷歌翻译":
-                                        //初始化
-                                        var translator = new GoogleTranslator();
+                                        translator = new GoogleTranslator();
                                         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                                        if (text != _textLast)
+                                        {
+                                            var @from = TransFromComboBox.Text == "检测语言" ? new Language("Automatic", "auto") : GoogleTranslator.GetLanguageByISO(GoogleLanguage.GetLanguage[TransFromComboBox.Text]);
 
-                                        Language from;
-                                        @from = TransFromComboBox.Text == "检测语言" ? new Language("Automatic", "auto") : GoogleTranslator.GetLanguageByISO(GoogleLanguage.GetLanguage[TransFromComboBox.Text]);
+                                            Language to = GoogleTranslator.GetLanguageByISO(GoogleLanguage.GetLanguage[TransToComboBox.Text]);
 
-                                        Language to = GoogleTranslator.GetLanguageByISO(GoogleLanguage.GetLanguage[TransToComboBox.Text]);
-
-                                        //var result = await translator.TranslateAsync(text, from, to);
-                                        var result = Task.Run(async () => await translator.TranslateAsync(text, from, to)).Result;
+                                            //var result = await translator.TranslateAsync(text, from, to);
+                                            var text1 = text;
+                                            var result = Task.Run(async () => await translator.TranslateAsync(text1, from, to)).Result;
 
 
-                                        //Console.WriteLine($"Result 1: {result.MergedTranslation}");
-                                        text = result.MergedTranslation;
-                                        ShowTrans(text);
+                                            //Console.WriteLine($"Result 1: {result.MergedTranslation}");
+                                            text = result.MergedTranslation;
+                                            ShowTrans(text);
+                                        }
+
                                         break;
                                     //会打开多个窗口,未通
                                     case "DeepL":
@@ -182,7 +193,7 @@ namespace CopyPlusPlus
                     //Clipboard.StopMonitoring();
                     //_windowClipboardManager.ClipboardChanged -= ClipboardChanged;
                     //_windowClipboardManager = null;
-
+                    _textLast = text;
                     Clipboard.SetDataObject(text);
 
                     //_windowClipboardManager = new ClipboardManager(this);
@@ -195,12 +206,14 @@ namespace CopyPlusPlus
                     //_windowClipboardManager.ClipboardChanged += ClipboardChanged;
                 }
 
+            }
 
-            }
-            else
-            {
-                _firstClipboardChange = 0;
-            }
+
+            //}
+            //else
+            //{
+            //    _firstClipboardChange = 0;
+            //}
         }
 
         private void ShowTrans(string text)
@@ -439,6 +452,11 @@ namespace CopyPlusPlus
             if (TransEngineComboBox.Text == "谷歌翻译")
             {
             }
+        }
+
+        private void TransToComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            _textLast = "";
         }
     }
 }

@@ -7,17 +7,30 @@
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     x:Class="CopyPlusPlus.MainWindow"
         mc:Ignorable="d"
-        Title="Copy++ v3.0 本软件完全免费" Height="376.167" Width="425.067" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Closing="MainWindow_Closing" ContentRendered="MainWindow_OnContentRendered" Topmost="True" mah:ValidationHelper.ShowValidationErrorOnMouseOver="True" mah:ValidationHelper.CloseOnMouseLeftButtonDown="True">
+        Title="Copy++ v3.0 本软件完全免费" Height="376.167" Width="425.067" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Closing="MainWindow_Closing" ContentRendered="MainWindow_OnContentRendered" Topmost="True"   mah:ValidationHelper.ShowValidationErrorOnMouseOver="True" mah:ValidationHelper.CloseOnMouseLeftButtonDown="True">
     <mah:MetroWindow.TitleTemplate>
         <DataTemplate>
             <TextBlock Text="{TemplateBinding Content}"
                        TextTrimming="CharacterEllipsis"
                        VerticalAlignment="Center"
                        Margin="8 -1 8 0"
-                       FontWeight="Bold" FontFamily="Microsoft YaHei UI" FontSize="16"
-                        />
+                       FontFamily="Microsoft YaHei UI"
+                       FontWeight="Bold"
+                       FontSize="16"/>
         </DataTemplate>
     </mah:MetroWindow.TitleTemplate>
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Grid Width="{TemplateBinding Width}"                 
+                  Height="{TemplateBinding Height}"                 
+                  Margin="4"                 
+                  Background="Transparent"                 
+                  RenderOptions.EdgeMode="Aliased"                 
+                  RenderOptions.BitmapScalingMode="HighQuality">
+                <Image Source="copy.ico"></Image>
+            </Grid>
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
 
     <Grid VerticalAlignment="Top" Height="346">
         <TextBlock x:Name="TextAbstract" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Height="44" Width="400" Padding="5,5,5,0" FontSize="14" Margin="10,0,10,0" ><Run Text="复制文本后，软件会自动处理，只需打开相应功能，然后直接粘贴即可。" ToolTip="关注公众号, 获取详细教程"/><Run Text="祝君创作顺利，走向人生巅峰！" FontWeight="Bold" /></TextBlock>

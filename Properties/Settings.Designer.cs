@@ -118,5 +118,41 @@ namespace CopyPlusPlus.Properties {
                 this["LastOpenDate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TransFrom {
+            get {
+                return ((int)(this["TransFrom"]));
+            }
+            set {
+                this["TransFrom"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TransTo {
+            get {
+                return ((int)(this["TransTo"]));
+            }
+            set {
+                this["TransTo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TransEngine {
+            get {
+                return ((int)(this["TransEngine"]));
+            }
+            set {
+                this["TransEngine"] = value;
+            }
+        }
     }
 }

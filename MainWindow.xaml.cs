@@ -50,7 +50,6 @@ namespace CopyPlusPlus
             //InitializeClipboardMonitor();
 
             NotifyIcon = (TaskbarIcon)FindResource("MyNotifyIcon");
-
             NotifyIcon.Visibility = Visibility.Collapsed;
 
             //生成随机数,随机读取API
@@ -60,16 +59,24 @@ namespace CopyPlusPlus
             TranslateKey = Api.BaiduApi[i, 1];
 
             //读取上次关闭时保存的每个Switch的状态
-            Switch1Check = Settings.Default.Switch1Check;
-            Switch2Check = Settings.Default.Switch2Check;
-            Switch3Check = Settings.Default.Switch3Check;
-            Switch4Check = Settings.Default.Switch4Check;
+            //Switch1Check = Settings.Default.Switch1Check;
+            //Switch2Check = Settings.Default.Switch2Check;
+            //Switch3Check = Settings.Default.Switch3Check;
+            //Switch4Check = Settings.Default.Switch4Check;
+            Switch1.IsOn = Settings.Default.Switch1Check;
+            Switch2.IsOn = Settings.Default.Switch2Check;
+            Switch3.IsOn = Settings.Default.Switch3Check;
+            Switch4.IsOn = Settings.Default.Switch4Check;
+
+            TransFromComboBox.SelectedIndex = Settings.Default.TransFrom;
+            TransToComboBox.SelectedIndex = Settings.Default.TransTo;
+            TransEngineComboBox.SelectedIndex = Settings.Default.TransEngine;
 
             //Switch1默认为开启,所以判断为false,其他反之
-            if (Switch1Check == false) Switch1.IsOn = false;
-            if (Switch2Check) Switch2.IsOn = true;
-            if (Switch3Check) Switch3.IsOn = true;
-            if (Switch4Check) Switch4.IsOn = true;
+            //if (Switch1Check == false) Switch1.IsOn = false;
+            //if (Switch2Check) Switch2.IsOn = true;
+            //if (Switch3Check) Switch3.IsOn = true;
+            //if (Switch4Check) Switch4.IsOn = true;
         }
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -93,23 +100,22 @@ namespace CopyPlusPlus
                 // Handle your clipboard update
                 if (Clipboard.ContainsText())
                 {
-                    //Debug.WriteLine(Clipboard.GetText());
-
                     // Get the cut/copied text.
                     var text = Clipboard.GetText();
-
+                    // 去掉 CAJ viewer 造成的莫名的空格符号
                     text = text.Replace("", "");
-
-                    //Console.WriteLine("123");
 
                     if (Switch1.IsOn || Switch2.IsOn)
                         for (var counter = 0; counter < text.Length - 1; counter++)
                         {
+                            //合并换行
                             if (Switch1.IsOn)
                                 if (text[counter + 1].ToString() == "\r")
                                 {
+                                    //如果检测到句号结尾,则不去掉换行.
                                     if (text[counter].ToString() == ".") continue;
                                     if (text[counter].ToString() == "。") continue;
+                                    //去除换行
                                     text = text.Remove(counter + 1, 2);
 
                                     //判断英文单词结尾,则加一个空格
@@ -124,8 +130,6 @@ namespace CopyPlusPlus
                                 if (text[counter].ToString() == " ")
                                     text = text.Remove(counter, 1);
                         }
-
-                    if (Switch4Check && Switch3Check == false) MessageBox.Show("当前未打开翻译功能，因此翻译弹窗不生效");
 
                     if (Switch3.IsOn)
                         if (ChangeStatus == false)
@@ -149,23 +153,22 @@ namespace CopyPlusPlus
                                 else
                                 {
                                     //Debug.WriteLine(text);
-                                    text = BaiduTrans(appId, secretKey, text);
+                                    switch (TransEngineComboBox.Text)
+                                    {
+                                        case "百度翻译":
+                                            text = BaiduTrans(appId, secretKey, text);
+                                            ShowTrans(text);
+                                            break;
+                                        case "谷歌翻译":
+                                            break;
+                                        case "DeepL":
+                                            DeepL(text);
+                                            break;
+                                    }
+
                                     //Debug.WriteLine(text);
 
-                                    //翻译结果弹窗
-                                    if (Switch4.IsOn)
-                                    {
-                                        //MessageBox.Show(text);
-                                        var translateResult = new TranslateResult { TextBox = { Text = text } };
 
-                                        //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
-                                        //translateResult.Left = System.Windows.Forms.Control.MousePosition.X;
-                                        //translateResult.Top = System.Windows.Forms.Control.MousePosition.Y;
-                                        translateResult.Show();
-
-                                        //var left = translateResult.Left;
-                                        //var top = translateResult.Top;
-                                    }
                                 }
                             }
 
@@ -194,16 +197,28 @@ namespace CopyPlusPlus
             }
         }
 
-        //private void Todolist_Checked(object sender, RoutedEventArgs e)
-        //{
-        //    MessageBox.Show("欢迎赞助我，加快开发进度！");
-        //}
+        private void ShowTrans(string text)
+        {
+            //翻译结果弹窗
+            if (Switch4.IsOn)
+            {
+                var translateResult = new TranslateResult { TextBox = { Text = text } };
+
+                //每次弹窗启动位置偏移,未实现
+                //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
+                //translateResult.Left = System.Windows.Forms.Control.MousePosition.X;
+                //translateResult.Top = System.Windows.Forms.Control.MousePosition.Y;
+
+                translateResult.Show();
+            }
+        }
 
         private void Github_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("explorer.exe", "https://github.com/CopyPlusPlus/CopyPlusPlus-NetFramework");
         }
 
+        //百度翻译
         private string BaiduTrans(string appId, string secretKey, string q = "apple")
         {
             //q为原文
@@ -266,6 +281,13 @@ namespace CopyPlusPlus
             return sb.ToString();
         }
 
+        //DeepL翻译
+        public void DeepL(string text)
+        {
+            text = text.Replace(" ", "%20");
+            Process.Start("https://www.deepl.com/translator#en/zh/" + text);
+        }
+
         //打开翻译按钮
         private void TranslateSwitch_Check(object sender, RoutedEventArgs e)
         {
@@ -300,34 +322,36 @@ namespace CopyPlusPlus
             ChangeStatus = true;
         }
 
-        private void SwitchUncheck(object sender, RoutedEventArgs e)
-        {
-            var switchButton = sender as ToggleSwitch;
-            var switchName = switchButton.Name;
-            if (switchName == "switch1") Switch1Check = false;
-            if (switchName == "switch2") Switch2Check = false;
-            if (switchName == "switch3") Switch3Check = false;
-            if (switchName == "switch4") Switch4Check = false;
-        }
+        //private void SwitchUncheck(object sender, RoutedEventArgs e)
+        //{
+        //    var switchButton = sender as ToggleSwitch;
+        //    var switchName = switchButton.Name;
+        //    if (switchName == "switch1") Switch1Check = false;
+        //    if (switchName == "switch2") Switch2Check = false;
+        //    if (switchName == "switch3") Switch3Check = false;
+        //    if (switchName == "switch4") Switch4Check = false;
+        //}
 
-        private void SwitchCheck(object sender, RoutedEventArgs e)
-        {
-            var switchButton = sender as ToggleSwitch;
-            var switchName = switchButton.Name;
-            if (switchName == "switch1") Switch1Check = true;
-            if (switchName == "switch2") Switch2Check = true;
-            if (switchName == "switch3") Switch3Check = true;
-            if (switchName == "switch4") Switch4Check = true;
-        }
-
+        //private void SwitchCheck(object sender, RoutedEventArgs e)
+        //{
+        //    var switchButton = sender as ToggleSwitch;
+        //    var switchName = switchButton.Name;
+        //    if (switchName == "switch1") Switch1Check = true;
+        //    if (switchName == "switch2") Switch2Check = true;
+        //    if (switchName == "switch3") Switch3Check = true;
+        //    if (switchName == "switch4") Switch4Check = true;
+        //}
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
             //记录每个Switch的状态,以便下次打开恢复
-            Settings.Default.Switch1Check = Switch1Check;
-            Settings.Default.Switch2Check = Switch2Check;
-            Settings.Default.Switch3Check = Switch3Check;
-            Settings.Default.Switch4Check = Switch4Check;
+            Settings.Default.Switch1Check = Switch1.IsOn;
+            Settings.Default.Switch2Check = Switch2.IsOn;
+            Settings.Default.Switch3Check = Switch3.IsOn;
+            Settings.Default.Switch4Check = Switch4.IsOn;
+            Settings.Default.TransFrom = TransFromComboBox.SelectedIndex;
+            Settings.Default.TransTo = TransToComboBox.SelectedIndex;
+            Settings.Default.TransEngine = TransEngineComboBox.SelectedIndex;
 
             //已内置Key,无需判断
             ////判断Swith3状态,避免bug
@@ -380,16 +404,16 @@ namespace CopyPlusPlus
                     Settings.Default.LastOpenDate = DateTime.Today;
                     break;
                 default:
-                {
-                    var daySpan = DateTime.Today.Subtract(Settings.Default.LastOpenDate);
-                    if (daySpan.Days > 10)
                     {
-                        var notifyUpdate = new NotifyUpdate("打扰啦，提示您一下，您已经使用该版本很久啦！或许已经有新版本了，欢迎前去公众号获取最新版。", "知道啦", "别再提示");
-                        notifyUpdate.Show();
-                        Settings.Default.LastOpenDate = DateTime.Today;
+                        var daySpan = DateTime.Today.Subtract(Settings.Default.LastOpenDate);
+                        if (daySpan.Days > 10)
+                        {
+                            var notifyUpdate = new NotifyUpdate("打扰啦，提示您一下，您已经使用该版本很久啦！或许已经有新版本了，欢迎前去公众号获取最新版。", "知道啦", "别再提示");
+                            notifyUpdate.Show();
+                            Settings.Default.LastOpenDate = DateTime.Today;
+                        }
+                        break;
                     }
-                    break;
-                }
             }
             Settings.Default.Save();
         }
@@ -397,6 +421,11 @@ namespace CopyPlusPlus
         private void MainWindow_OnContentRendered(object sender, EventArgs e)
         {
             CheckUpdate();
+        }
+
+        private void Trans_OnToggled(object sender, RoutedEventArgs e)
+        {
+            Switch4.IsEnabled = Switch3.IsOn;
         }
     }
 }

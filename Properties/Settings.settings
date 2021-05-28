@@ -26,5 +26,14 @@
     <Setting Name="LastOpenDate" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)">2021-04-16</Value>
     </Setting>
+    <Setting Name="TransFrom" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="TransTo" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="TransEngine" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

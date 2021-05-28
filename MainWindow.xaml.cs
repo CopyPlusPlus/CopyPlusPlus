@@ -68,6 +68,10 @@ namespace CopyPlusPlus
             Switch3.IsOn = Settings.Default.Switch3Check;
             Switch4.IsOn = Settings.Default.Switch4Check;
 
+            TransFromComboBox.SelectedIndex = Settings.Default.TransFrom;
+            TransToComboBox.SelectedIndex = Settings.Default.TransTo;
+            TransEngineComboBox.SelectedIndex = Settings.Default.TransEngine;
+
             //Switch1默认为开启,所以判断为false,其他反之
             //if (Switch1Check == false) Switch1.IsOn = false;
             //if (Switch2Check) Switch2.IsOn = true;
@@ -127,8 +131,6 @@ namespace CopyPlusPlus
                                     text = text.Remove(counter, 1);
                         }
 
-                    if (Switch4Check && Switch3Check == false) MessageBox.Show("当前未打开翻译功能，因此翻译弹窗不生效");
-
                     if (Switch3.IsOn)
                         if (ChangeStatus == false)
                             //判断中文
@@ -151,21 +153,22 @@ namespace CopyPlusPlus
                                 else
                                 {
                                     //Debug.WriteLine(text);
-                                    text = BaiduTrans(appId, secretKey, text);
+                                    switch (TransEngineComboBox.Text)
+                                    {
+                                        case "百度翻译":
+                                            text = BaiduTrans(appId, secretKey, text);
+                                            ShowTrans(text);
+                                            break;
+                                        case "谷歌翻译":
+                                            break;
+                                        case "DeepL":
+                                            DeepL(text);
+                                            break;
+                                    }
+
                                     //Debug.WriteLine(text);
 
-                                    //翻译结果弹窗
-                                    if (Switch4.IsOn)
-                                    {
-                                        var translateResult = new TranslateResult { TextBox = { Text = text } };
 
-                                        //每次弹窗启动位置偏移,未实现
-                                        //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
-                                        //translateResult.Left = System.Windows.Forms.Control.MousePosition.X;
-                                        //translateResult.Top = System.Windows.Forms.Control.MousePosition.Y;
-
-                                        translateResult.Show();
-                                    }
                                 }
                             }
 
@@ -194,11 +197,28 @@ namespace CopyPlusPlus
             }
         }
 
+        private void ShowTrans(string text)
+        {
+            //翻译结果弹窗
+            if (Switch4.IsOn)
+            {
+                var translateResult = new TranslateResult { TextBox = { Text = text } };
+
+                //每次弹窗启动位置偏移,未实现
+                //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
+                //translateResult.Left = System.Windows.Forms.Control.MousePosition.X;
+                //translateResult.Top = System.Windows.Forms.Control.MousePosition.Y;
+
+                translateResult.Show();
+            }
+        }
+
         private void Github_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("explorer.exe", "https://github.com/CopyPlusPlus/CopyPlusPlus-NetFramework");
         }
 
+        //百度翻译
         private string BaiduTrans(string appId, string secretKey, string q = "apple")
         {
             //q为原文
@@ -261,6 +281,13 @@ namespace CopyPlusPlus
             return sb.ToString();
         }
 
+        //DeepL翻译
+        public void DeepL(string text)
+        {
+            text = text.Replace(" ", "%20");
+            Process.Start("https://www.deepl.com/translator#en/zh/" + text);
+        }
+
         //打开翻译按钮
         private void TranslateSwitch_Check(object sender, RoutedEventArgs e)
         {
@@ -315,7 +342,6 @@ namespace CopyPlusPlus
         //    if (switchName == "switch4") Switch4Check = true;
         //}
 
-
         private void MainWindow_Closed(object sender, EventArgs e)
         {
             //记录每个Switch的状态,以便下次打开恢复
@@ -323,6 +349,9 @@ namespace CopyPlusPlus
             Settings.Default.Switch2Check = Switch2.IsOn;
             Settings.Default.Switch3Check = Switch3.IsOn;
             Settings.Default.Switch4Check = Switch4.IsOn;
+            Settings.Default.TransFrom = TransFromComboBox.SelectedIndex;
+            Settings.Default.TransTo = TransToComboBox.SelectedIndex;
+            Settings.Default.TransEngine = TransEngineComboBox.SelectedIndex;
 
             //已内置Key,无需判断
             ////判断Swith3状态,避免bug
@@ -392,6 +421,11 @@ namespace CopyPlusPlus
         private void MainWindow_OnContentRendered(object sender, EventArgs e)
         {
             CheckUpdate();
+        }
+
+        private void Trans_OnToggled(object sender, RoutedEventArgs e)
+        {
+            Switch4.IsEnabled = Switch3.IsOn;
         }
     }
 }

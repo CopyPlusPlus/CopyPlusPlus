@@ -6,8 +6,14 @@
     xmlns:copyPlusPlus="clr-namespace:CopyPlusPlus" 
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     x:Class="CopyPlusPlus.MainWindow"
-        mc:Ignorable="d"
-        Title="Copy++ v3.0 本软件完全免费" Height="376.167" Width="425.067" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Closing="MainWindow_Closing" ContentRendered="MainWindow_OnContentRendered" Topmost="True"   mah:ValidationHelper.ShowValidationErrorOnMouseOver="True" mah:ValidationHelper.CloseOnMouseLeftButtonDown="True">
+    mc:Ignorable="d"
+    TitleCharacterCasing="Normal"
+    Title="Copy++ v3.0 本软件完全免费" Height="376.167" Width="425.067" 
+        ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Topmost="True" 
+        Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Closing="MainWindow_Closing" ContentRendered="MainWindow_OnContentRendered" 
+        mah:ValidationHelper.ShowValidationErrorOnMouseOver="True" mah:ValidationHelper.CloseOnMouseLeftButtonDown="True" 
+        NonActiveWindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" 
+        WindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}">
     <mah:MetroWindow.TitleTemplate>
         <DataTemplate>
             <TextBlock Text="{TemplateBinding Content}"
@@ -38,14 +44,14 @@
         <Grid Margin="5,49,5,0" Background="#FFEBEBEB" VerticalAlignment="Top">
             <mah:ToggleSwitch x:Name="Switch1" MinWidth="0" ContentDirection="LeftToRight" Content="合并换行" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"  VerticalAlignment="Top" Margin="6,0,0,0" ToolTip="复制文本后，直接粘贴到Word中即可生效"/>
             <mah:ToggleSwitch x:Name="Switch2" MinWidth="0" ContentDirection="LeftToRight" Content="去除空格" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"  VerticalAlignment="Top" Margin="6,33,0,0" ToolTip="仅对中文有效"/>
-            <mah:ToggleSwitch x:Name="Switch3" MinWidth="0" ContentDirection="LeftToRight" Content="翻译"    FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top"  Margin="119,0,0,0" />
-            <mah:ToggleSwitch x:Name="Switch4" MinWidth="0" ContentDirection="LeftToRight" Content="翻译弹窗" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="119,33,0,0" />
+            <mah:ToggleSwitch x:Name="Switch3" MinWidth="0" ContentDirection="LeftToRight" Content="翻译"    FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top"  Margin="119,0,0,0" Toggled="Trans_OnToggled" />
+            <mah:ToggleSwitch x:Name="Switch4" MinWidth="0" ContentDirection="LeftToRight" Content="翻译弹窗" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="119,33,0,0" IsEnabled="False" />
 
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="14" Margin="246,40,0,0">翻译引擎</TextBlock>
             <ComboBox x:Name="TransEngineComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" Margin="312,36,0,0" Width="91">
                 <ComboBoxItem IsSelected="True">百度翻译</ComboBoxItem>
                 <ComboBoxItem>谷歌翻译</ComboBoxItem>
-                <ComboBoxItem>腾讯翻译</ComboBoxItem>
+                <ComboBoxItem>DeepL</ComboBoxItem>
             </ComboBox>
 
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="208,9,0,0" FontWeight="Bold" FontSize="11" FontFamily="Microsoft YaHei UI">从</TextBlock>

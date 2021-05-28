@@ -449,14 +449,23 @@ namespace CopyPlusPlus
 
         private void TransEngineComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
+            _textLast = "";
+
+            //为不同的翻译引擎设置不同的语言选项
             if (TransEngineComboBox.Text == "谷歌翻译")
             {
             }
+        }
+
+        private void TransFromComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            _textLast = "";
         }
 
         private void TransToComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             _textLast = "";
         }
+
     }
 }

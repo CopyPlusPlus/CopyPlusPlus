@@ -55,7 +55,7 @@
             </ComboBox>
 
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="208,9,0,0" FontWeight="Bold" FontSize="11" FontFamily="Microsoft YaHei UI">从</TextBlock>
-            <ComboBox x:Name="TransFromComboBox" HorizontalAlignment="Left" Margin="221,3,0,0" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" FontSize="11" Width="78">
+            <ComboBox x:Name="TransFromComboBox" HorizontalAlignment="Left" Margin="221,3,0,0" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" FontSize="11" Width="78" SelectionChanged="TransFromComboBox_SelectionChanged">
                 <ComboBoxItem IsSelected="True" Content="检测语言"/>
                 <ComboBoxItem Content="中文"/>
                 <ComboBoxItem Content="英语"/>

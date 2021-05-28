@@ -109,13 +109,49 @@ namespace CopyPlusPlus.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2021-05-03")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2021-04-16")]
         public global::System.DateTime LastOpenDate {
             get {
                 return ((global::System.DateTime)(this["LastOpenDate"]));
             }
             set {
                 this["LastOpenDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TransFrom {
+            get {
+                return ((int)(this["TransFrom"]));
+            }
+            set {
+                this["TransFrom"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TransTo {
+            get {
+                return ((int)(this["TransTo"]));
+            }
+            set {
+                this["TransTo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TransEngine {
+            get {
+                return ((int)(this["TransEngine"]));
+            }
+            set {
+                this["TransEngine"] = value;
             }
         }
     }

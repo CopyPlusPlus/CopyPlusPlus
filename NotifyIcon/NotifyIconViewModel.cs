@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CopyPlusPlus.NotifyIcon
@@ -57,11 +58,17 @@ namespace CopyPlusPlus.NotifyIcon
             }
         }
 
-        private bool disableStatus = false;
-        private bool switch1;
-        private bool switch2;
-        private bool switch3;
-        private bool switch4;
+        //Store status before disable
+        private bool _disableStatus;
+        private bool _switch1Before;
+        private bool _switch2Before;
+        private bool _switch3Before;
+        private bool _switch4Before;
+        //Get MainWindow
+        private readonly MainWindow _mainWindow = Application.Current.Windows
+            .Cast<Window>()
+            .FirstOrDefault(window => window is MainWindow) as MainWindow;
+
         public ICommand DisableApp
         {
             get
@@ -71,16 +78,17 @@ namespace CopyPlusPlus.NotifyIcon
                     CanExecuteFunc = () => Application.Current.MainWindow != null,
                     CommandAction = () =>
                     {
-                        switch1 = MainWindow.Switch1Check;
-                        switch2 = MainWindow.Switch2Check;
-                        switch3 = MainWindow.Switch3Check;
-                        switch4 = MainWindow.Switch4Check;
+                        _switch1Before = _mainWindow.Switch1.IsOn;
+                        _switch2Before = _mainWindow.Switch2.IsOn;
+                        _switch3Before = _mainWindow.Switch3.IsOn;
+                        _switch4Before = _mainWindow.Switch4.IsOn;
 
-                        MainWindow.Switch1Check = false;
-                        MainWindow.Switch2Check = false;
-                        MainWindow.Switch3Check = false;
-                        MainWindow.Switch4Check = false;
-                        disableStatus = true;
+                        _mainWindow.Switch1.IsOn = false;
+                        _mainWindow.Switch2.IsOn = false;
+                        _mainWindow.Switch3.IsOn = false;
+                        _mainWindow.Switch4.IsOn = false;
+
+                        _disableStatus = true;
                     }
                 };
             }
@@ -95,13 +103,13 @@ namespace CopyPlusPlus.NotifyIcon
                     CanExecuteFunc = () => Application.Current.MainWindow != null,
                     CommandAction = () =>
                     {
-                        if (disableStatus)
+                        if (_disableStatus)
                         {
-                            MainWindow.Switch1Check = switch1;
-                            MainWindow.Switch2Check = switch2;
-                            MainWindow.Switch3Check = switch3;
-                            MainWindow.Switch4Check = switch4;
-                            disableStatus = false;
+                            _mainWindow.Switch1.IsOn = _switch1Before;
+                            _mainWindow.Switch2.IsOn = _switch2Before;
+                            _mainWindow.Switch3.IsOn = _switch3Before;
+                            _mainWindow.Switch4.IsOn = _switch4Before;
+                            _disableStatus = false;
                         }
                     }
                 };

@@ -1,76 +1,115 @@
-﻿<Window
+﻿<mah:MetroWindow
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:toggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
-    xmlns:copyPlusPlus="clr-namespace:CopyPlusPlus"
+    xmlns:copyPlusPlus="clr-namespace:CopyPlusPlus" 
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     x:Class="CopyPlusPlus.MainWindow"
-        mc:Ignorable="d"
-        Title="Copy++ v2.2 本软件完全免费" Height="410" Width="400" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Closing="MainWindow_Closing" Topmost="True">
-    <Grid Height="395" Width="400" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-        <TextBlock x:Name="TextAbstract" HorizontalAlignment="Center" Margin="0,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="60" Width="380" Padding="5,10,5,0" FontSize="14" LineHeight="24" FontStretch="Normal" ToolTip="关注公众号, 获取详细教程"><Run Text="复制文本后，软件会自动处理，只需打开相应功能，然后直接粘贴即可。" /><Run Text="祝君创作顺利，走向人生巅峰！" FontWeight="Bold" /></TextBlock>
-
-        <Grid Margin="0,73,0,259">
-            <WrapPanel Margin="0,30,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="380">
-                <toggleSwitch:HorizontalToggleSwitch x:Name="switch1"
-                    IsChecked="True"
-                    VerticalAlignment="Center"
-                    Margin="0,0,0,0"
-                    HorizontalAlignment="Center"
-                    UncheckedBackground="#FF464141"
-                    CheckedBackground="#FF5573F7" Cursor="Hand" Width="80" Checked="SwitchCheck" Unchecked="SwitchUncheck" />
-                <toggleSwitch:HorizontalToggleSwitch x:Name="switch2"
-                    IsChecked="False"
-                    VerticalAlignment="Center"
-                    Margin="20,0,0,0"
-                    HorizontalAlignment="Center"
-                    UncheckedBackground="#FF464141"
-                    CheckedBackground="#FF5573F7" Cursor="Hand" Width="80" Checked="SwitchCheck" Unchecked="SwitchUncheck" />
-                <toggleSwitch:HorizontalToggleSwitch x:Name="switch3"
-                    VerticalAlignment="Center"
-                    Margin="20,0,0,0"
-                    HorizontalAlignment="Center"
-                    UncheckedBackground="#FF464141"
-                    CheckedBackground="#FF5573F7" Cursor="Hand" Width="80" Checked="SwitchCheck" Unchecked="SwitchUncheck" />
-                <toggleSwitch:HorizontalToggleSwitch x:Name="switch4"
-                    VerticalAlignment="Center"
-                    Margin="20,0,0,0"
-                    HorizontalAlignment="Center"
-                    UncheckedBackground="#FF464141"
-                    CheckedBackground="#FF5573F7" Cursor="Hand" Width="80" Checked="SwitchCheck" Unchecked="SwitchUncheck" />
-            </WrapPanel>
-            <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,2,0,0" Width="380">
-                <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Text="合并换行" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" TextAlignment="Center" Margin="10,0,0,0" />
-                <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Text="去除空格" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" TextAlignment="Center" Margin="108,0,0,0" />
-                <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Margin="220,0,0,0"  Text="翻  译" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" TextAlignment="Center" MouseUp="TranslateText_Clicked" Cursor="Hand" ToolTip="设置你自己的翻译接口" />
-                <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Margin="315,0,0,0"  Text="翻 译 结 果弹 窗 显 示" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="10" FontWeight="Bold" TextAlignment="Center" Width="51" />
+    mc:Ignorable="d"
+    TitleCharacterCasing="Normal"
+    Title="Copy++ v3.0 本软件完全免费" Height="376.167" Width="425.067" 
+        ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Topmost="True" 
+        Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Closing="MainWindow_Closing" ContentRendered="MainWindow_OnContentRendered" 
+        mah:ValidationHelper.ShowValidationErrorOnMouseOver="True" mah:ValidationHelper.CloseOnMouseLeftButtonDown="True" 
+        NonActiveWindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" 
+        WindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}">
+    <mah:MetroWindow.TitleTemplate>
+        <DataTemplate>
+            <TextBlock Text="{TemplateBinding Content}"
+                       TextTrimming="CharacterEllipsis"
+                       VerticalAlignment="Center"
+                       Margin="8 -1 8 0"
+                       FontFamily="Microsoft YaHei UI"
+                       FontWeight="Bold"
+                       FontSize="16"/>
+        </DataTemplate>
+    </mah:MetroWindow.TitleTemplate>
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Grid Width="{TemplateBinding Width}"                 
+                  Height="{TemplateBinding Height}"                 
+                  Margin="4"                 
+                  Background="Transparent"                 
+                  RenderOptions.EdgeMode="Aliased"                 
+                  RenderOptions.BitmapScalingMode="HighQuality">
+                <Image Source="copy.ico"></Image>
             </Grid>
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
+
+    <Grid VerticalAlignment="Top" Height="346">
+        <TextBlock x:Name="TextAbstract" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Height="44" Width="400" Padding="5,5,5,0" FontSize="14" Margin="10,0,10,0" ><Run Text="复制文本后，软件会自动处理，只需打开相应功能，然后直接粘贴即可。" ToolTip="关注公众号, 获取详细教程"/><Run Text="祝君创作顺利，走向人生巅峰！" FontWeight="Bold" /></TextBlock>
+
+        <Grid Margin="5,49,5,0" Background="#FFEBEBEB" VerticalAlignment="Top">
+            <mah:ToggleSwitch x:Name="Switch1" MinWidth="0" ContentDirection="LeftToRight" Content="合并换行" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"  VerticalAlignment="Top" Margin="6,0,0,0" ToolTip="复制文本后，直接粘贴到Word中即可生效"/>
+            <mah:ToggleSwitch x:Name="Switch2" MinWidth="0" ContentDirection="LeftToRight" Content="去除空格" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"  VerticalAlignment="Top" Margin="6,33,0,0" ToolTip="仅对中文有效"/>
+            <mah:ToggleSwitch x:Name="Switch3" MinWidth="0" ContentDirection="LeftToRight" Content="翻译"    FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top"  Margin="119,0,0,0" Toggled="Trans_OnToggled" />
+            <mah:ToggleSwitch x:Name="Switch4" MinWidth="0" ContentDirection="LeftToRight" Content="翻译弹窗" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="119,33,0,0" IsEnabled="False" />
+
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="14" Margin="246,40,0,0">翻译引擎</TextBlock>
+            <ComboBox x:Name="TransEngineComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" Margin="312,36,0,0" Width="91">
+                <ComboBoxItem IsSelected="True">百度翻译</ComboBoxItem>
+                <ComboBoxItem>谷歌翻译</ComboBoxItem>
+                <ComboBoxItem>DeepL</ComboBoxItem>
+            </ComboBox>
+
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="208,9,0,0" FontWeight="Bold" FontSize="11" FontFamily="Microsoft YaHei UI">从</TextBlock>
+            <ComboBox x:Name="TransFromComboBox" HorizontalAlignment="Left" Margin="221,3,0,0" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" FontSize="11" Width="78">
+                <ComboBoxItem IsSelected="True" Content="检测语言"/>
+                <ComboBoxItem Content="中文"/>
+                <ComboBoxItem Content="英语"/>
+                <ComboBoxItem Content="日语"/>
+                <ComboBoxItem Content="韩语"/>
+                <ComboBoxItem Content="法语"/>
+                <ComboBoxItem Content="德语"/>
+                <ComboBoxItem Content="俄语"/>
+                <ComboBoxItem Content="繁体中文"/>
+                <ComboBoxItem Content="文言文"/>
+            </ComboBox>
+
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="312,9,0,0" FontWeight="Bold" FontSize="11" FontFamily="Microsoft YaHei UI">到</TextBlock>
+            <ComboBox x:Name="TransToComboBox" HorizontalAlignment="Left" Margin="325,3,0,0" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" FontSize="11" Width="78">
+                <ComboBoxItem IsSelected="True" Content="中文"/>
+                <ComboBoxItem Content="英语"/>
+                <ComboBoxItem Content="日语"/>
+                <ComboBoxItem Content="韩语"/>
+                <ComboBoxItem Content="法语"/>
+                <ComboBoxItem Content="德语"/>
+                <ComboBoxItem Content="俄语"/>
+                <ComboBoxItem Content="繁体中文"/>
+                <ComboBoxItem Content="文言文"/>
+            </ComboBox>
         </Grid>
 
-        <Line X1="0" Y1="10" X2="400" Y2="10" Stroke="#FF3A4FEE" StrokeThickness="2" Margin="0,129,0,0" VerticalAlignment="Top" Height="20" />
+        <Line X1="0" Y1="0" X2="450" Y2="0" Stroke="#FF3A4FEE" StrokeThickness="2" Margin="0,122,0,0" VerticalAlignment="Top" />
 
-        <TextBlock x:Name="TextBlockContact" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Left" Margin="20,154,0,0" Width="188"><Run Text="遇到问题，或有建议，欢迎联系我" /></TextBlock>
-        <TextBlock x:Name="TextBlockMail" HorizontalAlignment="Left" Margin="20,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center"><Run Text="copyplusplus@163.com" /></TextBlock>
-        <TextBlock x:Name="TextBlockGithub" HorizontalAlignment="Left" Margin="20,0,0,167" TextWrapping="Wrap" VerticalAlignment="Bottom" TextAlignment="Center"><Run Text="项目已开源，欢迎Star" /></TextBlock>
-        <Button Margin="143,0,238,167" Click="Github_Click" Cursor="Hand" VerticalAlignment="Bottom" ToolTip="点我跳转到Github">
-            <Button.Template>
-                <ControlTemplate>
-                    <Image Source="/image/GitHub.png" />
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+        <Grid Margin="0,132,0,0" VerticalAlignment="Top">
+            <TextBlock x:Name="TextBlockContact" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" Margin="11,5,0,0"><Run Text="遇到问题，或有建议，欢迎联系我" /></TextBlock>
+            <TextBlock x:Name="TextBlockMail"    HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" Margin="11,25,0,0"><Run Text="copyplusplus@163.com" /></TextBlock>
+            <TextBlock x:Name="TextBlockGithub"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" Margin="11,45,0,0"><Run Text="项目已开源，欢迎Star" /></TextBlock>
 
-        <Image Source="/image/wechatgzh.jpg" Margin="265,145,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="70" Width="70" ToolTip="您的关注,也是对我极大的支持" />
-        <TextBlock x:Name="TextBlockGzh" HorizontalAlignment="Left" Margin="249,0,0,156" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="10" TextAlignment="Center" Width="102"><Run Text="欢迎关注我的公众号" /><LineBreak /><Run Language="zh-cn" Text="后续更新将会在此发布" /></TextBlock>
+            <Button Margin="133,40,0,0" Click="Github_Click" Cursor="Hand" VerticalAlignment="Top" ToolTip="点我跳转到Github" HorizontalAlignment="Left" Height="22" Width="14">
+                <Button.Template>
+                    <ControlTemplate>
+                        <!--<iconPacks:PackIconFeatherIcons Kind="Github" Background="Transparent" />-->
+                        <Image Source="/image/GitHub.png" />
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Image Source="/image/wechatgzh.jpg" Margin="319,-2,0,-2" VerticalAlignment="Center" HorizontalAlignment="Left" Height="70" Width="70" ToolTip="您的关注,也是对我极大的支持" />
+            <TextBlock x:Name="TextBlockGzh" HorizontalAlignment="Left" Margin="213,0,0,0" TextWrapping="Wrap" FontSize="10" TextAlignment="Center" VerticalAlignment="Center" LineHeight="14"><Run Text="欢迎关注我的公众号" /><LineBreak /><Run Language="zh-cn" Text="后续更新将会在此发布" /></TextBlock>
+        </Grid>
 
-        <Line X1="0" Y1="10" X2="400" Y2="10" Stroke="#FF3A4FEE" StrokeThickness="2" Margin="0,236,0,0" VerticalAlignment="Top" Height="20" />
+        <Line X1="0" Y1="0" X2="450" Y2="0" Stroke="#FF3A4FEE" StrokeThickness="2" Margin="0,206,0,0" VerticalAlignment="Top" />
 
-        <TextBlock x:Name="TextBlockPay" HorizontalAlignment="Center" Margin="0,251,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Text="如果您觉得好用，欢迎捐助" TextAlignment="Center" FontWeight="Bold" ToolTip="感谢感谢感谢, 感谢您的支持!" />
-        <Image Source="/image/Wechat.png" Margin="55,0,0,8" Width="100" Height="100" VerticalAlignment="Bottom" HorizontalAlignment="Left" ToolTip="欢迎使用微信支付" />
-        <Image Source="/image/AliPay.png" Margin="0,0,55,8" Width="102" Height="102" VerticalAlignment="Bottom" HorizontalAlignment="Right" ToolTip="欢迎使用支付宝" />
-        <Label x:Name="LabelWechat" Content="微 信 支 付" HorizontalAlignment="Left" Margin="71,0,0,103" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" />
-        <Label x:Name="LabelAlipay" Content="支 付 宝" HorizontalAlignment="Left" Margin="268,0,0,103" VerticalAlignment="Bottom" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" />
+        <Grid Margin="0,212,0,0" VerticalAlignment="Top" Height="127">
+            <TextBlock x:Name="TextBlockPay" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Text="如果您觉得好用，欢迎捐助" TextAlignment="Center" FontWeight="Bold" ToolTip="感谢感谢感谢, 感谢您的支持!" Margin="128,2,127,0" />
+            <Image Source="/image/Wechat.png" Margin="53,29,0,-2" Width="100" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left" ToolTip="欢迎使用微信支付" />
+            <Image Source="/image/AliPay.png" Margin="0,27,53,-2" Width="102" Height="102" VerticalAlignment="Top" HorizontalAlignment="Right" ToolTip="欢迎使用支付宝" />
+            <Label x:Name="LabelWechat" Content="微 信 支 付" HorizontalAlignment="Left" Margin="69,0,0,91" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" />
+            <Label x:Name="LabelAlipay" Content="支 付 宝" HorizontalAlignment="Left" Margin="288,0,0,90" VerticalAlignment="Bottom" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" />
+        </Grid>
     </Grid>
     <!--<Window.InputBindings>
         <KeyBinding  
@@ -81,4 +120,4 @@
     <Window.DataContext>
         <copyPlusPlus:HotKeyCommand />
     </Window.DataContext>-->
-</Window>
+</mah:MetroWindow>

@@ -15,6 +15,8 @@
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>E:\Develop\CopyPlusPlus\CopyPlusPlus-New\Copy++\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -30,8 +32,6 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -42,7 +42,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>true</Prefer32Bit>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -81,6 +81,9 @@
   <PropertyGroup>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>CopyPlusPlus.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -109,7 +112,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="API.cs" />
+    <Compile Include="Languages\BaiduLanguage.cs" />
     <Compile Include="ClipboardManager.cs" />
+    <Compile Include="Languages\GoogleLanguage.cs" />
     <Compile Include="HotKeyCommand.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="KeyInput.xaml.cs">
@@ -118,6 +123,9 @@
     <Compile Include="NotifyIcon\DelegateCommand.cs" />
     <Compile Include="NotifyIcon\NotifyIconViewModel.cs" />
     <Compile Include="NotifyIcon\ReopenMainWindowCommand.cs" />
+    <Compile Include="NotifyUpdate.xaml.cs">
+      <DependentUpon>NotifyUpdate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TranslateResult.xaml.cs">
       <DependentUpon>TranslateResult.xaml</DependentUpon>
     </Compile>
@@ -141,6 +149,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NotifyUpdate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TranslateResult.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -201,6 +213,9 @@
     </PackageReference>
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf">
       <Version>1.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="MahApps.Metro">
+      <Version>2.4.5</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.Platforms">
       <Version>5.0.2</Version>
@@ -289,6 +304,9 @@
     <PackageReference Include="System.Text.Encoding">
       <Version>4.3.0</Version>
     </PackageReference>
+    <PackageReference Include="System.Text.Encoding.CodePages">
+      <Version>4.5.1</Version>
+    </PackageReference>
     <PackageReference Include="System.Text.Encoding.Extensions">
       <Version>4.3.0</Version>
     </PackageReference>
@@ -307,9 +325,18 @@
     <PackageReference Include="System.Xml.XDocument">
       <Version>4.3.0</Version>
     </PackageReference>
-    <PackageReference Include="ToggleSwitch">
-      <Version>1.2.0</Version>
+    <PackageReference Include="TencentCloudSDK">
+      <Version>3.0.286</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BaiduTrans\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Translate\GoogleTranslateFreeApi-master\GoogleTranslateFreeApi\GoogleTranslateFreeApi.csproj">
+      <Project>{eb492747-46b1-466a-9d03-b819fe92a147}</Project>
+      <Name>GoogleTranslateFreeApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

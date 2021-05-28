@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
@@ -85,8 +86,7 @@ namespace CopyPlusPlus
         }
 
         private string _textLast = "";
-        //初始化谷歌翻译
-        private GoogleTranslator translator;
+
         private async void ClipboardChanged(object sender, EventArgs e)
         {
             //if (_firstClipboardChange == 0)
@@ -131,8 +131,9 @@ namespace CopyPlusPlus
                         }
 
                     if (Switch3.IsOn)
-                        //判断中文
-                        if (!Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
+                        //判断是否和选中要翻译的语言相同
+                        //if (!Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
+                        if (TransToComboBox.Text != GoogleLanguage.GetLanguage.FirstOrDefault(x => x.Value == GoogleTrans(text.Substring(0, Math.Max(text.Length, 10)), true)).Key)
                         {
                             var appId = TranslateId;
                             var secretKey = TranslateKey;
@@ -158,23 +159,11 @@ namespace CopyPlusPlus
                                         ShowTrans(text);
                                         break;
                                     case "谷歌翻译":
-                                        translator = new GoogleTranslator();
-                                        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                                        if (text != _textLast)
-                                        {
-                                            var @from = TransFromComboBox.Text == "检测语言" ? new Language("Automatic", "auto") : GoogleTranslator.GetLanguageByISO(GoogleLanguage.GetLanguage[TransFromComboBox.Text]);
-
-                                            Language to = GoogleTranslator.GetLanguageByISO(GoogleLanguage.GetLanguage[TransToComboBox.Text]);
-
-                                            //var result = await translator.TranslateAsync(text, from, to);
-                                            var text1 = text;
-                                            var result = Task.Run(async () => await translator.TranslateAsync(text1, from, to)).Result;
-
-
-                                            //Console.WriteLine($"Result 1: {result.MergedTranslation}");
-                                            text = result.MergedTranslation;
-                                            ShowTrans(text);
-                                        }
+                                        //if (text != _textLast)
+                                        //{
+                                        text = GoogleTrans(text);
+                                        ShowTrans(text);
+                                        //}
 
                                         break;
                                     //会打开多个窗口,未通
@@ -237,6 +226,32 @@ namespace CopyPlusPlus
             Process.Start("explorer.exe", "https://github.com/CopyPlusPlus/CopyPlusPlus-NetFramework");
         }
 
+        private string GoogleTrans(string text, bool detect = false)
+        {
+            //初始化谷歌翻译
+            var translator = new GoogleTranslator();
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+            Language from;
+            if (TransFromComboBox.Text == "检测语言" || detect)
+                from = new Language("Automatic", "auto");
+            else
+                from = GoogleTranslator.GetLanguageByISO(GoogleLanguage.GetLanguage[TransFromComboBox.Text]);
+
+            Language to = GoogleTranslator.GetLanguageByISO(GoogleLanguage.GetLanguage[TransToComboBox.Text]);
+
+            //var result = await translator.TranslateAsync(text, from, to);
+            //var text1 = text;
+            var result = Task.Run(async () => await translator.TranslateAsync(text, from, to)).Result;
+
+            if (detect)
+            {
+                return result.LanguageDetections[0].Language.ISO639;
+            }
+            //Console.WriteLine($"Result 1: {result.MergedTranslation}");
+            return result.MergedTranslation;
+        }
+
         //百度翻译
         private string BaiduTrans(string appId, string secretKey, string q = "apple")
         {
@@ -279,7 +294,10 @@ namespace CopyPlusPlus
             //read json(retString) as a object
             //var result = System.Text.Json.JsonSerializer.Deserialize<Rootobject>(retString);
             var result = JsonConvert.DeserializeObject<Rootobject>(retString);
-
+            if (result == null)
+            {
+                return "翻译失败，请重试。";
+            }
             return result.trans_result[0].dst;
         }
 

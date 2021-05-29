@@ -26,6 +26,7 @@ namespace CopyPlusPlus.NotifyIcon
                         //Application.Current.MainWindow = new MainWindow();
                         Application.Current.MainWindow.Show();
                         Application.Current.MainWindow.WindowState = WindowState.Normal;
+                        MainWindow.CheckUpdate();
                         MainWindow.HideNotifyIcon();
                     }
                 };

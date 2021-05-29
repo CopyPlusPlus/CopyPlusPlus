@@ -4,10 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="温馨提示" Height="165.781" Width="270.906" WindowStartupLocation="CenterScreen" Topmost="True">
+        Title="温馨提示" Height="171.381" Width="270.906" WindowStartupLocation="CenterScreen" Topmost="True">
     <Grid>
-        <TextBlock x:Name="Message" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Hello" VerticalAlignment="Top" Margin="0,20,0,0" MaxWidth="246"/>
-        <Button x:Name="Button1" Content="Button" HorizontalAlignment="Left" Margin="30,0,0,10" VerticalAlignment="Bottom" Width="74"/>
+        <TextBlock x:Name="Message" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Hello" VerticalAlignment="Top" Margin="0,20,0,0" MaxWidth="246" FontFamily="Microsoft YaHei UI,Segoe UI Emoji"/>
+        <Button x:Name="Button1" Content="Button" HorizontalAlignment="Left" Margin="30,0,0,10" VerticalAlignment="Bottom" Width="74" Click="Button1_Click"/>
         <Button x:Name="Button2" Content="Button" HorizontalAlignment="Right" Margin="0,0,30,10" VerticalAlignment="Bottom" Width="76" Click="Button2_Click"/>
     </Grid>
 </Window>

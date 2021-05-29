@@ -87,7 +87,7 @@ namespace CopyPlusPlus
 
         private string _textLast = "";
 
-        private async void ClipboardChanged(object sender, EventArgs e)
+        private void ClipboardChanged(object sender, EventArgs e)
         {
             //if (_firstClipboardChange == 0)
             //{
@@ -131,52 +131,53 @@ namespace CopyPlusPlus
                         }
 
                     if (Switch3.IsOn)
-                        //判断是否和选中要翻译的语言相同
-                        //if (!Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
-                        if (TransToComboBox.Text != GoogleLanguage.GetLanguage.FirstOrDefault(x => x.Value == GoogleTrans(text.Substring(0, Math.Max(text.Length, 10)), true)).Key)
+                    //判断是否和选中要翻译的语言相同-----移至弹窗时,检测text是否一样
+                    //if (!Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
+                    //if (TransToComboBox.Text != GoogleLanguage.GetLanguage.FirstOrDefault(x => x.Value == GoogleTrans(text.Substring(0, Math.Max(text.Length, 4)), true)).Key)
+                    {
+                        var appId = TranslateId;
+                        var secretKey = TranslateKey;
+                        if (Settings.Default.AppID != "none" && Settings.Default.SecretKey != "none")
                         {
-                            var appId = TranslateId;
-                            var secretKey = TranslateKey;
-                            if (Settings.Default.AppID != "none" && Settings.Default.SecretKey != "none")
-                            {
-                                appId = Settings.Default.AppID;
-                                secretKey = Settings.Default.SecretKey;
-                            }
-
-                            //这个if已经无效
-                            if (appId == "none" || secretKey == "none")
-                            {
-                                //MessageBox.Show("请先设置翻译接口", "Copy++");
-                                Show_InputAPIWindow();
-                            }
-                            else
-                            {
-                                //Debug.WriteLine(text);
-                                switch (TransEngineComboBox.Text)
-                                {
-                                    case "百度翻译":
-                                        text = BaiduTrans(appId, secretKey, text);
-                                        ShowTrans(text);
-                                        break;
-                                    case "谷歌翻译":
-                                        //if (text != _textLast)
-                                        //{
-                                        text = GoogleTrans(text);
-                                        ShowTrans(text);
-                                        //}
-
-                                        break;
-                                    //会打开多个窗口,未通
-                                    case "DeepL":
-                                        //DeepL(text);
-                                        text = text.Replace(" ", "%20");
-                                        Process.Start("https://www.deepl.com/translator#en/zh/" + text);
-                                        break;
-                                }
-
-                                //Debug.WriteLine(text);
-                            }
+                            appId = Settings.Default.AppID;
+                            secretKey = Settings.Default.SecretKey;
                         }
+
+                        //这个if已经无效
+                        if (appId == "none" || secretKey == "none")
+                        {
+                            //MessageBox.Show("请先设置翻译接口", "Copy++");
+                            Show_InputAPIWindow();
+                        }
+                        else
+                        {
+                            var textBeforeTrans = text;
+                            //Debug.WriteLine(text);
+                            switch (TransEngineComboBox.Text)
+                            {
+                                case "百度翻译":
+                                    text = BaiduTrans(appId, secretKey, text);
+                                    ShowTrans(text, textBeforeTrans);
+                                    break;
+                                case "谷歌翻译":
+                                    //if (text != _textLast)
+                                    //{
+                                    text = GoogleTrans(text);
+                                    ShowTrans(text, textBeforeTrans);
+                                    //}
+
+                                    break;
+                                //会打开多个窗口,未通
+                                case "DeepL":
+                                    //DeepL(text);
+                                    text = text.Replace(" ", "%20");
+                                    Process.Start("https://www.deepl.com/translator#en/zh/" + text);
+                                    break;
+                            }
+
+                            //Debug.WriteLine(text);
+                        }
+                    }
 
                     //stop monitoring to prevent loop
                     //Clipboard.StopMonitoring();
@@ -205,10 +206,10 @@ namespace CopyPlusPlus
             //}
         }
 
-        private void ShowTrans(string text)
+        private void ShowTrans(string text, string textBeforeTrans)
         {
             //翻译结果弹窗
-            if (Switch4.IsOn)
+            if (Switch4.IsOn && text != textBeforeTrans)
             {
                 var translateResult = new TranslateResult { TextBox = { Text = text } };
 
@@ -242,14 +243,23 @@ namespace CopyPlusPlus
 
             //var result = await translator.TranslateAsync(text, from, to);
             //var text1 = text;
-            var result = Task.Run(async () => await translator.TranslateAsync(text, from, to)).Result;
+            var result = Task.Run(async () => await translator.TranslateAsync(text, from, to));
+            if (result.Wait(TimeSpan.FromSeconds(3)))
+            {
+                if (detect)
+                {
+                    return result.Result.LanguageDetections[0].Language.ISO639;
+                }
+                //Console.WriteLine($"Result 1: {result.MergedTranslation}");
+                return result.Result.MergedTranslation;
+            }
 
             if (detect)
             {
-                return result.LanguageDetections[0].Language.ISO639;
+                return "auto";
             }
-            //Console.WriteLine($"Result 1: {result.MergedTranslation}");
-            return result.MergedTranslation;
+
+            return "翻译超时，请重试。";
         }
 
         //百度翻译
@@ -284,7 +294,15 @@ namespace CopyPlusPlus
             request.ContentType = "text/html;charset=UTF-8";
             request.UserAgent = null;
             request.Timeout = 6000;
-            var response = (HttpWebResponse)request.GetResponse();
+            HttpWebResponse response;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch
+            {
+                return "翻译超时，请重试。";
+            }
             var myResponseStream = response.GetResponseStream();
             var myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
             var retString = myStreamReader.ReadToEnd();
@@ -296,7 +314,7 @@ namespace CopyPlusPlus
             var result = JsonConvert.DeserializeObject<Rootobject>(retString);
             if (result == null)
             {
-                return "翻译失败，请重试。";
+                return "翻译超时，请重试。";
             }
             return result.trans_result[0].dst;
         }
@@ -429,7 +447,7 @@ namespace CopyPlusPlus
             NotifyIcon.Visibility = Visibility.Collapsed;
         }
 
-        public void CheckUpdate()
+        public static void CheckUpdate()
         {
             switch (Settings.Default.LastOpenDate.ToString(CultureInfo.CurrentCulture))
             {
@@ -445,7 +463,7 @@ namespace CopyPlusPlus
                         var daySpan = DateTime.Today.Subtract(Settings.Default.LastOpenDate);
                         if (daySpan.Days > 10)
                         {
-                            var notifyUpdate = new NotifyUpdate("打扰啦，提示您一下，您已经使用该版本很久啦！或许已经有新版本了，欢迎前去公众号获取最新版。", "知道啦", "别再提示");
+                            var notifyUpdate = new NotifyUpdate("打扰一下！您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨", "知道啦", "别再提示");
                             notifyUpdate.Show();
                             Settings.Default.LastOpenDate = DateTime.Today;
                         }

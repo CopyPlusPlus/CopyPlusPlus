@@ -31,5 +31,10 @@ namespace CopyPlusPlus
             Settings.Default.Save();
             this.Close();
         }
+
+        private void Button1_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

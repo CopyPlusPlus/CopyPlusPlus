@@ -9,7 +9,7 @@
     x:Class="CopyPlusPlus.MainWindow"
     mc:Ignorable="d"
     TitleCharacterCasing="Normal"
-    Title="Copy++ v3.0 本软件完全免费" Height="285.366" Width="425.067" 
+    Title="Copy++ v3.0 本软件完全免费" Height="292.833" Width="425.067" 
         ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Topmost="True" 
         Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Closing="MainWindow_Closing" ContentRendered="MainWindow_OnContentRendered" 
         mah:ValidationHelper.ShowValidationErrorOnMouseOver="True" mah:ValidationHelper.CloseOnMouseLeftButtonDown="True" 
@@ -85,23 +85,23 @@
 
         <!--<Line X1="0" Y1="0" X2="450" Y2="0" Stroke="#FF3A4FEE" StrokeThickness="2" Margin="0,126,0.4,0" VerticalAlignment="Top" />-->
 
-        <Grid Margin="0,137,0.4,0" VerticalAlignment="Top" Height="109">
+        <Grid Margin="0,137,0.4,0" VerticalAlignment="Top" Height="116">
 
-            <StackPanel Margin="11,0,0,0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <StackPanel Margin="10,0,0,0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <StackPanel.Resources>
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="Margin" Value="0,8,0,0"/>
                     </Style>
                 </StackPanel.Resources>
-                <TextBlock x:Name="TextBlockContact" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center"><Run Text="遇到问题，或有建议，欢迎联系我" ToolTip="可以通过公众号给我留言"/></TextBlock>
-                <TextBlock x:Name="TextBlockMail"    HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center"><Run Text="copyplusplus@163.com" /></TextBlock>
-                <TextBlock x:Name="TextBlockGithub"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center"><Run Text="项目已开源，欢迎Star" /></TextBlock>
-                <TextBlock x:Name="TextBlockPay"     HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,8"            TextAlignment="Center"><Run Text="如果您觉得好用，点击这里请我吃肉" FontWeight="Bold" ToolTip="感谢感谢感谢, 感谢您的支持!" MouseUp="ShowPay"/></TextBlock>
+                <TextBlock x:Name="TextBlockContact" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"><Run Text="遇到问题，或有建议，欢迎联系我" ToolTip="可以通过公众号给我留言"/></TextBlock>
+                <TextBlock x:Name="TextBlockMail"    HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"><Run Text="copyplusplus@163.com" /></TextBlock>
+                <TextBlock x:Name="TextBlockGithub"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"><Run Text="项目已开源，欢迎Star" /></TextBlock>
+                <TextBlock x:Name="TextBlockPay"     HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,8"            TextAlignment="Center" FontSize="14"><Run Text="如果您觉得好用，点击这里请我吃肉" FontWeight="Bold" ToolTip="感谢感谢感谢, 感谢您的支持!" MouseUp="ShowPay"/></TextBlock>
             </StackPanel>
 
-            <emoji:TextBlock x:Name="Meat" FontSize="18" Text="🍖" Margin="205,76,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="点我" MouseDown="MeatDown" MouseUp="MeatUp" MouseLeave="MeatUp"/>
+            <emoji:TextBlock x:Name="Meat" FontSize="18" Text="🍖" Margin="234,83,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="点我" MouseDown="MeatDown" MouseUp="MeatUp" MouseLeave="MeatUp"/>
 
-            <Button Margin="134,53,0,0" Click="Github_Click" Cursor="Hand" VerticalAlignment="Top" ToolTip="点我跳转到Github" HorizontalAlignment="Left" Height="22" Width="14">
+            <Button Margin="151,57,0,0" Click="Github_Click" Cursor="Hand" VerticalAlignment="Top" ToolTip="点我跳转到Github" HorizontalAlignment="Left" Height="22" Width="18">
                 <Button.Template>
                     <ControlTemplate>
                         <!--<iconPacks:PackIconFeatherIcons Kind="Github" Background="Transparent" />-->
@@ -110,7 +110,7 @@
                 </Button.Template>
             </Button>
 
-            <Image Source="/image/wechatgzh.jpg"  VerticalAlignment="Center" HorizontalAlignment="Left" ToolTip="您的关注,也是对我极大的支持" Margin="284,0,0,0" Height="100" Width="100" />
+            <Image Source="/image/wechatgzh.jpg"  VerticalAlignment="Center" HorizontalAlignment="Left" ToolTip="听说这里能够获取新版本，还有许多好玩的" Margin="276,0,0,0"/>
             <!--<TextBlock x:Name="TextBlockGzh" HorizontalAlignment="Left" Margin="231,0,0,0" TextWrapping="Wrap" FontSize="10" TextAlignment="Center" VerticalAlignment="Center" LineHeight="14"><Run Text="关 注 公 众 号"/><LineBreak /><Run Language="zh-cn" Text="获 取 船 新 版 本"/></TextBlock>-->
 
 

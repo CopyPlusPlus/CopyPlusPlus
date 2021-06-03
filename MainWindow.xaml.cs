@@ -463,7 +463,7 @@ namespace CopyPlusPlus
                         var daySpan = DateTime.Today.Subtract(Settings.Default.LastOpenDate);
                         if (daySpan.Days > 10)
                         {
-                            var notifyUpdate = new NotifyUpdate("打扰一下！您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨", "知道啦", "别再提示")
+                            var notifyUpdate = new NotifyUpdate("打扰一下，您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨", "知道啦", "别再提示")
                             {
                                 Owner = this
                             };
@@ -513,6 +513,12 @@ namespace CopyPlusPlus
                 Owner = this
             };
             payMe.Show();
+
+            //var notifyUpdate = new NotifyUpdate("打扰一下，您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨", "知道啦", "别再提示")
+            //{
+            //    Owner = this
+            //};
+            //notifyUpdate.Show();
         }
 
         private void MeatDown(object sender, MouseButtonEventArgs e)

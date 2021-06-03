@@ -5,10 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CopyPlusPlus"
         mc:Ignorable="d"
-        Title="PayMe" Height="182.346" Width="393.72">
+        Title="请我吃肉🍖" Height="161.605" Width="386.806" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False">
     <Grid>
-        <Image Source="/image/Wechat.png" Margin="50,27,0,0" Width="100" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left" ToolTip="欢迎使用微信支付" />
-        <Image Source="/image/AliPay.png" Margin="0,27,50,0" Width="100" Height="100" VerticalAlignment="Top" HorizontalAlignment="Right" ToolTip="欢迎使用支付宝" />
-
+        <Image Source="/image/Wechat.png" Margin="50,0,0,0" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Left" ToolTip="欢迎使用微信支付" />
+        <Image Source="/image/AliPay.png" Margin="0,0,50,0" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Right" ToolTip="欢迎使用支付宝" />
     </Grid>
 </Window>

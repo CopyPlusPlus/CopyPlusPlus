@@ -11,6 +11,11 @@ namespace CopyPlusPlus.NotifyIcon
     /// </summary>
     public class NotifyIconViewModel
     {
+        //Get MainWindow
+        private readonly MainWindow _mainWindow = Application.Current.Windows
+            .Cast<Window>()
+            .FirstOrDefault(window => window is MainWindow) as MainWindow;
+
         /// <summary>
         /// Shows a window, if none is already open.
         /// </summary>
@@ -26,7 +31,7 @@ namespace CopyPlusPlus.NotifyIcon
                         //Application.Current.MainWindow = new MainWindow();
                         Application.Current.MainWindow.Show();
                         Application.Current.MainWindow.WindowState = WindowState.Normal;
-                        MainWindow.CheckUpdate();
+                        _mainWindow.CheckUpdate();
                         MainWindow.HideNotifyIcon();
                     }
                 };
@@ -65,10 +70,7 @@ namespace CopyPlusPlus.NotifyIcon
         private bool _switch2Before;
         private bool _switch3Before;
         private bool _switch4Before;
-        //Get MainWindow
-        private readonly MainWindow _mainWindow = Application.Current.Windows
-            .Cast<Window>()
-            .FirstOrDefault(window => window is MainWindow) as MainWindow;
+        
 
         public ICommand DisableApp
         {

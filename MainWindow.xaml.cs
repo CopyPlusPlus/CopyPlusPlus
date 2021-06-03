@@ -447,7 +447,7 @@ namespace CopyPlusPlus
             NotifyIcon.Visibility = Visibility.Collapsed;
         }
 
-        public static void CheckUpdate()
+        public void CheckUpdate()
         {
             switch (Settings.Default.LastOpenDate.ToString(CultureInfo.CurrentCulture))
             {
@@ -463,7 +463,10 @@ namespace CopyPlusPlus
                         var daySpan = DateTime.Today.Subtract(Settings.Default.LastOpenDate);
                         if (daySpan.Days > 10)
                         {
-                            var notifyUpdate = new NotifyUpdate("打扰一下！您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨", "知道啦", "别再提示");
+                            var notifyUpdate = new NotifyUpdate("打扰一下！您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨", "知道啦", "别再提示")
+                            {
+                                Owner = this
+                            };
                             notifyUpdate.Show();
                             Settings.Default.LastOpenDate = DateTime.Today;
                         }
@@ -503,5 +506,27 @@ namespace CopyPlusPlus
             _textLast = "";
         }
 
+        private void ShowPay(object sender, MouseButtonEventArgs e)
+        {
+            var payMe = new PayMe
+            {
+                Owner = this
+            };
+            payMe.Show();
+        }
+
+        private void MeatDown(object sender, MouseButtonEventArgs e)
+        {
+            Meat.Text = "🦴";
+        }
+        private void MeatUp(object sender, MouseButtonEventArgs e)
+        {
+            Meat.Text = "🍖";
+        }
+
+        private void MeatUp(object sender, MouseEventArgs e)
+        {
+            Meat.Text = "🍖";
+        }
     }
 }

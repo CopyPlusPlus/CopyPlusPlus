@@ -126,6 +126,9 @@
     <Compile Include="NotifyUpdate.xaml.cs">
       <DependentUpon>NotifyUpdate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PayMe.xaml.cs">
+      <DependentUpon>PayMe.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TranslateResult.xaml.cs">
       <DependentUpon>TranslateResult.xaml</DependentUpon>
     </Compile>
@@ -150,6 +153,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="NotifyUpdate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PayMe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

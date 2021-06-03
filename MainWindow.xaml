@@ -9,7 +9,7 @@
     x:Class="CopyPlusPlus.MainWindow"
     mc:Ignorable="d"
     TitleCharacterCasing="Normal"
-    Title="Copy++ v3.0 本软件完全免费" Height="292.833" Width="425.067" 
+    Title="Copy++ v3.1 本软件完全免费" Height="292.833" Width="425.067" 
         ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Topmost="True" 
         Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Closing="MainWindow_Closing" ContentRendered="MainWindow_OnContentRendered" 
         mah:ValidationHelper.ShowValidationErrorOnMouseOver="True" mah:ValidationHelper.CloseOnMouseLeftButtonDown="True" 

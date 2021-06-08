@@ -219,7 +219,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Emoji.Wpf">
-      <Version>0.3.1</Version>
+      <Version>0.3.3</Version>
     </PackageReference>
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf">
       <Version>1.1.0</Version>

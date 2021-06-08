@@ -1,6 +1,12 @@
-﻿using System;
+﻿using CopyPlusPlus.Languages;
+using CopyPlusPlus.Properties;
+using GoogleTranslateFreeApi;
+using Hardcodet.Wpf.TaskbarNotification;
+using MahApps.Metro.Controls;
+using Microsoft.Win32;
+using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -8,18 +14,10 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows;
 using System.Windows.Input;
-using CopyPlusPlus.Languages;
-using CopyPlusPlus.Properties;
-using GoogleTranslateFreeApi;
-using Hardcodet.Wpf.TaskbarNotification;
-using MahApps.Metro.Controls;
-using Microsoft.Win32;
-using Newtonsoft.Json;
 
 //using WK.Libraries.SharpClipboardNS;
 //.net framework 4.6 not supported
@@ -196,19 +194,50 @@ namespace CopyPlusPlus
             }
         }
 
+        //如果第一次切换到单个弹窗，则新开一个窗口，不把以前的窗口覆盖
+        private bool _firstlySwitch = true;
+        private void SwitchManyPopups_OnToggled(object sender, RoutedEventArgs e)
+        {
+            if (!SwitchManyPopups.IsOn) _firstlySwitch = true;
+        }
+
         private void ShowTrans(string text, string textBeforeTrans)
         {
             //翻译结果弹窗
             if (Switch4.IsOn && text != textBeforeTrans)
             {
-                var translateResult = new TranslateResult { TextBox = { Text = text } };
+                if (SwitchManyPopups.IsOn)
+                {
+                    var translateResult = new TranslateResult { TextBox = { Text = text } };
 
-                //每次弹窗启动位置偏移,未实现
-                //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
-                //translateResult.Left = System.Windows.Forms.Control.MousePosition.X;
-                //translateResult.Top = System.Windows.Forms.Control.MousePosition.Y;
+                    //每次弹窗启动位置偏移,未实现
+                    //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
+                    //translateResult.Left = System.Windows.Forms.Control.MousePosition.X;
+                    //translateResult.Top = System.Windows.Forms.Control.MousePosition.Y;
 
-                translateResult.Show();
+                    translateResult.Show();
+                }
+                else
+                {
+                    if (_firstlySwitch)
+                    {
+                        var translateResult = new TranslateResult { TextBox = { Text = text } };
+
+                        //每次弹窗启动位置偏移,未实现
+                        //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
+                        //translateResult.Left = System.Windows.Forms.Control.MousePosition.X;
+                        //translateResult.Top = System.Windows.Forms.Control.MousePosition.Y;
+
+                        translateResult.Show();
+
+                        _firstlySwitch = false;
+                        return;
+                    }
+                    //Get Window
+                    if (Application.Current.Windows
+                        .Cast<Window>()
+                        .LastOrDefault(window => window is TranslateResult) is TranslateResult transWindow) transWindow.TextBox.Text = text;
+                }
             }
         }
 
@@ -394,6 +423,8 @@ namespace CopyPlusPlus
             Settings.Default.Switch2Check = Switch2.IsOn;
             Settings.Default.Switch3Check = Switch3.IsOn;
             Settings.Default.Switch4Check = Switch4.IsOn;
+            Settings.Default.AutoStart = SwitchAutoStart.IsOn;
+            Settings.Default.ManyPopups = SwitchManyPopups.IsOn;
             Settings.Default.TransFrom = TransFromComboBox.SelectedIndex;
             Settings.Default.TransTo = TransToComboBox.SelectedIndex;
             Settings.Default.TransEngine = TransEngineComboBox.SelectedIndex;
@@ -474,6 +505,7 @@ namespace CopyPlusPlus
         private void Trans_OnToggled(object sender, RoutedEventArgs e)
         {
             Switch4.IsEnabled = Switch3.IsOn;
+            SwitchManyPopups.IsEnabled = Switch3.IsOn;
         }
 
         private void TransEngineComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -554,6 +586,7 @@ namespace CopyPlusPlus
                 key.DeleteValue("CopyPlusPlus", false);
             }
         }
+
 
     }
 }

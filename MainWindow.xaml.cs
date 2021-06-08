@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -17,6 +18,7 @@ using CopyPlusPlus.Properties;
 using GoogleTranslateFreeApi;
 using Hardcodet.Wpf.TaskbarNotification;
 using MahApps.Metro.Controls;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 
 //using WK.Libraries.SharpClipboardNS;
@@ -32,7 +34,6 @@ namespace CopyPlusPlus
     {
         //Is the translate API being changed or not, bool声明默认值为false
         public static bool ChangeStatus;
-        private int _firstClipboardChange = 0;
 
         //public SharpClipboard Clipboard;
 
@@ -48,16 +49,16 @@ namespace CopyPlusPlus
 
         private ClipboardManager _windowClipboardManager;
 
+        public static bool IsAutoStart = false;
+
         public MainWindow()
         {
             InitializeComponent();
 
-
-
             //InitializeClipboardMonitor();
-
             NotifyIcon = (TaskbarIcon)FindResource("MyNotifyIcon");
             NotifyIcon.Visibility = Visibility.Collapsed;
+
 
             //生成随机数,随机读取API
             var random = new Random();
@@ -89,10 +90,6 @@ namespace CopyPlusPlus
 
         private void ClipboardChanged(object sender, EventArgs e)
         {
-            //if (_firstClipboardChange == 0)
-            //{
-            //_firstClipboardChange++;
-
             // Handle your clipboard update
             if (Clipboard.ContainsText())
             {
@@ -197,13 +194,6 @@ namespace CopyPlusPlus
                 }
 
             }
-
-
-            //}
-            //else
-            //{
-            //    _firstClipboardChange = 0;
-            //}
         }
 
         private void ShowTrans(string text, string textBeforeTrans)
@@ -534,5 +524,36 @@ namespace CopyPlusPlus
         {
             Meat.Text = "🍖";
         }
+
+        public void OnAutoStart()
+        {
+            if (WindowState == WindowState.Minimized)
+            {
+                WindowState = WindowState.Normal;
+                Hide();
+                NotifyIcon.Visibility = Visibility.Visible;
+                NotifyIcon.ShowBalloonTip("Copy++", "软件已最小化至托盘，点击图标显示主界面，右键可退出", BalloonIcon.Info);
+            }
+            else
+            {
+                Show();
+            }
+        }
+
+        private void SwitchAutoStart_OnToggled(object sender, RoutedEventArgs e)
+        {
+            const string path = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+            var key = Registry.LocalMachine.OpenSubKey(path, true);
+            if (key == null) return;
+            if (SwitchAutoStart.IsOn)
+            {
+                key.SetValue("CopyPlusPlus", System.Reflection.Assembly.GetExecutingAssembly().Location + " /AutoStart");
+            }
+            else
+            {
+                key.DeleteValue("CopyPlusPlus", false);
+            }
+        }
+
     }
 }

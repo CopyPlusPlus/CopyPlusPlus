@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
+using Hardcodet.Wpf.TaskbarNotification;
 
 namespace CopyPlusPlus
 {
@@ -16,6 +12,28 @@ namespace CopyPlusPlus
         {
             //MessageBox.Show("An unhandled exception just occurred: " + e.Exception.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Warning);
             e.Handled = true;
+        }
+
+        private void App_Startup(object sender, StartupEventArgs e)
+        {
+            // Application is running
+            // Process command line args
+            var isAutoStart = false;
+            for (int i = 0; i != e.Args.Length; ++i)
+            {
+                if (e.Args[i] == "/AutoStart")
+                {
+                    isAutoStart = true;
+                }
+            }
+
+            // Create main application window, starting minimized if specified
+            MainWindow mainWindow = new MainWindow();
+            if (isAutoStart)
+            {
+                mainWindow.WindowState = WindowState.Minimized;
+            }
+            mainWindow.OnAutoStart();
         }
     }
 }

@@ -162,11 +162,12 @@ namespace CopyPlusPlus
                                     //}
 
                                     break;
+
                                 //会打开多个窗口,未通
                                 case "DeepL":
-                                    //DeepL(text);
-                                    text = text.Replace(" ", "%20");
-                                    Process.Start("https://www.deepl.com/translator#en/zh/" + text);
+                                    DeepL(text);
+                                    //text = text.Replace(" ", "%20");
+                                    //Process.Start("https://www.deepl.com/translator#en/zh/" + text);
                                     break;
                             }
 
@@ -360,6 +361,11 @@ namespace CopyPlusPlus
         {
             text = text.Replace(" ", "%20");
             Process.Start("https://www.deepl.com/translator#en/zh/" + text);
+        }
+
+        private void DeepL_OnSelected(object sender, RoutedEventArgs e)
+        {
+            TransFromComboBox.SelectedIndex = 1;
         }
 
         //打开翻译按钮

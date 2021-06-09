@@ -101,7 +101,7 @@
                 <TextBlock x:Name="TextBlockPay"     HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,8"  TextAlignment="Center" FontSize="14"><Run Text="如果您觉得好用，点击这里请我吃肉" FontWeight="Bold" ToolTip="感谢您的支持!" MouseUp="ShowPay"/></TextBlock>
             </StackPanel>
 
-            <emoji:TextBlock FontSize="15" Text="➡️" Margin="229,9,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <emoji:TextBlock FontSize="18" Text="➡️" Margin="230,6,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <emoji:TextBlock x:Name="Meat" FontSize="18" Text="🍖" Margin="240,83,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="点我" MouseDown="MeatDown" MouseUp="MeatUp" MouseLeave="MeatLeave"/>
 
             <Button Margin="157,57,0,0" Click="Github_Click" Cursor="Hand" VerticalAlignment="Top" ToolTip="点我跳转到Github" HorizontalAlignment="Left" Height="22" Width="18">

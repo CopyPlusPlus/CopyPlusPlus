@@ -71,6 +71,9 @@ namespace CopyPlusPlus
             Switch3.IsOn = Settings.Default.Switch3Check;
             Switch4.IsOn = Settings.Default.Switch4Check;
 
+            SwitchAutoStart.IsOn = Settings.Default.AutoStart;
+            SwitchManyPopups.IsOn = Settings.Default.ManyPopups;
+
             TransFromComboBox.SelectedIndex = Settings.Default.TransFrom;
             TransToComboBox.SelectedIndex = Settings.Default.TransTo;
             TransEngineComboBox.SelectedIndex = Settings.Default.TransEngine;
@@ -378,13 +381,13 @@ namespace CopyPlusPlus
             TransToComboBox.Items.RemoveAt(6);
         }
 
-        
+
         private void DeepL_OnUnselected(object sender, RoutedEventArgs e)
         {
-            TransFromComboBox.Items.Add(new ComboBoxItem {Content = "韩语"});
-            TransFromComboBox.Items.Add(new ComboBoxItem {Content = "繁体中文"});
-            TransToComboBox.Items.Add(new ComboBoxItem {Content = "韩语"});
-            TransToComboBox.Items.Add(new ComboBoxItem {Content = "繁体中文"});
+            TransFromComboBox.Items.Add(new ComboBoxItem { Content = "韩语" });
+            TransFromComboBox.Items.Add(new ComboBoxItem { Content = "繁体中文" });
+            TransToComboBox.Items.Add(new ComboBoxItem { Content = "韩语" });
+            TransToComboBox.Items.Add(new ComboBoxItem { Content = "繁体中文" });
         }
 
         private void Trans_OnToggled(object sender, RoutedEventArgs e)

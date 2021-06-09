@@ -235,9 +235,17 @@ namespace CopyPlusPlus
                         return;
                     }
                     //Get Window
-                    if (Application.Current.Windows
+                    if (!(Application.Current.Windows
                         .Cast<Window>()
-                        .LastOrDefault(window => window is TranslateResult) is TranslateResult transWindow) transWindow.TextBox.Text = text;
+                        .LastOrDefault(window => window is TranslateResult) is TranslateResult transWindow))
+                    {
+                        var translateResult = new TranslateResult { TextBox = { Text = text } };
+                        translateResult.Show();
+                    }
+                    else
+                    {
+                        transWindow.TextBox.Text = text;
+                    }
                 }
             }
         }
@@ -360,12 +368,18 @@ namespace CopyPlusPlus
         public void DeepL(string text)
         {
             text = text.Replace(" ", "%20");
-            Process.Start("https://www.deepl.com/translator#en/zh/" + text);
+            Process.Start("https://www.deepl.com/translator#" 
+                          + DeepLanguage.GetLanguage[TransFromComboBox.Text] + "/" 
+                          + DeepLanguage.GetLanguage[TransToComboBox.Text] + "/" + text);
         }
 
         private void DeepL_OnSelected(object sender, RoutedEventArgs e)
         {
-            TransFromComboBox.SelectedIndex = 1;
+            if (TransFromComboBox.SelectedIndex == 0)
+            {
+                TransFromComboBox.Items.RemoveAt(4);
+                TransFromComboBox.Items.RemoveAt(7);
+            }
         }
 
         //打开翻译按钮
@@ -490,7 +504,9 @@ namespace CopyPlusPlus
                         var daySpan = DateTime.Today.Subtract(Settings.Default.LastOpenDate);
                         if (daySpan.Days > 10)
                         {
-                            var notifyUpdate = new NotifyUpdate("打扰一下，您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨", "知道啦", "别再提示")
+                            var notifyUpdate = new 
+                                NotifyUpdate("打扰一下，您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨",
+                                    "知道啦", "别再提示")
                             {
                                 Owner = this
                             };
@@ -570,7 +586,7 @@ namespace CopyPlusPlus
                 WindowState = WindowState.Normal;
                 Hide();
                 NotifyIcon.Visibility = Visibility.Visible;
-                NotifyIcon.ShowBalloonTip("Copy++", "软件已最小化至托盘，点击图标显示主界面，右键可退出", BalloonIcon.Info);
+                //NotifyIcon.ShowBalloonTip("Copy++", "软件已最小化至托盘，点击图标显示主界面，右键可退出", BalloonIcon.Info);
             }
             else
             {
@@ -581,7 +597,7 @@ namespace CopyPlusPlus
         private void SwitchAutoStart_OnToggled(object sender, RoutedEventArgs e)
         {
             const string path = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
-            var key = Registry.LocalMachine.OpenSubKey(path, true);
+            var key = Registry.CurrentUser.OpenSubKey(path, true);
             if (key == null) return;
             if (SwitchAutoStart.IsOn)
             {

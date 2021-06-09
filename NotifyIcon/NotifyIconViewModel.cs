@@ -32,7 +32,7 @@ namespace CopyPlusPlus.NotifyIcon
                         Application.Current.MainWindow.Show();
                         Application.Current.MainWindow.WindowState = WindowState.Normal;
                         _mainWindow.CheckUpdate();
-                        MainWindow.HideNotifyIcon();
+                        //MainWindow.HideNotifyIcon();
                     }
                 };
             }

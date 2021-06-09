@@ -578,8 +578,7 @@ namespace CopyPlusPlus
         {
             Meat.Text = "🍖";
         }
-
-        private void MeatUp(object sender, MouseEventArgs e)
+        private void MeatLeave(object sender, MouseEventArgs e)
         {
             Meat.Text = "🍖";
         }

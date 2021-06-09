@@ -101,7 +101,8 @@
                 <TextBlock x:Name="TextBlockPay"     HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,8"  TextAlignment="Center" FontSize="14"><Run Text="如果您觉得好用，点击这里请我吃肉" FontWeight="Bold" ToolTip="感谢您的支持!" MouseUp="ShowPay"/></TextBlock>
             </StackPanel>
 
-            <emoji:TextBlock x:Name="Meat" FontSize="18" Text="🍖" Margin="240,83,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="点我" MouseDown="MeatDown" MouseUp="MeatUp" MouseLeave="MeatUp"/>
+            <emoji:TextBlock FontSize="15" Text="➡️" Margin="229,9,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <emoji:TextBlock x:Name="Meat" FontSize="18" Text="🍖" Margin="240,83,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="点我" MouseDown="MeatDown" MouseUp="MeatUp" MouseLeave="MeatLeave"/>
 
             <Button Margin="157,57,0,0" Click="Github_Click" Cursor="Hand" VerticalAlignment="Top" ToolTip="点我跳转到Github" HorizontalAlignment="Left" Height="22" Width="18">
                 <Button.Template>
@@ -112,7 +113,7 @@
                 </Button.Template>
             </Button>
 
-            <Image Source="/image/wechatgzh.jpg"  VerticalAlignment="Center" HorizontalAlignment="Right" ToolTip="听说这里能够获取新版本，还有许多好玩的" Margin="0,0,20,0"/>
+            <Image Source="/image/wechatgzh.jpg"  VerticalAlignment="Center" HorizontalAlignment="Right" ToolTip="听说这里能够获取新版本，还有许多好玩的" Margin="0,0,19.4,0"/>
             <!--<TextBlock x:Name="TextBlockGzh" HorizontalAlignment="Left" Margin="231,0,0,0" TextWrapping="Wrap" FontSize="10" TextAlignment="Center" VerticalAlignment="Center" LineHeight="14"><Run Text="关 注 公 众 号"/><LineBreak /><Run Language="zh-cn" Text="获 取 船 新 版 本"/></TextBlock>-->
 
         </Grid>

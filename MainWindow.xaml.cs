@@ -17,6 +17,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 //using WK.Libraries.SharpClipboardNS;
@@ -132,14 +133,14 @@ namespace CopyPlusPlus
                     {
                         var appId = TranslateId;
                         var secretKey = TranslateKey;
-                        if (Settings.Default.AppID != "none" && Settings.Default.SecretKey != "none")
+                        if (Settings.Default.AppID != "None" && Settings.Default.SecretKey != "None")
                         {
                             appId = Settings.Default.AppID;
                             secretKey = Settings.Default.SecretKey;
                         }
 
                         //这个if已经无效
-                        if (appId == "none" || secretKey == "none")
+                        if (appId == "None" || secretKey == "None")
                         {
                             //MessageBox.Show("请先设置翻译接口", "Copy++");
                             Show_InputAPIWindow();
@@ -154,20 +155,15 @@ namespace CopyPlusPlus
                                     text = BaiduTrans(appId, secretKey, text);
                                     ShowTrans(text, textBeforeTrans);
                                     break;
+
                                 case "谷歌翻译":
-                                    //if (text != _textLast)
-                                    //{
                                     text = GoogleTrans(text);
                                     ShowTrans(text, textBeforeTrans);
-                                    //}
-
                                     break;
 
                                 //会打开多个窗口,未通
                                 case "DeepL":
                                     DeepL(text);
-                                    //text = text.Replace(" ", "%20");
-                                    //Process.Start("https://www.deepl.com/translator#en/zh/" + text);
                                     break;
                             }
 
@@ -368,18 +364,52 @@ namespace CopyPlusPlus
         public void DeepL(string text)
         {
             text = text.Replace(" ", "%20");
-            Process.Start("https://www.deepl.com/translator#" 
-                          + DeepLanguage.GetLanguage[TransFromComboBox.Text] + "/" 
+            Process.Start("https://www.deepl.com/translator#"
+                          + DeepLanguage.GetLanguage[TransFromComboBox.Text] + "/"
                           + DeepLanguage.GetLanguage[TransToComboBox.Text] + "/" + text);
         }
 
         private void DeepL_OnSelected(object sender, RoutedEventArgs e)
         {
-            if (TransFromComboBox.SelectedIndex == 0)
+            TransFromComboBox.Items.RemoveAt(7);
+            TransFromComboBox.Items.RemoveAt(7);
+            TransToComboBox.Items.RemoveAt(6);
+            TransToComboBox.Items.RemoveAt(6);
+        }
+
+        
+        private void DeepL_OnUnselected(object sender, RoutedEventArgs e)
+        {
+            TransFromComboBox.Items.Add(new ComboBoxItem {Content = "韩语"});
+            TransFromComboBox.Items.Add(new ComboBoxItem {Content = "繁体中文"});
+            TransToComboBox.Items.Add(new ComboBoxItem {Content = "韩语"});
+            TransToComboBox.Items.Add(new ComboBoxItem {Content = "繁体中文"});
+        }
+
+        private void Trans_OnToggled(object sender, RoutedEventArgs e)
+        {
+            Switch4.IsEnabled = Switch3.IsOn;
+            SwitchManyPopups.IsEnabled = Switch3.IsOn;
+        }
+
+        private void TransEngineComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            _textLast = "";
+
+            //为不同的翻译引擎设置不同的语言选项
+            if (TransEngineComboBox.Text == "谷歌翻译")
             {
-                TransFromComboBox.Items.RemoveAt(4);
-                TransFromComboBox.Items.RemoveAt(7);
             }
+        }
+
+        private void TransFromComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            _textLast = "";
+        }
+
+        private void TransToComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            _textLast = "";
         }
 
         //打开翻译按钮
@@ -389,7 +419,7 @@ namespace CopyPlusPlus
 
             //string appId = Properties.Settings.Default.AppID;
             //string secretKey = Properties.Settings.Default.SecretKey;
-            //if (appId == "none" || secretKey == "none")
+            //if (appId == "None" || secretKey == "None")
             //{
             //    //MessageBox.Show("请先设置翻译接口", "Copy++");
             //    Show_InputAPIWindow();
@@ -451,7 +481,7 @@ namespace CopyPlusPlus
 
             //已内置Key,无需判断
             ////判断Swith3状态,避免bug
-            //if (Properties.Settings.Default.AppID == "none" || Properties.Settings.Default.SecretKey == "none")
+            //if (Properties.Settings.Default.AppID == "None" || Properties.Settings.Default.SecretKey == "None")
             //{
             //    Properties.Settings.Default.Switch3Check = false;
             //}
@@ -504,7 +534,7 @@ namespace CopyPlusPlus
                         var daySpan = DateTime.Today.Subtract(Settings.Default.LastOpenDate);
                         if (daySpan.Days > 10)
                         {
-                            var notifyUpdate = new 
+                            var notifyUpdate = new
                                 NotifyUpdate("打扰一下，您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨",
                                     "知道啦", "别再提示")
                             {
@@ -522,32 +552,6 @@ namespace CopyPlusPlus
         private void MainWindow_OnContentRendered(object sender, EventArgs e)
         {
             CheckUpdate();
-        }
-
-        private void Trans_OnToggled(object sender, RoutedEventArgs e)
-        {
-            Switch4.IsEnabled = Switch3.IsOn;
-            SwitchManyPopups.IsEnabled = Switch3.IsOn;
-        }
-
-        private void TransEngineComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            _textLast = "";
-
-            //为不同的翻译引擎设置不同的语言选项
-            if (TransEngineComboBox.Text == "谷歌翻译")
-            {
-            }
-        }
-
-        private void TransFromComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            _textLast = "";
-        }
-
-        private void TransToComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            _textLast = "";
         }
 
         private void ShowPay(object sender, MouseButtonEventArgs e)
@@ -601,6 +605,7 @@ namespace CopyPlusPlus
             if (key == null) return;
             if (SwitchAutoStart.IsOn)
             {
+                //每次软件路径发生变化，系统会视为新软件，生成新的设置文件，因此不用担心路径发生变化
                 key.SetValue("CopyPlusPlus", System.Reflection.Assembly.GetExecutingAssembly().Location + " /AutoStart");
             }
             else
@@ -608,7 +613,5 @@ namespace CopyPlusPlus
                 key.DeleteValue("CopyPlusPlus", false);
             }
         }
-
-
     }
 }

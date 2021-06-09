@@ -56,10 +56,10 @@
                 <ComboBoxItem Content="中文"/>
                 <ComboBoxItem Content="英语"/>
                 <ComboBoxItem Content="日语"/>
-                <ComboBoxItem Content="韩语"/>
                 <ComboBoxItem Content="法语"/>
                 <ComboBoxItem Content="德语"/>
                 <ComboBoxItem Content="俄语"/>
+                <ComboBoxItem Content="韩语"/>
                 <ComboBoxItem Content="繁体中文"/>
                 <!--<ComboBoxItem Content="文言文"/>-->
             </ComboBox>
@@ -69,10 +69,10 @@
                 <ComboBoxItem IsSelected="True" Content="中文"/>
                 <ComboBoxItem Content="英语"/>
                 <ComboBoxItem Content="日语"/>
-                <ComboBoxItem Content="韩语"/>
                 <ComboBoxItem Content="法语"/>
                 <ComboBoxItem Content="德语"/>
                 <ComboBoxItem Content="俄语"/>
+                <ComboBoxItem Content="韩语"/>
                 <ComboBoxItem Content="繁体中文"/>
                 <!--<ComboBoxItem Content="文言文"/>-->
             </ComboBox>
@@ -81,7 +81,7 @@
             <ComboBox x:Name="TransEngineComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" Margin="312,36,0,0" Width="91" SelectionChanged="TransEngineComboBox_SelectionChanged">
                 <ComboBoxItem IsSelected="True">谷歌翻译</ComboBoxItem>
                 <ComboBoxItem>百度翻译</ComboBoxItem>
-                <ComboBoxItem ToolTip="目前仅支持英译中。DeepL虽好，但服务器不稳定，翻译速度有时会极慢，属正常现象。" Selected="DeepL_OnSelected">DeepL</ComboBoxItem>
+                <ComboBoxItem ToolTip="目前仅支持英译中。DeepL虽好，但服务器不稳定，翻译速度有时会极慢，属正常现象。" Selected="DeepL_OnSelected" Unselected="DeepL_OnUnselected">DeepL</ComboBoxItem>
             </ComboBox>
         </Grid>
 

@@ -25,7 +25,7 @@ namespace CopyPlusPlus.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("none")]
+        [global::System.Configuration.DefaultSettingValueAttribute("None")]
         public string AppID {
             get {
                 return ((string)(this["AppID"]));
@@ -37,7 +37,7 @@ namespace CopyPlusPlus.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("none")]
+        [global::System.Configuration.DefaultSettingValueAttribute("None")]
         public string SecretKey {
             get {
                 return ((string)(this["SecretKey"]));

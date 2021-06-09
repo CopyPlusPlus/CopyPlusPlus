@@ -3,10 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="AppID" Type="System.String" Scope="User">
-      <Value Profile="(Default)">none</Value>
+      <Value Profile="(Default)">None</Value>
     </Setting>
     <Setting Name="SecretKey" Type="System.String" Scope="User">
-      <Value Profile="(Default)">none</Value>
+      <Value Profile="(Default)">None</Value>
     </Setting>
     <Setting Name="Switch1Check" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

@@ -175,6 +175,7 @@ namespace CopyPlusPlus
                     //Clipboard.StopMonitoring();
                     //_windowClipboardManager.ClipboardChanged -= ClipboardChanged;
                     //_windowClipboardManager = null;
+
                     _textLast = text;
                     Clipboard.SetDataObject(text);
 

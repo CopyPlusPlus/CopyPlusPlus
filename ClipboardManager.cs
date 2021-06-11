@@ -49,12 +49,19 @@ namespace CopyPlusPlus
 
         private static readonly IntPtr WndProcSuccess = IntPtr.Zero;
 
+        private bool first = true;
+        public bool self = false;
+
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             if (msg == NativeMethods.WM_CLIPBOARDUPDATE)
             {
-                OnClipboardChanged();
-                handled = true;
+                //if (first || !self)
+                //{
+                    OnClipboardChanged();
+                    handled = true;
+                    //first = false;
+                //}
             }
 
             return WndProcSuccess;

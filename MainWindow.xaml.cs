@@ -95,8 +95,17 @@ namespace CopyPlusPlus
             // Handle your clipboard update
             if (Clipboard.ContainsText())
             {
+                string text;
                 // Get the cut/copied text.
-                var text = Clipboard.GetText();
+                try
+                {
+                    text = Clipboard.GetText();
+                }
+                catch
+                {
+                    return;
+                }
+
 
                 if (text != _textLast)
                 {
@@ -110,23 +119,23 @@ namespace CopyPlusPlus
                             if (Switch1.IsOn)
                                 if (text[counter + 1].ToString() == "\r")
                                 {
-                                    //如果检测到句号结尾,则不去掉换行.
-                                    if (text[counter].ToString() == ".") continue;
-                                    if (text[counter].ToString() == "。") continue;
+                                    //如果检测到句号结尾,则不去掉换行
+                                    if (text[counter].ToString() == "." || text[counter].ToString() == "。") continue;
+
                                     //去除换行
                                     text = text.Remove(counter + 1, 2);
 
-                                    //判断英文单词结尾,则加一个空格
-                                    if (Regex.IsMatch(text[counter].ToString(), "[a-zA-Z]"))
+                                    //判断英文单词或,结尾,则加一个空格
+                                    if (Regex.IsMatch(text[counter].ToString(), "[a-zA-Z]") || text[counter].ToString() == ",")
                                         text = text.Insert(counter + 1, " ");
 
                                     //判断"-"结尾,且前一个字符为英文单词,则去除"-"
-                                    if (text[counter].ToString() == "-" && Regex.IsMatch(text[counter - 1].ToString(), "[a-zA-Z]")) text = text.Remove(counter, 1);
+                                    if (text[counter].ToString() == "-" && Regex.IsMatch(text[counter - 1].ToString(), "[a-zA-Z]"))
+                                        text = text.Remove(counter, 1);
                                 }
-                            //去除空格
-                            if (Switch2.IsOn && Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
-                                if (text[counter].ToString() == " ")
-                                    text = text.Remove(counter, 1);
+                            //检测到中文时去除空格
+                            if (Switch2.IsOn && Regex.IsMatch(text, @"[\u4e00-\u9fa5]") && text[counter].ToString() == " ")
+                                text = text.Remove(counter, 1);
                         }
 
                     if (Switch3.IsOn)
@@ -181,6 +190,7 @@ namespace CopyPlusPlus
 
                     _textLast = text;
                     Clipboard.SetDataObject(text);
+                    // _windowClipboardManager.self = true;
 
                     //_windowClipboardManager = new ClipboardManager(this);
                     //_windowClipboardManager.ClipboardChanged += ClipboardChanged;

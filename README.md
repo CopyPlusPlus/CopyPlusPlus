@@ -9,21 +9,23 @@
 
 2. 自动合并**空格**。
 
-3. 自动 **翻译**。
+3. 自动 **翻译**。支持谷歌翻译，百度翻译，DeepL网页翻译。支持多语言及语言检测。
 
-4. 翻译结果 **弹窗显示**。检测到中文时，不翻译，不弹窗。
+4. 翻译结果 **弹窗显示**。
 
 5. 每个功能都有独立开关。
 
-6. 免费，小巧，仅**1.08Mb**，并且**无需安装**，打开即用，方便快捷。
+6. 免费，小巧，仅**4Mb**，并且**无需安装**，打开即用，方便快捷。
+
+7. 如何下载？在右侧 Releases 处，或关注公众号获取。
 
 -----------------------
 
 ### 🏝公众号
 
-<img src="https://i.loli.net/2021/04/16/hPJTjxvbp6Gm85w.jpg" alt="image" width="150">
+<img src="https://i.loli.net/2021/06/20/2pwYLM4zKb8lSvZ.png" alt="image" width="150">
 
-求关注，感谢支持！
+这里除了有最新版 Copy++，还有更多好玩！求关注，感谢支持！
 
 -----------------------
 
@@ -31,11 +33,11 @@
 
 微信支付
 
-<img src="https://i.loli.net/2021/04/16/MxXyNonIkTOhgdV.png" alt="image" width="150">
+<img src="https://i.loli.net/2021/06/20/YDlzkdTqX9OtFgB.png" alt="image" width="150">
 
 支付宝
 
-<img src="https://i.loli.net/2021/04/16/KxwRV3uWLfBaj8M.png" alt="image" width="150">
+<img src="https://i.loli.net/2021/06/20/gD1mqUdP4nTZkRc.png" alt="image" width="150">
 
 您的支持就是对我最大的鼓励，万分感谢！
 

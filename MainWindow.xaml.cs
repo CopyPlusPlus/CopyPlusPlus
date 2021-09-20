@@ -112,6 +112,12 @@ namespace CopyPlusPlus
                     // 去掉 CAJ viewer 造成的莫名的空格符号
                     text = text.Replace("", "");
 
+                    // 全角转半角
+                    if (SwitchWidth.IsOn)
+                    {
+                        text = text.Normalize(NormalizationForm.FormKC);
+                    }
+
                     if (SwitchMain.IsOn || SwitchSpace.IsOn)
                         for (var counter = 0; counter < text.Length - 1; counter++)
                         {

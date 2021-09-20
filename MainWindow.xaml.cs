@@ -404,6 +404,8 @@ namespace CopyPlusPlus
         {
             Switch4.IsEnabled = Switch3.IsOn;
             SwitchManyPopups.IsEnabled = Switch3.IsOn;
+            SwitchCopyOriginal.IsEnabled = Switch3.IsOn;
+            SwitchDictionary.IsEnabled = Switch3.IsOn;
         }
 
         private void TransEngineComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

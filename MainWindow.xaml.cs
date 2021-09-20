@@ -313,6 +313,14 @@ namespace CopyPlusPlus
                     return result.Result.LanguageDetections[0].Language.ISO639;
                 }
                 //Console.WriteLine($"Result 1: {result.MergedTranslation}");
+                
+                //返回值一直为null，所以不用了
+                //if (SwitchDictionary.IsOn)
+                //{
+                //    if(result.Result.ExtraTranslations != null)
+                //        return result.Result.ExtraTranslations.ToString();
+                //}
+                
                 return result.Result.MergedTranslation;
             }
 

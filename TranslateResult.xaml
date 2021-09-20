@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" SizeToContent="WidthAndHeight" ResizeMode="CanResizeWithGrip" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" Topmost="True" WindowStyle="SingleBorderWindow" MaxWidth="700" MaxHeight="1000">
+        mc:Ignorable="d" SizeToContent="WidthAndHeight" ResizeMode="CanResizeWithGrip" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" Topmost="True" WindowStyle="SingleBorderWindow" MaxWidth="700" MaxHeight="1000" Height="101.5" Width="181" MinWidth="180" MinHeight="80">
 
     <TextBox x:Name="TextBox" Text="TextBox" TextWrapping="Wrap" Margin="3,1,3,3" Padding="3,3,3,3" 
              IsUndoEnabled="True" AllowDrop="False" AcceptsReturn="True" AcceptsTab="True" AutoWordSelection="True"

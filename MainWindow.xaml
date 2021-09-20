@@ -49,7 +49,7 @@
             <mah:ToggleSwitch x:Name="Switch4" MinWidth="0" ContentDirection="LeftToRight" Content="翻译弹窗" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="229,0,0,0" IsEnabled="False" />
             <mah:ToggleSwitch x:Name="SwitchAutoStart" MinWidth="0" ContentDirection="LeftToRight" Content="开机启动" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="6,65,0,0" Toggled="SwitchAutoStart_OnToggled"/>
             <mah:ToggleSwitch x:Name="SwitchManyPopups" MinWidth="0" ContentDirection="LeftToRight" Content="多个弹窗" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="117,33,0,0" ToolTip="开启后，每次翻译会新弹出一个窗口" IsEnabled="False" Toggled="SwitchManyPopups_OnToggled"/>
-            <mah:ToggleSwitch x:Name="OnlyPopups" MinWidth="0" ContentDirection="LeftToRight" Content="只有弹窗" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="229,33,0,0" ToolTip="仅弹窗，不复制" IsEnabled="False" Toggled="SwitchManyPopups_OnToggled"/>
+            <mah:ToggleSwitch x:Name="OnlyPopups" MinWidth="0" ContentDirection="LeftToRight" Content="复制原文" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="229,33,0,0" ToolTip="仅弹窗，不复制" IsEnabled="False" Toggled="SwitchManyPopups_OnToggled"/>
             <mah:ToggleSwitch x:Name="AutoClose" MinWidth="0" ContentDirection="LeftToRight" Content="弹窗自动关闭" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="117,65,0,0" ToolTip="开启后，每次翻译会新弹出一个窗口" IsEnabled="False" Toggled="SwitchManyPopups_OnToggled"/>
 
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="338,9,0,0" FontWeight="Bold" FontSize="11" FontFamily="Microsoft YaHei UI">从</TextBlock>
@@ -100,7 +100,7 @@
                 <TextBlock x:Name="TextBlockContact" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"><Run Text="遇到问题，或有建议，欢迎联系我" ToolTip="可以通过公众号给我留言"/></TextBlock>
                 <TextBlock x:Name="TextBlockMail"    HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"><Run Text="copyplusplus@163.com" /></TextBlock>
                 <TextBlock x:Name="TextBlockGithub"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"><Run Text="项目已开源，欢迎Star" /></TextBlock>
-                <TextBlock x:Name="TextBlockPay"     HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,8"  TextAlignment="Center" FontSize="14"><Run Text="如果您觉得好用，点击这里请我吃肉" FontWeight="Bold" ToolTip="感谢您的支持!" MouseUp="ShowPay"/></TextBlock>
+                <TextBlock x:Name="TextBlockPay"     HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,8"  TextAlignment="Center" FontSize="14" Cursor="Hand"><Run Text="如果您觉得好用，点击这里请我吃肉" FontWeight="Bold" ToolTip="感谢您的支持!" MouseUp="ShowPay"/></TextBlock>
             </StackPanel>
 
             <emoji:TextBlock FontSize="18" Text="➡️" Margin="230,6,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>

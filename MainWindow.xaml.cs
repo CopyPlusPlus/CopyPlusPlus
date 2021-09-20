@@ -164,16 +164,34 @@ namespace CopyPlusPlus
                             switch (TransEngineComboBox.Text)
                             {
                                 case "百度翻译":
-                                    text = BaiduTrans(appId, secretKey, text);
-                                    ShowTrans(text, textBeforeTrans);
+                                    //判断是否复制原文
+                                    if (SwitchCopyOriginal.IsOn)
+                                    {
+                                        ShowTrans(BaiduTrans(appId, secretKey, text), textBeforeTrans);
+                                    }
+                                    else
+                                    {
+                                        text = BaiduTrans(appId, secretKey, text);
+                                        ShowTrans(text, textBeforeTrans);
+                                    }
+
                                     break;
 
                                 case "谷歌翻译":
-                                    text = GoogleTrans(text);
-                                    ShowTrans(text, textBeforeTrans);
+
+                                    //判断是否复制原文
+                                    if (SwitchCopyOriginal.IsOn)
+                                    {
+                                        ShowTrans(GoogleTrans(text), textBeforeTrans);
+                                    }
+                                    else
+                                    {
+                                        text = GoogleTrans(text);
+                                        ShowTrans(text, textBeforeTrans);
+                                    }
+
                                     break;
 
-                                //会打开多个窗口,未通
                                 case "DeepL":
                                     DeepL(text);
                                     break;

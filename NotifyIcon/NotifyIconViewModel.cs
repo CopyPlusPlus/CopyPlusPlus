@@ -70,7 +70,7 @@ namespace CopyPlusPlus.NotifyIcon
         private bool _switch2Before;
         private bool _switch3Before;
         private bool _switch4Before;
-        
+
 
         public ICommand DisableApp
         {
@@ -81,15 +81,15 @@ namespace CopyPlusPlus.NotifyIcon
                     CanExecuteFunc = () => Application.Current.MainWindow != null,
                     CommandAction = () =>
                     {
-                        _switch1Before = _mainWindow.Switch1.IsOn;
-                        _switch2Before = _mainWindow.Switch2.IsOn;
-                        _switch3Before = _mainWindow.Switch3.IsOn;
-                        _switch4Before = _mainWindow.Switch4.IsOn;
+                        _switch1Before = _mainWindow.SwitchMain.IsOn;
+                        _switch2Before = _mainWindow.SwitchSpace.IsOn;
+                        _switch3Before = _mainWindow.SwitchTranslate.IsOn;
+                        _switch4Before = _mainWindow.SwitchPopup.IsOn;
 
-                        _mainWindow.Switch1.IsOn = false;
-                        _mainWindow.Switch2.IsOn = false;
-                        _mainWindow.Switch3.IsOn = false;
-                        _mainWindow.Switch4.IsOn = false;
+                        _mainWindow.SwitchMain.IsOn = false;
+                        _mainWindow.SwitchSpace.IsOn = false;
+                        _mainWindow.SwitchTranslate.IsOn = false;
+                        _mainWindow.SwitchPopup.IsOn = false;
 
                         _disableStatus = true;
                     }
@@ -108,10 +108,10 @@ namespace CopyPlusPlus.NotifyIcon
                     {
                         if (_disableStatus)
                         {
-                            _mainWindow.Switch1.IsOn = _switch1Before;
-                            _mainWindow.Switch2.IsOn = _switch2Before;
-                            _mainWindow.Switch3.IsOn = _switch3Before;
-                            _mainWindow.Switch4.IsOn = _switch4Before;
+                            _mainWindow.SwitchMain.IsOn = _switch1Before;
+                            _mainWindow.SwitchSpace.IsOn = _switch2Before;
+                            _mainWindow.SwitchTranslate.IsOn = _switch3Before;
+                            _mainWindow.SwitchPopup.IsOn = _switch4Before;
                             _disableStatus = false;
                         }
                     }

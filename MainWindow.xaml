@@ -49,7 +49,7 @@
             <mah:ToggleSwitch x:Name="Switch4" MinWidth="0" ContentDirection="LeftToRight" Content="翻译弹窗" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="229,0,0,0" IsEnabled="False" />
             <mah:ToggleSwitch x:Name="SwitchAutoStart" MinWidth="0" ContentDirection="LeftToRight" Content="开机启动" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="6,65,0,0" Toggled="SwitchAutoStart_OnToggled"/>
             <mah:ToggleSwitch x:Name="SwitchManyPopups" MinWidth="0" ContentDirection="LeftToRight" Content="多个弹窗" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="117,33,0,0" ToolTip="开启后，每次翻译会新弹出一个窗口" IsEnabled="False" Toggled="SwitchManyPopups_OnToggled"/>
-            <mah:ToggleSwitch x:Name="OnlyPopups" MinWidth="0" ContentDirection="LeftToRight" Content="复制原文" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="229,33,0,0" ToolTip="仅弹窗，不复制" IsEnabled="False" Toggled="SwitchManyPopups_OnToggled"/>
+            <mah:ToggleSwitch x:Name="CopyOriginal" MinWidth="0" ContentDirection="LeftToRight" Content="复制原文" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="229,33,0,0" ToolTip="仅弹窗，不复制" IsEnabled="False" Toggled="SwitchManyPopups_OnToggled"/>
             <mah:ToggleSwitch x:Name="AutoClose" MinWidth="0" ContentDirection="LeftToRight" Content="弹窗自动关闭" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="117,65,0,0" ToolTip="开启后，每次翻译会新弹出一个窗口" IsEnabled="False" Toggled="SwitchManyPopups_OnToggled"/>
 
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="338,9,0,0" FontWeight="Bold" FontSize="11" FontFamily="Microsoft YaHei UI">从</TextBlock>
@@ -100,11 +100,11 @@
                 <TextBlock x:Name="TextBlockContact" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"><Run Text="遇到问题，或有建议，欢迎联系我" ToolTip="可以通过公众号给我留言"/></TextBlock>
                 <TextBlock x:Name="TextBlockMail"    HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"><Run Text="copyplusplus@163.com" /></TextBlock>
                 <TextBlock x:Name="TextBlockGithub"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"><Run Text="项目已开源，欢迎Star" /></TextBlock>
-                <TextBlock x:Name="TextBlockPay"     HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,8"  TextAlignment="Center" FontSize="14" Cursor="Hand"><Run Text="如果您觉得好用，点击这里请我吃肉" FontWeight="Bold" ToolTip="感谢您的支持!" MouseUp="ShowPay"/></TextBlock>
+                <TextBlock x:Name="TextBlockPay"     HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,8"  TextAlignment="Center" FontSize="14"><Run Text="如果您觉得好用，点击" /><Run Text="这里" ToolTip="感谢您的支持!" MouseUp="ShowPay" FontWeight="Bold" Cursor="Hand"/><Run Text="请我吃肉" /></TextBlock>
             </StackPanel>
 
             <emoji:TextBlock FontSize="18" Text="➡️" Margin="230,6,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <emoji:TextBlock x:Name="Meat" FontSize="18" Text="🍖" Margin="240,83,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="点我" MouseDown="MeatDown" MouseUp="MeatUp" MouseLeave="MeatLeave"/>
+            <emoji:TextBlock x:Name="Meat" FontSize="18" Text="🍖" Margin="240,83,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" MouseDown="MeatDown" MouseUp="MeatUp" MouseLeave="MeatLeave" Cursor="Hand"/>
 
             <Button Margin="157,57,0,0" Click="Github_Click" Cursor="Hand" VerticalAlignment="Top" ToolTip="点我跳转到Github" HorizontalAlignment="Left" Height="22" Width="18">
                 <Button.Template>
@@ -115,7 +115,7 @@
                 </Button.Template>
             </Button>
 
-            <Image Source="/image/wechatgzh.jpg"  VerticalAlignment="Center" HorizontalAlignment="Right" ToolTip="听说这里能够获取新版本，还有许多好玩的" Margin="0,0,19.4,0"/>
+            <Image Source="/image/wechatgzh.jpg"  VerticalAlignment="Center" HorizontalAlignment="Right" ToolTip="听说这里能够获取新版本，还有许多好玩的" Margin="0,0,25,0"/>
             <!--<TextBlock x:Name="TextBlockGzh" HorizontalAlignment="Left" Margin="231,0,0,0" TextWrapping="Wrap" FontSize="10" TextAlignment="Center" VerticalAlignment="Center" LineHeight="14"><Run Text="关 注 公 众 号"/><LineBreak /><Run Language="zh-cn" Text="获 取 船 新 版 本"/></TextBlock>-->
 
         </Grid>

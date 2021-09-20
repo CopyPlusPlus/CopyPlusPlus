@@ -282,7 +282,7 @@ namespace CopyPlusPlus
             //var result = await translator.TranslateAsync(text, from, to);
             //var text1 = text;
             var result = Task.Run(async () => await translator.TranslateAsync(text, from, to));
-            if (result.Wait(TimeSpan.FromSeconds(3)))
+            if (result.Wait(TimeSpan.FromSeconds(6)))
             {
                 if (detect)
                 {
@@ -331,7 +331,7 @@ namespace CopyPlusPlus
             request.Method = "GET";
             request.ContentType = "text/html;charset=UTF-8";
             request.UserAgent = null;
-            request.Timeout = 6000;
+            request.Timeout = 6666;
             HttpWebResponse response;
             try
             {

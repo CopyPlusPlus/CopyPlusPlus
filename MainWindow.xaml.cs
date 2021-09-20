@@ -66,10 +66,10 @@ namespace CopyPlusPlus
             TranslateKey = Api.BaiduApi[i, 1];
 
             //读取上次关闭时保存的每个Switch的状态
-            Switch1.IsOn = Settings.Default.Switch1Check;
-            Switch2.IsOn = Settings.Default.Switch2Check;
-            Switch3.IsOn = Settings.Default.Switch3Check;
-            Switch4.IsOn = Settings.Default.Switch4Check;
+            SwitchMain.IsOn = Settings.Default.Switch1Check;
+            SwitchSpace.IsOn = Settings.Default.Switch2Check;
+            SwitchTranslate.IsOn = Settings.Default.Switch3Check;
+            SwitchPopup.IsOn = Settings.Default.Switch4Check;
 
             SwitchAutoStart.IsOn = Settings.Default.AutoStart;
             SwitchManyPopups.IsOn = Settings.Default.ManyPopups;
@@ -112,11 +112,11 @@ namespace CopyPlusPlus
                     // 去掉 CAJ viewer 造成的莫名的空格符号
                     text = text.Replace("", "");
 
-                    if (Switch1.IsOn || Switch2.IsOn)
+                    if (SwitchMain.IsOn || SwitchSpace.IsOn)
                         for (var counter = 0; counter < text.Length - 1; counter++)
                         {
                             //合并换行
-                            if (Switch1.IsOn)
+                            if (SwitchMain.IsOn)
                                 if (text[counter + 1].ToString() == "\r")
                                 {
                                     //如果检测到句号结尾,则不去掉换行
@@ -134,11 +134,11 @@ namespace CopyPlusPlus
                                         text = text.Remove(counter, 1);
                                 }
                             //检测到中文时去除空格
-                            if (Switch2.IsOn && Regex.IsMatch(text, @"[\u4e00-\u9fa5]") && text[counter].ToString() == " ")
+                            if (SwitchSpace.IsOn && Regex.IsMatch(text, @"[\u4e00-\u9fa5]") && text[counter].ToString() == " ")
                                 text = text.Remove(counter, 1);
                         }
 
-                    if (Switch3.IsOn)
+                    if (SwitchTranslate.IsOn)
                     //判断是否和选中要翻译的语言相同-----移至弹窗时,检测text是否一样
                     //if (!Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
                     //if (TransToComboBox.Text != GoogleLanguage.GetLanguage.FirstOrDefault(x => x.Value == GoogleTrans(text.Substring(0, Math.Max(text.Length, 4)), true)).Key)
@@ -233,7 +233,7 @@ namespace CopyPlusPlus
         private void ShowTrans(string text, string textBeforeTrans)
         {
             //翻译结果弹窗
-            if (Switch4.IsOn && text != textBeforeTrans)
+            if (SwitchPopup.IsOn && text != textBeforeTrans)
             {
                 if (SwitchManyPopups.IsOn)
                 {
@@ -420,10 +420,10 @@ namespace CopyPlusPlus
 
         private void Trans_OnToggled(object sender, RoutedEventArgs e)
         {
-            Switch4.IsEnabled = Switch3.IsOn;
-            SwitchManyPopups.IsEnabled = Switch3.IsOn;
-            SwitchCopyOriginal.IsEnabled = Switch3.IsOn;
-            SwitchDictionary.IsEnabled = Switch3.IsOn;
+            SwitchPopup.IsEnabled = SwitchTranslate.IsOn;
+            SwitchManyPopups.IsEnabled = SwitchTranslate.IsOn;
+            SwitchCopyOriginal.IsEnabled = SwitchTranslate.IsOn;
+            SwitchDictionary.IsEnabled = SwitchTranslate.IsOn;
         }
 
         private void TransEngineComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -503,10 +503,10 @@ namespace CopyPlusPlus
         private void MainWindow_Closed(object sender, EventArgs e)
         {
             //记录每个Switch的状态,以便下次打开恢复
-            Settings.Default.Switch1Check = Switch1.IsOn;
-            Settings.Default.Switch2Check = Switch2.IsOn;
-            Settings.Default.Switch3Check = Switch3.IsOn;
-            Settings.Default.Switch4Check = Switch4.IsOn;
+            Settings.Default.Switch1Check = SwitchMain.IsOn;
+            Settings.Default.Switch2Check = SwitchSpace.IsOn;
+            Settings.Default.Switch3Check = SwitchTranslate.IsOn;
+            Settings.Default.Switch4Check = SwitchPopup.IsOn;
             Settings.Default.AutoStart = SwitchAutoStart.IsOn;
             Settings.Default.ManyPopups = SwitchManyPopups.IsOn;
             Settings.Default.TransFrom = TransFromComboBox.SelectedIndex;

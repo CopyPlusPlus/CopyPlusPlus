@@ -173,7 +173,16 @@ namespace CopyPlusPlus
                                     //判断是否复制原文
                                     if (SwitchCopyOriginal.IsOn)
                                     {
-                                        ShowTrans(BaiduTrans(appId, secretKey, text), textBeforeTrans);
+                                        var tranResult = BaiduTrans(appId, secretKey, text);
+                                        if (tranResult == "翻译超时，请重试。")
+                                        {
+                                            ShowTrans(tranResult, textBeforeTrans);
+                                            text = "";
+                                        }
+                                        else
+                                        {
+                                            ShowTrans(tranResult, textBeforeTrans);
+                                        }
                                     }
                                     else
                                     {
@@ -188,7 +197,16 @@ namespace CopyPlusPlus
                                     //判断是否复制原文
                                     if (SwitchCopyOriginal.IsOn)
                                     {
-                                        ShowTrans(GoogleTrans(text), textBeforeTrans);
+                                        var tranResult = GoogleTrans(text);
+                                        if (tranResult == "翻译超时，请重试。")
+                                        {
+                                            ShowTrans(tranResult, textBeforeTrans);
+                                            text = "";
+                                        }
+                                        else
+                                        {
+                                            ShowTrans(tranResult, textBeforeTrans);
+                                        }
                                     }
                                     else
                                     {
@@ -306,7 +324,7 @@ namespace CopyPlusPlus
             //var result = await translator.TranslateAsync(text, from, to);
             //var text1 = text;
             var result = Task.Run(async () => await translator.TranslateAsync(text, from, to));
-            if (result.Wait(TimeSpan.FromSeconds(6)))
+            if (result.Wait(TimeSpan.FromSeconds(4)))
             {
                 if (detect)
                 {
@@ -329,7 +347,7 @@ namespace CopyPlusPlus
                 return "auto";
             }
 
-            return "翻译超时，请重试。";
+            return "翻译超时，请检查网络，或更换翻译平台。";
         }
 
         //百度翻译

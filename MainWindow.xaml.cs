@@ -66,7 +66,7 @@ namespace CopyPlusPlus
             // Handle hotkey presses.
             hotKeyManager.KeyPressed += HotKeyManagerPressed;
 
-            //快捷键
+            //局部快捷键
             Copy.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Control));
 
             //生成随机数,随机读取API

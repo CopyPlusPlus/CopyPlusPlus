@@ -9,6 +9,7 @@
     x:Class="CopyPlusPlus.MainWindow"
     mc:Ignorable="d"
     TitleCharacterCasing="Normal"
+    WindowTransitionsEnabled="False"
     Title="Copy++ v3.2 本软件完全免费" Height="344.5" Width="451.067" 
         ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" 
         Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Closing="MainWindow_Closing" ContentRendered="MainWindow_OnContentRendered"
@@ -100,8 +101,8 @@
                         <Setter Property="Margin" Value="0,8,0,0"/>
                     </Style>
                 </StackPanel.Resources>
-                <TextBlock x:Name="TextBlockContact" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"><Run Text="遇到问题，或有建议，欢迎在公众号与我联系" /></TextBlock>
-                <TextBlock x:Name="TextBlockMail"    HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"><Run Text="公众号可以获取最新版本，还有更多好玩" /></TextBlock>
+                <TextBlock x:Name="TextBlockContact" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"><Run Text="遇到问题，或有建议，可在公众号与我联系" /></TextBlock>
+                <TextBlock x:Name="TextBlockGzh"    HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"><Run Text="新版本软件通过该公众号发布，欢迎关注" /></TextBlock>
                 <TextBlock x:Name="TextBlockGithub"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"><Run Text="项目已开源，欢迎Star" /></TextBlock>
                 <TextBlock x:Name="TextBlockPay"     HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,8"  TextAlignment="Center" FontSize="14"><Run Text="如果您觉得好用，点击" /><Run Text="这里" ToolTip="感谢您的支持!" MouseUp="ShowPay" FontWeight="Bold" Cursor="Hand"/><Run Text="请我吃肉" /></TextBlock>
             </StackPanel>

@@ -1,5 +1,6 @@
 ﻿using CopyPlusPlus.Languages;
 using CopyPlusPlus.Properties;
+using GlobalHotKey;
 using GoogleTranslateFreeApi;
 using Hardcodet.Wpf.TaskbarNotification;
 using MahApps.Metro.Controls;
@@ -20,7 +21,6 @@ using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using GlobalHotKey;
 
 //using WK.Libraries.SharpClipboardNS;
 //.net framework 4.6 not supported
@@ -46,10 +46,10 @@ namespace CopyPlusPlus
         private ClipboardManager _windowClipboardManager;
 
         //局部快捷键
-        public static RoutedCommand Copy = new RoutedCommand();
+        //public static RoutedCommand Copy = new RoutedCommand();
 
-        // Create the hotkey manager.
-        public HotKeyManager hotKeyManager = new HotKeyManager();
+        //全局快捷键
+        public HotKeyManager HotKeyManager = new HotKeyManager();
 
         public MainWindow()
         {
@@ -59,15 +59,25 @@ namespace CopyPlusPlus
             NotifyIcon = (TaskbarIcon)FindResource("MyNotifyIcon");
             NotifyIcon.Visibility = Visibility.Collapsed;
 
-            //全局快捷键
-            // Register Ctrl+Alt+F5 hotkey. Save this variable somewhere for the further unregistering.
+
+            #region 全局快捷键示例
+            //Register Ctrl+Alt+F5 hotkey. Save this variable somewhere for the further unregistering.
             //var hotKey = hotKeyManager.Register(Key.F5, ModifierKeys.Control | ModifierKeys.Alt);
-            //var hotKey = hotKeyManager.Register(Key.C, ModifierKeys.Control);
+
+            // Unregister Ctrl+Alt+F5 hotkey.
+            //hotKeyManager.Unregister(hotKey);
+
+            // Dispose the hotkey manager.
+            //hotKeyManager.Dispose(); 
+            #endregion
+
+            // 全局快捷键
+            HotKeyManager.Register(Key.C, ModifierKeys.Control);
             // Handle hotkey presses.
-            hotKeyManager.KeyPressed += HotKeyManagerPressed;
+            HotKeyManager.KeyPressed += HotKeyManagerPressed;
 
             //局部快捷键
-            Copy.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Control));
+            //Copy.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Control));
 
             //生成随机数,随机读取API
             var random = new Random();
@@ -92,18 +102,21 @@ namespace CopyPlusPlus
 
         private void HotKeyManagerPressed(object sender, KeyPressedEventArgs e)
         {
-            if (e.HotKey.Key == Key.F5)
-                MessageBox.Show("Hot key pressed!");
+            if (e.HotKey.Key == Key.C)
+            {
+                ClipboardChanged();
+            }
         }
 
-        private void MyCommandExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            var payMe = new PayMe
-            {
-                Owner = this
-            };
-            payMe.Show();
-        }
+        //局部快捷键
+        //private void MyCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        //{
+        //    var payMe = new PayMe
+        //    {
+        //        Owner = this
+        //    };
+        //    payMe.Show();
+        //}
 
         protected override void OnSourceInitialized(EventArgs e)
         {
@@ -111,14 +124,14 @@ namespace CopyPlusPlus
 
             //Initialize the clipboard now that we have a window soruce to use
             _windowClipboardManager = new ClipboardManager(this);
-            _windowClipboardManager.ClipboardChanged += ClipboardChanged;
+            //_windowClipboardManager.ClipboardChanged += ClipboardChanged;
         }
 
         private string _textLast = "";
 
-        private void ClipboardChanged(object sender, EventArgs e)
+        //private void ClipboardChanged(object sender, EventArgs e)
+        private void ClipboardChanged()
         {
-            // Handle your clipboard update
             if (Clipboard.ContainsText())
             {
                 string text;
@@ -261,7 +274,7 @@ namespace CopyPlusPlus
                     //Clipboard.StopMonitoring();
                     //_windowClipboardManager.ClipboardChanged -= ClipboardChanged;
                     //_windowClipboardManager = null;
-                    
+
 
                     Clipboard.SetDataObject(text);
                     Thread.Sleep(3000);
@@ -568,6 +581,9 @@ namespace CopyPlusPlus
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
+            // Dispose the hotkey manager.
+            HotKeyManager.Dispose();
+
             //记录每个Switch的状态,以便下次打开恢复
             Settings.Default.SwitchCheck[0] = SwitchMain.IsOn.ToString();
             Settings.Default.SwitchCheck[1] = SwitchSpace.IsOn.ToString();

@@ -7,6 +7,7 @@ using MahApps.Metro.Controls;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -23,6 +24,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using WindowsInput;
 using WindowsInput.Native;
+using Gma.System.MouseKeyHook;
 
 //using WK.Libraries.SharpClipboardNS;
 //.net framework 4.6 not supported
@@ -53,6 +55,8 @@ namespace CopyPlusPlus
         //全局快捷键
         public HotKeyManager HotKeyManager = new HotKeyManager();
 
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -71,10 +75,20 @@ namespace CopyPlusPlus
             //hotKeyManager.Dispose(); 
             #endregion
 
-            // 全局快捷键
-            HotKeyManager.Register(Key.C, ModifierKeys.Control);
-            // Handle hotkey presses.
-            HotKeyManager.KeyPressed += HotKeyManagerPressed;
+            //// 全局快捷键
+            //HotKeyManager.Register(Key.C, ModifierKeys.Control | ModifierKeys.Shift);
+            //// Handle hotkey presses.
+            //HotKeyManager.KeyPressed += HotKeyManagerPressed;
+
+            var copy = Combination.FromString("Control+C");
+
+            Action actionCopy = ClipboardChanged;
+            var assignment = new Dictionary<Combination, Action>
+            {
+                {copy, actionCopy},
+            };
+
+            Hook.GlobalEvents().OnCombination(assignment);
 
             //局部快捷键
             //Copy.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Control));
@@ -105,7 +119,6 @@ namespace CopyPlusPlus
             if (e.HotKey.Key == Key.C)
             {
                 ClipboardChanged();
-                //MessageBox.Show("hello");
             }
         }
 
@@ -130,15 +143,18 @@ namespace CopyPlusPlus
 
         //private string _textLast = "";
 
+        //private InputSimulator InputSimulator = new InputSimulator();
+
         //private void ClipboardChanged(object sender, EventArgs e)
         private void ClipboardChanged()
         {
-            HotKeyManager.Unregister(Key.C, ModifierKeys.Control);
-            new InputSimulator().Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_C);
-            Thread.Sleep(500);
-            HotKeyManager.Register(Key.C, ModifierKeys.Control);
+            //HotKeyManager.Unregister(Key.C, ModifierKeys.Control);
+            //Thread.Sleep(500);
+            //new InputSimulator().Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_C);
+            //Thread.Sleep(500);
+            //HotKeyManager.Register(Key.C, ModifierKeys.Control);
 
-            //Thread.Sleep(1000);
+            Thread.Sleep(1000);
             if (Clipboard.ContainsText())
             {
                 string text;

@@ -20,6 +20,7 @@ using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using GlobalHotKey;
 
 //using WK.Libraries.SharpClipboardNS;
 //.net framework 4.6 not supported
@@ -49,6 +50,9 @@ namespace CopyPlusPlus
         public static RoutedCommand Paste = new RoutedCommand();
         public static RoutedCommand Trans = new RoutedCommand();
 
+        // Create the hotkey manager.
+        public HotKeyManager hotKeyManager = new HotKeyManager();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -56,6 +60,12 @@ namespace CopyPlusPlus
             //InitializeClipboardMonitor();
             NotifyIcon = (TaskbarIcon)FindResource("MyNotifyIcon");
             NotifyIcon.Visibility = Visibility.Collapsed;
+
+            // Register Ctrl+Alt+F5 hotkey. Save this variable somewhere for the further unregistering.
+            var hotKey = hotKeyManager.Register(Key.F5, ModifierKeys.Control | ModifierKeys.Alt);
+
+            // Handle hotkey presses.
+            hotKeyManager.KeyPressed += HotKeyManagerPressed;
 
             //快捷键
             Copy.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Control));
@@ -81,6 +91,12 @@ namespace CopyPlusPlus
             TransFromComboBox.SelectedIndex = Convert.ToInt32(checkList[8]);
             TransToComboBox.SelectedIndex = Convert.ToInt32(checkList[9]);
             TransEngineComboBox.SelectedIndex = Convert.ToInt32(checkList[10]);
+        }
+
+        private void HotKeyManagerPressed(object sender, KeyPressedEventArgs e)
+        {
+            if (e.HotKey.Key == Key.F5)
+                MessageBox.Show("Hot key pressed!");
         }
 
         protected override void OnSourceInitialized(EventArgs e)

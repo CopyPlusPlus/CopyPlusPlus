@@ -129,13 +129,8 @@
 
     </Grid>
 
-    <!--<Window.InputBindings>
-        <KeyBinding  
-            Modifiers="Control"
-                     Key="N"
-                     Command="{copyPlusPlus:ShowWindowCommand}"/>
-    </Window.InputBindings>
-    <Window.DataContext>
-        <copyPlusPlus:HotKeyCommand />
-    </Window.DataContext>-->
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static copyPlusPlus:MainWindow.Copy}" Executed="ClipboardChanged"/>
+
+    </Window.CommandBindings>
 </mah:MetroWindow>

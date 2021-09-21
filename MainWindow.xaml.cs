@@ -14,6 +14,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows;
@@ -38,17 +39,15 @@ namespace CopyPlusPlus
 
         public static TaskbarIcon NotifyIcon;
 
-        public static bool Switch1Check;
-        public static bool Switch2Check;
-        public static bool Switch3Check;
-        public static bool Switch4Check;
-
         public string TranslateId;
         public string TranslateKey;
 
         private ClipboardManager _windowClipboardManager;
 
-        public static bool IsAutoStart = false;
+        //快捷键
+        public static RoutedCommand Copy = new RoutedCommand();
+        public static RoutedCommand Paste = new RoutedCommand();
+        public static RoutedCommand Trans = new RoutedCommand();
 
         public MainWindow()
         {
@@ -58,6 +57,10 @@ namespace CopyPlusPlus
             NotifyIcon = (TaskbarIcon)FindResource("MyNotifyIcon");
             NotifyIcon.Visibility = Visibility.Collapsed;
 
+            //快捷键
+            Copy.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Control));
+            Paste.InputGestures.Add(new KeyGesture(Key.V, ModifierKeys.Control));
+            Trans.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Alt));
 
             //生成随机数,随机读取API
             var random = new Random();
@@ -65,21 +68,8 @@ namespace CopyPlusPlus
             TranslateId = Api.BaiduApi[i, 0];
             TranslateKey = Api.BaiduApi[i, 1];
 
-            var checkList = Settings.Default.SwitchCheck.Cast<string>().ToList();
             //读取上次关闭时保存的每个Switch的状态
-            //SwitchMain.IsOn = Settings.Default.Switch1Check;
-            //SwitchSpace.IsOn = Settings.Default.Switch2Check;
-            //SwitchWidth.IsOn = Settings.Default.Switch2Check;
-            //SwitchTranslate.IsOn = Settings.Default.Switch3Check;
-            //SwitchPopup.IsOn = Settings.Default.Switch4Check;
-
-            //SwitchAutoStart.IsOn = Settings.Default.AutoStart;
-            //SwitchManyPopups.IsOn = Settings.Default.ManyPopups;
-
-            //TransFromComboBox.SelectedIndex = Settings.Default.TransFrom;
-            //TransToComboBox.SelectedIndex = Settings.Default.TransTo;
-            //TransEngineComboBox.SelectedIndex = Settings.Default.TransEngine;
-
+            var checkList = Settings.Default.SwitchCheck.Cast<string>().ToList();
             SwitchMain.IsOn = Convert.ToBoolean(checkList[0]);
             SwitchSpace.IsOn = Convert.ToBoolean(checkList[1]);
             SwitchWidth.IsOn = Convert.ToBoolean(checkList[2]);
@@ -192,7 +182,7 @@ namespace CopyPlusPlus
                                         if (tranResult.Length > 4 && tranResult.Substring(0, 4) == "翻译超时")
                                         {
                                             ShowTrans(tranResult, textBeforeTrans);
-                                            text = "-";
+                                            _textLast = "-";
                                         }
                                         else
                                         {
@@ -216,7 +206,7 @@ namespace CopyPlusPlus
                                         if (tranResult.Length > 4 && tranResult.Substring(0, 4) == "翻译超时")
                                         {
                                             ShowTrans(tranResult, textBeforeTrans);
-                                            text = "-";
+                                            _textLast = "-";
                                         }
                                         else
                                         {
@@ -240,13 +230,20 @@ namespace CopyPlusPlus
                         }
                     }
 
+                    if (_textLast != "-")
+                    {
+                        _textLast = text;
+                    }
+
                     //stop monitoring to prevent loop
                     //Clipboard.StopMonitoring();
                     //_windowClipboardManager.ClipboardChanged -= ClipboardChanged;
                     //_windowClipboardManager = null;
+                    
 
-                    _textLast = text;
                     Clipboard.SetDataObject(text);
+                    Thread.Sleep(3000);
+                    Thread.EndCriticalRegion();
                     // _windowClipboardManager.self = true;
 
                     //_windowClipboardManager = new ClipboardManager(this);
@@ -550,16 +547,6 @@ namespace CopyPlusPlus
         private void MainWindow_Closed(object sender, EventArgs e)
         {
             //记录每个Switch的状态,以便下次打开恢复
-            //Settings.Default.Switch1Check = SwitchMain.IsOn;
-            //Settings.Default.Switch2Check = SwitchSpace.IsOn;
-            //Settings.Default.Switch3Check = SwitchTranslate.IsOn;
-            //Settings.Default.Switch4Check = SwitchPopup.IsOn;
-            //Settings.Default.AutoStart = SwitchAutoStart.IsOn;
-            //Settings.Default.ManyPopups = SwitchManyPopups.IsOn;
-            //Settings.Default.TransFrom = TransFromComboBox.SelectedIndex;
-            //Settings.Default.TransTo = TransToComboBox.SelectedIndex;
-            //Settings.Default.TransEngine = TransEngineComboBox.SelectedIndex;
-
             Settings.Default.SwitchCheck[0] = SwitchMain.IsOn.ToString();
             Settings.Default.SwitchCheck[1] = SwitchSpace.IsOn.ToString();
             Settings.Default.SwitchCheck[2] = SwitchWidth.IsOn.ToString();

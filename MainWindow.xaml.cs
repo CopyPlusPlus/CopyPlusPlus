@@ -45,10 +45,8 @@ namespace CopyPlusPlus
 
         private ClipboardManager _windowClipboardManager;
 
-        //快捷键
+        //局部快捷键
         public static RoutedCommand Copy = new RoutedCommand();
-        public static RoutedCommand Paste = new RoutedCommand();
-        public static RoutedCommand Trans = new RoutedCommand();
 
         // Create the hotkey manager.
         public HotKeyManager hotKeyManager = new HotKeyManager();
@@ -61,16 +59,15 @@ namespace CopyPlusPlus
             NotifyIcon = (TaskbarIcon)FindResource("MyNotifyIcon");
             NotifyIcon.Visibility = Visibility.Collapsed;
 
+            //全局快捷键
             // Register Ctrl+Alt+F5 hotkey. Save this variable somewhere for the further unregistering.
-            var hotKey = hotKeyManager.Register(Key.F5, ModifierKeys.Control | ModifierKeys.Alt);
-
+            //var hotKey = hotKeyManager.Register(Key.F5, ModifierKeys.Control | ModifierKeys.Alt);
+            //var hotKey = hotKeyManager.Register(Key.C, ModifierKeys.Control);
             // Handle hotkey presses.
             hotKeyManager.KeyPressed += HotKeyManagerPressed;
 
             //快捷键
             Copy.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Control));
-            Paste.InputGestures.Add(new KeyGesture(Key.V, ModifierKeys.Control));
-            Trans.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Alt));
 
             //生成随机数,随机读取API
             var random = new Random();
@@ -97,6 +94,15 @@ namespace CopyPlusPlus
         {
             if (e.HotKey.Key == Key.F5)
                 MessageBox.Show("Hot key pressed!");
+        }
+
+        private void MyCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            var payMe = new PayMe
+            {
+                Owner = this
+            };
+            payMe.Show();
         }
 
         protected override void OnSourceInitialized(EventArgs e)

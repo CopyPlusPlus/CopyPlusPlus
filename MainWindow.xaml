@@ -130,7 +130,6 @@
     </Grid>
 
     <Window.CommandBindings>
-        <CommandBinding Command="{x:Static copyPlusPlus:MainWindow.Copy}" Executed="ClipboardChanged"/>
-
+        <CommandBinding Command="{x:Static copyPlusPlus:MainWindow.Copy}" Executed="MyCommandExecuted"/>
     </Window.CommandBindings>
 </mah:MetroWindow>

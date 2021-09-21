@@ -65,18 +65,32 @@ namespace CopyPlusPlus
             TranslateId = Api.BaiduApi[i, 0];
             TranslateKey = Api.BaiduApi[i, 1];
 
+            var checkList = Settings.Default.SwitchCheck.Cast<string>().ToList();
             //读取上次关闭时保存的每个Switch的状态
-            SwitchMain.IsOn = Settings.Default.Switch1Check;
-            SwitchSpace.IsOn = Settings.Default.Switch2Check;
-            SwitchTranslate.IsOn = Settings.Default.Switch3Check;
-            SwitchPopup.IsOn = Settings.Default.Switch4Check;
+            //SwitchMain.IsOn = Settings.Default.Switch1Check;
+            //SwitchSpace.IsOn = Settings.Default.Switch2Check;
+            //SwitchWidth.IsOn = Settings.Default.Switch2Check;
+            //SwitchTranslate.IsOn = Settings.Default.Switch3Check;
+            //SwitchPopup.IsOn = Settings.Default.Switch4Check;
 
-            SwitchAutoStart.IsOn = Settings.Default.AutoStart;
-            SwitchManyPopups.IsOn = Settings.Default.ManyPopups;
+            //SwitchAutoStart.IsOn = Settings.Default.AutoStart;
+            //SwitchManyPopups.IsOn = Settings.Default.ManyPopups;
 
-            TransFromComboBox.SelectedIndex = Settings.Default.TransFrom;
-            TransToComboBox.SelectedIndex = Settings.Default.TransTo;
-            TransEngineComboBox.SelectedIndex = Settings.Default.TransEngine;
+            //TransFromComboBox.SelectedIndex = Settings.Default.TransFrom;
+            //TransToComboBox.SelectedIndex = Settings.Default.TransTo;
+            //TransEngineComboBox.SelectedIndex = Settings.Default.TransEngine;
+
+            SwitchMain.IsOn = Convert.ToBoolean(checkList[0]);
+            SwitchSpace.IsOn = Convert.ToBoolean(checkList[1]);
+            SwitchWidth.IsOn = Convert.ToBoolean(checkList[2]);
+            SwitchTranslate.IsOn = Convert.ToBoolean(checkList[3]);
+            SwitchManyPopups.IsOn = Convert.ToBoolean(checkList[4]);
+            SwitchAutoStart.IsOn = Convert.ToBoolean(checkList[5]);
+            SwitchPopup.IsOn = Convert.ToBoolean(checkList[6]);
+            SwitchCopyOriginal.IsOn = Convert.ToBoolean(checkList[7]);
+            TransFromComboBox.SelectedIndex = Convert.ToInt32(checkList[8]);
+            TransToComboBox.SelectedIndex = Convert.ToInt32(checkList[9]);
+            TransEngineComboBox.SelectedIndex = Convert.ToInt32(checkList[10]);
         }
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -535,15 +549,27 @@ namespace CopyPlusPlus
         private void MainWindow_Closed(object sender, EventArgs e)
         {
             //记录每个Switch的状态,以便下次打开恢复
-            Settings.Default.Switch1Check = SwitchMain.IsOn;
-            Settings.Default.Switch2Check = SwitchSpace.IsOn;
-            Settings.Default.Switch3Check = SwitchTranslate.IsOn;
-            Settings.Default.Switch4Check = SwitchPopup.IsOn;
-            Settings.Default.AutoStart = SwitchAutoStart.IsOn;
-            Settings.Default.ManyPopups = SwitchManyPopups.IsOn;
-            Settings.Default.TransFrom = TransFromComboBox.SelectedIndex;
-            Settings.Default.TransTo = TransToComboBox.SelectedIndex;
-            Settings.Default.TransEngine = TransEngineComboBox.SelectedIndex;
+            //Settings.Default.Switch1Check = SwitchMain.IsOn;
+            //Settings.Default.Switch2Check = SwitchSpace.IsOn;
+            //Settings.Default.Switch3Check = SwitchTranslate.IsOn;
+            //Settings.Default.Switch4Check = SwitchPopup.IsOn;
+            //Settings.Default.AutoStart = SwitchAutoStart.IsOn;
+            //Settings.Default.ManyPopups = SwitchManyPopups.IsOn;
+            //Settings.Default.TransFrom = TransFromComboBox.SelectedIndex;
+            //Settings.Default.TransTo = TransToComboBox.SelectedIndex;
+            //Settings.Default.TransEngine = TransEngineComboBox.SelectedIndex;
+
+            Settings.Default.SwitchCheck[0] = SwitchMain.IsOn.ToString();
+            Settings.Default.SwitchCheck[1] = SwitchSpace.IsOn.ToString();
+            Settings.Default.SwitchCheck[2] = SwitchWidth.IsOn.ToString();
+            Settings.Default.SwitchCheck[3] = SwitchTranslate.IsOn.ToString();
+            Settings.Default.SwitchCheck[4] = SwitchManyPopups.IsOn.ToString();
+            Settings.Default.SwitchCheck[5] = SwitchAutoStart.IsOn.ToString();
+            Settings.Default.SwitchCheck[6] = SwitchPopup.IsOn.ToString();
+            Settings.Default.SwitchCheck[7] = SwitchCopyOriginal.IsOn.ToString();
+            Settings.Default.SwitchCheck[8] = TransFromComboBox.SelectedIndex.ToString();
+            Settings.Default.SwitchCheck[9] = TransToComboBox.SelectedIndex.ToString();
+            Settings.Default.SwitchCheck[10] = TransEngineComboBox.SelectedIndex.ToString();
 
             //已内置Key,无需判断
             ////判断Swith3状态,避免bug
@@ -574,12 +600,6 @@ namespace CopyPlusPlus
             Hide();
 
             e.Cancel = true;
-
-            //if (!Settings.Default.FirstClose) return;
-
-            //show balloon with custom icon
-
-            //Settings.Default.FirstClose = false;
         }
 
         public void HideNotifyIcon()

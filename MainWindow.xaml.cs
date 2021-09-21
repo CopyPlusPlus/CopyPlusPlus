@@ -121,7 +121,7 @@ namespace CopyPlusPlus
                 }
 
 
-                if (text != _textLast)
+                if (text != _textLast && _textLast != "-")
                 {
                     // 去掉 CAJ viewer 造成的莫名的空格符号
                     text = text.Replace("", "");
@@ -188,10 +188,11 @@ namespace CopyPlusPlus
                                     if (SwitchCopyOriginal.IsOn)
                                     {
                                         var tranResult = BaiduTrans(appId, secretKey, text);
-                                        if (tranResult == "翻译超时，请重试。")
+
+                                        if (tranResult.Length > 4 && tranResult.Substring(0, 4) == "翻译超时")
                                         {
                                             ShowTrans(tranResult, textBeforeTrans);
-                                            text = "";
+                                            text = "-";
                                         }
                                         else
                                         {
@@ -212,10 +213,10 @@ namespace CopyPlusPlus
                                     if (SwitchCopyOriginal.IsOn)
                                     {
                                         var tranResult = GoogleTrans(text);
-                                        if (tranResult == "翻译超时，请重试。")
+                                        if (tranResult.Length > 4 && tranResult.Substring(0, 4) == "翻译超时")
                                         {
                                             ShowTrans(tranResult, textBeforeTrans);
-                                            text = "";
+                                            text = "-";
                                         }
                                         else
                                         {

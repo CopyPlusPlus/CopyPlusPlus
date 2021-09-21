@@ -31,9 +31,14 @@ namespace CopyPlusPlus
             MainWindow mainWindow = new MainWindow();
             if (isAutoStart)
             {
-                mainWindow.WindowState = WindowState.Minimized;
+                //mainWindow.WindowState = WindowState.Minimized;
+                mainWindow.OnAutoStart(true);
+
             }
-            mainWindow.OnAutoStart();
+            else
+            {
+                mainWindow.OnAutoStart(false);
+            }
         }
     }
 }

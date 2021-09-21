@@ -313,14 +313,14 @@ namespace CopyPlusPlus
                     return result.Result.LanguageDetections[0].Language.ISO639;
                 }
                 //Console.WriteLine($"Result 1: {result.MergedTranslation}");
-                
+
                 //返回值一直为null，所以不用了
                 //if (SwitchDictionary.IsOn)
                 //{
                 //    if(result.Result.ExtraTranslations != null)
                 //        return result.Result.ExtraTranslations.ToString();
                 //}
-                
+
                 return result.Result.MergedTranslation;
             }
 
@@ -437,7 +437,7 @@ namespace CopyPlusPlus
             SwitchPopup.IsEnabled = SwitchTranslate.IsOn;
             SwitchManyPopups.IsEnabled = SwitchTranslate.IsOn;
             SwitchCopyOriginal.IsEnabled = SwitchTranslate.IsOn;
-            SwitchDictionary.IsEnabled = SwitchTranslate.IsOn;
+            //SwitchDictionary.IsEnabled = SwitchTranslate.IsOn;
         }
 
         private void TransEngineComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -539,29 +539,32 @@ namespace CopyPlusPlus
 
         private void MainWindow_OnStateChanged(object sender, EventArgs e)
         {
-            if (WindowState == System.Windows.WindowState.Minimized)
+            if (WindowState == WindowState.Minimized)
             {
-                this.Hide();
                 NotifyIcon.Visibility = Visibility.Visible;
                 NotifyIcon.ShowBalloonTip("Copy++", "软件已最小化至托盘，点击图标显示主界面，右键可退出", BalloonIcon.Info);
+
+                Hide();
             }
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            this.Hide();
             NotifyIcon.Visibility = Visibility.Visible;
+            NotifyIcon.ShowBalloonTip("Copy++", "软件已最小化至托盘，点击图标显示主界面，右键可退出", BalloonIcon.Info);
+
+            Hide();
+
             e.Cancel = true;
 
             //if (!Settings.Default.FirstClose) return;
 
             //show balloon with custom icon
-            NotifyIcon.ShowBalloonTip("Copy++", "软件已最小化至托盘，点击图标显示主界面，右键可退出", BalloonIcon.Info);
-            //Settings.Default.FirstClose = false;
 
+            //Settings.Default.FirstClose = false;
         }
 
-        public static void HideNotifyIcon()
+        public void HideNotifyIcon()
         {
             NotifyIcon.Visibility = Visibility.Collapsed;
         }
@@ -630,14 +633,14 @@ namespace CopyPlusPlus
             Meat.Text = "🍖";
         }
 
-        public void OnAutoStart()
+        public void OnAutoStart(bool auto)
         {
-            if (WindowState == WindowState.Minimized)
+            //if (WindowState == WindowState.Minimized)
+            if (auto)
             {
-                WindowState = WindowState.Normal;
+                Show();
                 Hide();
                 NotifyIcon.Visibility = Visibility.Visible;
-                //NotifyIcon.ShowBalloonTip("Copy++", "软件已最小化至托盘，点击图标显示主界面，右键可退出", BalloonIcon.Info);
             }
             else
             {

@@ -41,7 +41,7 @@
     </mah:MetroWindow.IconTemplate>
 
     <Grid>
-        <Grid Margin="0,6,0,0" VerticalAlignment="Top">
+        <Grid Margin="0,6,0,0" VerticalAlignment="Top" ToolTip="关注公众号，获取更多教程">
             <TextBlock x:Name="TextAbstract1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,5,0,0"  FontSize="13" Width="403"><Run Text="Ctrl+C：复制后软件自动处理，直接粘贴即可（鼠标复制无效）" /></TextBlock>
             <TextBlock x:Name="TextAbstract2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,30,0,0" FontSize="13" Width="403"><Run Text="Ctrl+Shift+C：复制原文，不经过软件处理（也可用鼠标复制）" /></TextBlock>
             <TextBlock x:Name="TextAbstract3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="23,55,0,0" FontSize="13" Width="402"><Run Text="祝君创作顺利，走向人生巅峰！" FontWeight="Bold" /></TextBlock>

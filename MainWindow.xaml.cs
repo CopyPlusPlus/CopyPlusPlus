@@ -53,6 +53,7 @@ namespace CopyPlusPlus
         //public static RoutedCommand Copy = new RoutedCommand();
 
         //全局快捷键
+        public HotKeyManager HotKeyManagerCopy = new HotKeyManager();
         public HotKeyManager HotKeyManager = new HotKeyManager();
 
         public MainWindow()
@@ -73,10 +74,12 @@ namespace CopyPlusPlus
             //hotKeyManager.Dispose(); 
             #endregion
 
-            //// 全局快捷键
-            HotKeyManager.Register(Key.C, ModifierKeys.Control);
-            //// Handle hotkey presses.
-            HotKeyManager.KeyPressed += HotKeyManagerPressed;
+            //// 全局监测Ctrl+C
+            HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
+            HotKeyManagerCopy.KeyPressed += CopyPressed;
+            // 其他全局快捷键
+            HotKeyManager.Register(Key.Escape, System.Windows.Input.ModifierKeys.None);
+            HotKeyManager.KeyPressed += HotKeyPressed;
 
             //局部快捷键
             //Copy.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Control));
@@ -102,12 +105,30 @@ namespace CopyPlusPlus
             TransEngineComboBox.SelectedIndex = Convert.ToInt32(checkList[10]);
         }
 
-        //全局快捷键事件
-        private void HotKeyManagerPressed(object sender, KeyPressedEventArgs e)
+        //全局复制事件
+        private void CopyPressed(object sender, KeyPressedEventArgs e)
         {
             if (e.HotKey.Key == Key.C)
             {
                 ClipboardChanged();
+            }
+        }
+
+        private void HotKeyPressed(object sender, KeyPressedEventArgs e)
+        {
+            if (e.HotKey.Key == Key.Escape)
+            {
+                CloseResult();
+            }
+        }
+
+        private void CloseResult()
+        {
+            if (Application.Current.Windows
+                .Cast<Window>()
+                .LastOrDefault(window => window is TranslateResult) is TranslateResult transWindow)
+            {
+                transWindow.Close();
             }
         }
 
@@ -135,12 +156,11 @@ namespace CopyPlusPlus
         //private void ClipboardChanged(object sender, EventArgs e)
         private void ClipboardChanged()
         {
-
-            HotKeyManager.Unregister(Key.C, ModifierKeys.Control);
-            HotKeyManager.Dispose();
-            Thread.Sleep(500);
+            //HotKeyManager.Unregister(Key.C, ModifierKeys.Control);
+            HotKeyManagerCopy.Dispose();
+            //Thread.Sleep(500);
             new InputSimulator().Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_C);
-            Thread.Sleep(500);
+            //Thread.Sleep(500);
 
             if (System.Windows.Clipboard.ContainsText())
             {
@@ -191,7 +211,7 @@ namespace CopyPlusPlus
                                 {
                                     text = text.Remove(counter + 1, 2);
                                 }
-                                catch (Exception e)
+                                catch
                                 {
                                     text = text.Remove(counter + 1, 1);
                                 }
@@ -303,10 +323,10 @@ namespace CopyPlusPlus
 
                 //clipboard.SetText(text);
 
-                HotKeyManager = new HotKeyManager();
-                HotKeyManager.Register(Key.C, ModifierKeys.Control);
+                HotKeyManagerCopy = new HotKeyManager();
+                HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
                 //// Handle hotkey presses.
-                HotKeyManager.KeyPressed += HotKeyManagerPressed;
+                HotKeyManagerCopy.KeyPressed += CopyPressed;
 
                 // _windowClipboardManager.self = true;
 
@@ -465,7 +485,7 @@ namespace CopyPlusPlus
             }
             catch
             {
-                return "翻译超时，请重试。";
+                return "翻译超时，请检查网络，或更换翻译平台。。";
             }
             var myResponseStream = response.GetResponseStream();
             var myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
@@ -478,7 +498,7 @@ namespace CopyPlusPlus
             var result = JsonConvert.DeserializeObject<Rootobject>(retString);
             if (result.trans_result == null)
             {
-                return "翻译超时，请重试。";
+                return "翻译超时，请检查网络，或更换翻译平台。";
             }
             return result.trans_result[0].dst;
         }
@@ -611,7 +631,7 @@ namespace CopyPlusPlus
         private void MainWindow_Closed(object sender, EventArgs e)
         {
             // Dispose the hotkey manager.
-            HotKeyManager.Dispose();
+            HotKeyManagerCopy.Dispose();
 
             //记录每个Switch的状态,以便下次打开恢复
             Settings.Default.SwitchCheck[0] = SwitchMain.IsOn.ToString();

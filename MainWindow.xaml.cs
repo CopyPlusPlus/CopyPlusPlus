@@ -74,13 +74,21 @@ namespace CopyPlusPlus
             //hotKeyManager.Dispose(); 
             #endregion
 
-            //// 全局监测Ctrl+C
-            HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
-            HotKeyManagerCopy.KeyPressed += CopyPressed;
-            // 其他全局快捷键
-            //HotKeyManager.Register(Key.Escape, ModifierKeys.None);
-            HotKeyManager.Register(Key.C, ModifierKeys.Shift | ModifierKeys.Control);
-            HotKeyManager.KeyPressed += HotKeyPressed;
+            try
+            {
+                //// 全局监测Ctrl+C
+                HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
+                HotKeyManagerCopy.KeyPressed += CopyPressed;
+                // 其他全局快捷键
+                //HotKeyManager.Register(Key.Escape, ModifierKeys.None);
+                HotKeyManager.Register(Key.C, ModifierKeys.Shift | ModifierKeys.Control);
+                HotKeyManager.KeyPressed += HotKeyPressed;
+            }
+            catch
+            {
+                MessageBox.Show("检测到快捷键（Ctrl+C）冲突，请检查后重启软件。\n\n提示：Copy++是否已经打开？");
+            }
+            
 
             //局部快捷键
             //Copy.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Control));

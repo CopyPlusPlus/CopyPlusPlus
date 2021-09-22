@@ -3,10 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:copyPlusPlus="clr-namespace:CopyPlusPlus"
         mc:Ignorable="d" SizeToContent="WidthAndHeight" ResizeMode="CanResizeWithGrip" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" Topmost="True" WindowStyle="SingleBorderWindow" MaxWidth="700" MaxHeight="1000" Height="100" Width="200" MinWidth="200" MinHeight="100">
 
     <TextBox x:Name="TextBox" Text="TextBox" TextWrapping="Wrap" Margin="3,1,3,3" Padding="3,3,3,3" 
              IsUndoEnabled="True" AllowDrop="False" AcceptsReturn="True" AcceptsTab="True" AutoWordSelection="True"
              FontSize="16" FontFamily="Microsoft YaHei UI" />
 
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static copyPlusPlus:TranslateResult.EscEvent}" Executed="EscExecuted"/>
+    </Window.CommandBindings>
 </Window>

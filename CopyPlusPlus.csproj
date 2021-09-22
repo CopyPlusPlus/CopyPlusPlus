@@ -113,7 +113,6 @@
     </ApplicationDefinition>
     <Compile Include="API.cs" />
     <Compile Include="Languages\BaiduLanguage.cs" />
-    <Compile Include="ClipboardManager.cs" />
     <Compile Include="Languages\DeepLanguage.cs" />
     <Compile Include="Languages\GoogleLanguage.cs" />
     <Compile Include="Json.cs" />

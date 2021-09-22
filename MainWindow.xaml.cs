@@ -78,8 +78,8 @@ namespace CopyPlusPlus
             HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
             HotKeyManagerCopy.KeyPressed += CopyPressed;
             // 其他全局快捷键
-            HotKeyManager.Register(Key.Escape, ModifierKeys.None);
-            HotKeyManager.Register(Key.C, ModifierKeys.Shift);
+            //HotKeyManager.Register(Key.Escape, ModifierKeys.None);
+            HotKeyManager.Register(Key.C, ModifierKeys.Shift | ModifierKeys.Control);
             HotKeyManager.KeyPressed += HotKeyPressed;
 
             //局部快捷键
@@ -377,6 +377,7 @@ namespace CopyPlusPlus
                     //translateResult.Top = System.Windows.Forms.Control.MousePosition.Y;
 
                     translateResult.Show();
+                    translateResult.TextBox.Focus();
                 }
                 else
                 {
@@ -390,6 +391,7 @@ namespace CopyPlusPlus
                         //translateResult.Top = System.Windows.Forms.Control.MousePosition.Y;
 
                         translateResult.Show();
+                        translateResult.TextBox.Focus();
 
                         _firstlySwitch = false;
                         return;
@@ -401,6 +403,7 @@ namespace CopyPlusPlus
                     {
                         var translateResult = new TranslateResult { TextBox = { Text = text } };
                         translateResult.Show();
+                        translateResult.TextBox.Focus();
                     }
                     else
                     {

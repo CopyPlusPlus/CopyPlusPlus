@@ -78,7 +78,8 @@ namespace CopyPlusPlus
             HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
             HotKeyManagerCopy.KeyPressed += CopyPressed;
             // 其他全局快捷键
-            HotKeyManager.Register(Key.Escape, System.Windows.Input.ModifierKeys.None);
+            HotKeyManager.Register(Key.Escape, ModifierKeys.None);
+            HotKeyManager.Register(Key.C, ModifierKeys.Shift);
             HotKeyManager.KeyPressed += HotKeyPressed;
 
             //局部快捷键
@@ -120,6 +121,17 @@ namespace CopyPlusPlus
             {
                 CloseResult();
             }
+
+            if (e.HotKey.Key == Key.C)
+            {
+                //取消Ctr+C快捷键
+                HotKeyManagerCopy.Dispose();
+                new InputSimulator().Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_C);
+                //重设Ctr+C快捷键
+                HotKeyManagerCopy = new HotKeyManager();
+                HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
+                HotKeyManagerCopy.KeyPressed += CopyPressed;
+            }
         }
 
         private void CloseResult()
@@ -156,11 +168,11 @@ namespace CopyPlusPlus
         //private void ClipboardChanged(object sender, EventArgs e)
         private void ClipboardChanged()
         {
-            //HotKeyManager.Unregister(Key.C, ModifierKeys.Control);
+            //取消Ctr+C快捷键
             HotKeyManagerCopy.Dispose();
-            //Thread.Sleep(500);
+            Thread.Sleep(500);
             new InputSimulator().Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_C);
-            //Thread.Sleep(500);
+            Thread.Sleep(500);
 
             if (System.Windows.Clipboard.ContainsText())
             {
@@ -323,9 +335,9 @@ namespace CopyPlusPlus
 
                 //clipboard.SetText(text);
 
+                //重设Ctr+C快捷键
                 HotKeyManagerCopy = new HotKeyManager();
                 HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
-                //// Handle hotkey presses.
                 HotKeyManagerCopy.KeyPressed += CopyPressed;
 
                 // _windowClipboardManager.self = true;

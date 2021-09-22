@@ -148,25 +148,32 @@ namespace CopyPlusPlus
         //private void ClipboardChanged(object sender, EventArgs e)
         private void ClipboardChanged()
         {
+            //string text2 = Clipboard.GetText();
+            
             //HotKeyManager.Unregister(Key.C, ModifierKeys.Control);
             //Thread.Sleep(500);
             //new InputSimulator().Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_C);
             //Thread.Sleep(500);
             //HotKeyManager.Register(Key.C, ModifierKeys.Control);
 
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
             if (Clipboard.ContainsText())
             {
-                string text;
+                Thread.Sleep(2000);
+                var tex3t = Clipboard.GetDataObject();
+                var tex9t = Clipboard.GetData("Text");
+                
+                var text = Clipboard.GetText();
+                
                 // Get the cut/copied text.
-                try
-                {
-                    text = Clipboard.GetText();
-                }
-                catch
-                {
-                    return;
-                }
+                //try
+                //{
+                //    text = Clipboard.GetText();
+                //}
+                //catch
+                //{
+                //    return;
+                //}
 
 
                 //if (text != _textLast && _textLast != "-")
@@ -295,6 +302,7 @@ namespace CopyPlusPlus
 
 
                 Clipboard.SetDataObject(text);
+                Clipboard.Flush();
 
                 // _windowClipboardManager.self = true;
 

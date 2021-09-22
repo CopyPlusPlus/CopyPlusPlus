@@ -791,5 +791,14 @@ namespace CopyPlusPlus
                 key.DeleteValue("CopyPlusPlus", false);
             }
         }
+
+        private void DiyReplace(object sender, RoutedEventArgs e)
+        {
+            AddReplace addReplace = new AddReplace
+            {
+                Owner = this
+            };
+            addReplace.Show();
+        }
     }
 }

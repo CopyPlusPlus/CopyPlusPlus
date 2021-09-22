@@ -131,6 +131,9 @@
     <Compile Include="TranslateResult.xaml.cs">
       <DependentUpon>TranslateResult.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddReplace.xaml.cs">
+      <DependentUpon>AddReplace.xaml</DependentUpon>
+    </Compile>
     <Page Include="NotifyIcon\TrayIocn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -162,6 +165,10 @@
     <Page Include="TranslateResult.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AddReplace.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +266,9 @@
       <Project>{eb492747-46b1-466a-9d03-b819fe92a147}</Project>
       <Name>GoogleTranslateFreeApi</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\Working.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

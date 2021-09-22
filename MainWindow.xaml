@@ -41,10 +41,11 @@
     </mah:MetroWindow.IconTemplate>
 
     <Grid>
-        <TextBlock x:Name="TextAbstract1" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="425" Padding="5,5,5,0" Margin="10,6,10,0" FontSize="13" ><Run Text="使用步骤：Ctrl+C --> 软件自动处理 --> Ctrl+V （鼠标复制无效）" ToolTip="关注公众号, 获取详细教程"/></TextBlock>
-        <TextBlock x:Name="TextAbstract2" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="425" Padding="5,5,5,0" Margin="10,32,10,0" FontSize="13"><Run Text="祝君创作顺利，走向人生巅峰！" FontWeight="Bold" /></TextBlock>
+        <TextBlock x:Name="TextAbstract1" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="425" Padding="5,5,5,0" Margin="10,0"             FontSize="13" ><Run Text="Ctrl+C           --> 软件自动处理  --> Ctrl+V （鼠标复制无效）" ToolTip="关注公众号, 获取详细教程"/></TextBlock>
+        <TextBlock x:Name="TextAbstract2" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="425" Padding="5,5,5,0" Margin="10,21,10,0" FontSize="13" ><Run Text="Ctrl+Shift+C --> 软件不处理     --> Ctrl+V " ToolTip="关注公众号, 获取详细教程"/></TextBlock>
+        <TextBlock x:Name="TextAbstract3" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="425" Padding="5,5,5,0" Margin="10,45,10,0" FontSize="13"><Run Text="祝君创作顺利，走向人生巅峰！" FontWeight="Bold" /></TextBlock>
 
-        <Grid Margin="5,63,5,0" Background="#FFEBEBEB" VerticalAlignment="Top" Height="100">
+        <Grid Margin="5,73,5,0" Background="#FFEBEBEB" VerticalAlignment="Top" Height="100">
             <mah:ToggleSwitch x:Name="SwitchMain" MinWidth="0" ContentDirection="LeftToRight" Content="合并换行" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="6,0,0,0"  ToolTip="复制文本后，直接粘贴到Word中即可" IsOn="True"/>
             <mah:ToggleSwitch x:Name="SwitchSpace" MinWidth="0" ContentDirection="LeftToRight" Content="去除空格" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="6,33,0,0"  ToolTip="仅对中文有效"/>
             <mah:ToggleSwitch x:Name="SwitchWidth" MinWidth="0" ContentDirection="LeftToRight" Content="全角转半" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="6,65,0,0" ToolTip="全角转半角"/>
@@ -94,7 +95,7 @@
 
         <!--<Line X1="0" Y1="0" X2="450" Y2="0" Stroke="#FF3A4FEE" StrokeThickness="2" Margin="0,126,0.4,0" VerticalAlignment="Top" />-->
 
-        <Grid  VerticalAlignment="Bottom" Height="116" Margin="0,0,0,21">
+        <Grid  VerticalAlignment="Bottom" Height="116" Margin="0,0,0,17">
 
             <StackPanel Margin="15,0,0,0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <StackPanel.Resources>

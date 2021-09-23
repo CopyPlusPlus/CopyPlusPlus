@@ -178,9 +178,9 @@ namespace CopyPlusPlus
         {
             //取消Ctr+C快捷键
             HotKeyManagerCopy.Dispose();
-            Thread.Sleep(500);
+            Thread.Sleep(10);
             new InputSimulator().Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_C);
-            Thread.Sleep(500);
+            Thread.Sleep(10);
 
             if (System.Windows.Clipboard.ContainsText())
             {

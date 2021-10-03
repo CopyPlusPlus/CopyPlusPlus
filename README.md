@@ -1,6 +1,10 @@
 
 # Copy++ 让复制变得更加简单
 
+
+[![](https://img.shields.io/github/downloads/CopyPlusPlus/CopyPlusPlus-NetFramework/total.svg?style=flat-square)](https://github.com/CopyPlusPlus/CopyPlusPlus-NetFramework/releases)
+[![](https://img.shields.io/github/v/release/CopyPlusPlus/CopyPlusPlus-NetFramework?style=flat-square)](https://github.com/CopyPlusPlus/CopyPlusPlus-NetFramework/releases)
+
 <img src="https://i.loli.net/2021/04/16/v6xChGe1RFmDiIJ.png" alt="image" width="300">
 
 本软件可以：

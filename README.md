@@ -1,4 +1,3 @@
-
 # Copy++ 让复制变得更加简单
 
 [![](https://img.shields.io/github/downloads/CopyPlusPlus/CopyPlusPlus-NetFramework/total.svg?style=flat-square)](https://github.com/CopyPlusPlus/CopyPlusPlus-NetFramework/releases)

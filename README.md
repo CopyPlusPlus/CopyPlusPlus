@@ -1,11 +1,11 @@
 # Copy++ 让复制变得更加简单
 
-[![](https://img.shields.io/github/downloads/CopyPlusPlus/CopyPlusPlus-NetFramework/total.svg?style=flat-square)](https://github.com/CopyPlusPlus/CopyPlusPlus-NetFramework/releases)
-[![](https://img.shields.io/github/downloads/CopyPlusPlus/CopyPlusPlus-NetFramework/latest/total?style=flat-square)](https://github.com/CopyPlusPlus/CopyPlusPlus-NetFramework/releases)
-[![](https://img.shields.io/github/v/release/CopyPlusPlus/CopyPlusPlus-NetFramework?style=flat-square)](https://github.com/CopyPlusPlus/CopyPlusPlus-NetFramework/releases)
-![](https://img.shields.io/github/stars/CopyPlusPlus/CopyPlusPlus-NetFramework?style=flat-square)
-![](https://img.shields.io/github/license/CopyPlusPlus/CopyPlusPlus-NetFramework?style=flat-square)
-![](https://wakatime.com/badge/github/CopyPlusPlus/CopyPlusPlus-NetFramework.svg)
+[![TotalDownloads](https://img.shields.io/github/downloads/CopyPlusPlus/CopyPlusPlus/total.svg?style=flat-square)](https://github.com/CopyPlusPlus/CopyPlusPlus/releases)
+[![TotalDownloads](https://img.shields.io/github/downloads/CopyPlusPlus/CopyPlusPlus/latest/total?style=flat-square)](https://github.com/CopyPlusPlus/CopyPlusPlus/releases)
+[![Release](https://img.shields.io/github/v/release/CopyPlusPlus/CopyPlusPlus?style=flat-square)](https://github.com/CopyPlusPlus/CopyPlusPlus/releases)
+[![Stars](https://img.shields.io/github/stars/CopyPlusPlus/CopyPlusPlus?style=flat-square)](https://github.com/CopyPlusPlus/CopyPlusPlus)
+![License](https://img.shields.io/github/license/CopyPlusPlus/CopyPlusPlus?style=flat-square)
+![](https://wakatime.com/badge/github/CopyPlusPlus/.CopyPlusPLus.svg)
 
 <img src="https://i.loli.net/2021/04/16/v6xChGe1RFmDiIJ.png" alt="image" width="300">
 

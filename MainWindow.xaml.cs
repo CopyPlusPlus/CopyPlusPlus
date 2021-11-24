@@ -3,11 +3,9 @@ using CopyPlusPlus.Properties;
 using GlobalHotKey;
 using GoogleTranslateFreeApi;
 using Hardcodet.Wpf.TaskbarNotification;
-using MahApps.Metro.Controls;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -22,9 +20,9 @@ using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using TextCopy;
 using WindowsInput;
 using WindowsInput.Native;
-using TextCopy;
 
 //using WK.Libraries.SharpClipboardNS;
 //.net framework 4.6 not supported
@@ -88,7 +86,7 @@ namespace CopyPlusPlus
             {
                 MessageBox.Show("检测到快捷键（Ctrl+C）冲突，请检查后重启软件。\n\n提示：Copy++是否已经打开？");
             }
-            
+
 
             //局部快捷键
             //Copy.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Control));

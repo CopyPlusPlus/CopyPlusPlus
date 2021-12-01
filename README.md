@@ -37,13 +37,9 @@
 
 ### 🍖捐助
 
-微信支付
-
-<img src="https://i.loli.net/2021/06/20/YDlzkdTqX9OtFgB.png" alt="image" width="150">
-
-支付宝
-
-<img src="https://i.loli.net/2021/06/20/gD1mqUdP4nTZkRc.png" alt="image" width="150">
+|微信支付|支付宝|
+|:----------:|:-------------:|
+|<img src="https://i.loli.net/2021/06/20/YDlzkdTqX9OtFgB.png" alt="image" width="150"> | <img src="https://i.loli.net/2021/06/20/gD1mqUdP4nTZkRc.png" alt="image" width="150">|
 
 您的支持就是对我最大的鼓励，万分感谢！
 

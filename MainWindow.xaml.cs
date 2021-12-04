@@ -140,6 +140,7 @@ namespace CopyPlusPlus
             }
         }
 
+        //按 Esc 关闭翻译结果
         private void CloseResult()
         {
             if (Application.Current.Windows
@@ -222,7 +223,8 @@ namespace CopyPlusPlus
                             if (text[counter + 1].ToString() == "\r")
                             {
                                 //如果检测到句号结尾,则不去掉换行
-                                if (text[counter].ToString() == "." || text[counter].ToString() == "。") continue;
+                                //if (text[counter].ToString() == "." || text[counter].ToString() == "。") continue;
+                                if (text[counter].ToString() == "。") continue;
 
                                 //去除换行
                                 try

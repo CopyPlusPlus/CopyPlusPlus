@@ -1,6 +1,7 @@
 ﻿using CopyPlusPlus.Languages;
 using CopyPlusPlus.Properties;
 using GlobalHotKey;
+using Gma.System.MouseKeyHook;
 using GoogleTranslateFreeApi;
 using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Win32;
@@ -54,6 +55,8 @@ namespace CopyPlusPlus
         public HotKeyManager HotKeyManagerCopy = new HotKeyManager();
         public HotKeyManager HotKeyManager = new HotKeyManager();
 
+        private IKeyboardMouseEvents globalMouseHook;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -62,6 +65,7 @@ namespace CopyPlusPlus
             NotifyIcon.Visibility = Visibility.Collapsed;
 
             #region 全局快捷键示例
+
             //Register Ctrl+Alt+F5 hotkey. Save this variable somewhere for the further unregistering.
             //var hotKey = hotKeyManager.Register(Key.F5, ModifierKeys.Control | ModifierKeys.Alt);
 
@@ -69,8 +73,9 @@ namespace CopyPlusPlus
             //hotKeyManager.Unregister(hotKey);
 
             // Dispose the hotkey manager.
-            //hotKeyManager.Dispose(); 
-            #endregion
+            //hotKeyManager.Dispose();
+
+            #endregion 全局快捷键示例
 
             try
             {
@@ -86,7 +91,6 @@ namespace CopyPlusPlus
             {
                 MessageBox.Show("检测到快捷键（Ctrl+C）冲突，请检查后重启软件。\n\n提示：Copy++是否已经打开？");
             }
-
 
             //局部快捷键
             //Copy.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Control));
@@ -110,6 +114,37 @@ namespace CopyPlusPlus
             TransFromComboBox.SelectedIndex = Convert.ToInt32(checkList[8]);
             TransToComboBox.SelectedIndex = Convert.ToInt32(checkList[9]);
             TransEngineComboBox.SelectedIndex = Convert.ToInt32(checkList[10]);
+
+            globalMouseHook = Hook.GlobalEvents();
+            globalMouseHook.MouseDoubleClick += async (o, args) => await MouseDoubleClicked(o, args);
+            globalMouseHook.MouseDragStarted += async (o, args) => await MouseDragStarted(o, args);
+            globalMouseHook.MouseDragFinished += async (o, args) => await MouseDragFinished(o, args);
+        }
+
+        private async Task MouseDoubleClicked(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            IDataObject tmpClipboard = System.Windows.Clipboard.GetDataObject();
+            System.Windows.Clipboard.Clear();
+            System.Windows.Forms.SendKeys.SendWait("^c");
+            Thread.Sleep(10);
+
+            if (System.Windows.Clipboard.ContainsText())
+            {
+                string text = System.Windows.Clipboard.GetText();
+                MessageBox.Show(text);
+            }
+            else
+            {
+                System.Windows.Clipboard.SetDataObject(tmpClipboard);
+            }
+        }
+
+        private async Task MouseDragStarted(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+        }
+
+        private async Task MouseDragFinished(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
         }
 
         //全局复制事件
@@ -205,7 +240,6 @@ namespace CopyPlusPlus
 
                 //if (text != _textLast && _textLast != "-")
                 //{
-
                 // 去掉 CAJ viewer 造成的莫名的空格符号
                 text = text.Replace("", "");
 
@@ -235,7 +269,6 @@ namespace CopyPlusPlus
                                 {
                                     text = text.Remove(counter + 1, 1);
                                 }
-
 
                                 //判断英文单词或,结尾,则加一个空格
                                 if (Regex.IsMatch(text[counter].ToString(), "[a-zA-Z]") || text[counter].ToString() == ",")
@@ -271,7 +304,6 @@ namespace CopyPlusPlus
                     //}
                     //else
                     //{
-
                     string textBeforeTrans = text;
                     //Debug.WriteLine(text);
                     switch (TransEngineComboBox.Text)
@@ -336,7 +368,6 @@ namespace CopyPlusPlus
                 //_windowClipboardManager.ClipboardChanged -= ClipboardChanged;
                 //_windowClipboardManager = null;
 
-
                 //Clipboard.SetDataObject(text);
 
                 ClipboardService.SetText(text);
@@ -354,17 +385,20 @@ namespace CopyPlusPlus
                 //_windowClipboardManager.ClipboardChanged += ClipboardChanged;
                 //System.Windows.Clipboard.Flush();
 
-
                 //restart monitoring
                 //InitializeClipboardMonitor();
                 //_windowClipboardManager.ClipboardChanged += ClipboardChanged;
                 //}
-
             }
         }
 
         //如果第一次切换到单个弹窗，则新开一个窗口，不把以前的窗口覆盖
         private bool _firstlySwitch = true;
+
+        private System.Drawing.Point mouseSecondPoint;
+        private bool isMouseDown;
+        private object mouseFirstPoint;
+
         private void SwitchManyPopups_OnToggled(object sender, RoutedEventArgs e)
         {
             if (!SwitchManyPopups.IsOn) _firstlySwitch = true;
@@ -560,7 +594,6 @@ namespace CopyPlusPlus
             TransToComboBox.Items.RemoveAt(6);
         }
 
-
         private void DeepL_OnUnselected(object sender, RoutedEventArgs e)
         {
             TransFromComboBox.Items.Add(new ComboBoxItem { Content = "韩语" });
@@ -716,6 +749,7 @@ namespace CopyPlusPlus
                 case "2021/4/16 0:00:00":
                     Settings.Default.LastOpenDate = DateTime.Today;
                     break;
+
                 default:
                     {
                         var daySpan = DateTime.Today.Subtract(Settings.Default.LastOpenDate);
@@ -760,10 +794,12 @@ namespace CopyPlusPlus
         {
             Meat.Text = "🦴";
         }
+
         private void MeatUp(object sender, MouseButtonEventArgs e)
         {
             Meat.Text = "🍖";
         }
+
         private void MeatLeave(object sender, MouseEventArgs e)
         {
             Meat.Text = "🍖";

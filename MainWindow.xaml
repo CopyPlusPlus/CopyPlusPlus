@@ -3,18 +3,18 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:copyPlusPlus="clr-namespace:CopyPlusPlus" 
+    xmlns:copyPlusPlus="clr-namespace:CopyPlusPlus"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
     x:Class="CopyPlusPlus.MainWindow"
     mc:Ignorable="d"
     TitleCharacterCasing="Normal"
     WindowTransitionsEnabled="False"
-    Title="Copy++ v4.0 本软件完全免费" Height="354.733" Width="451.067" 
-        ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" 
+    Title="Copy++ v4.0 本软件完全免费" Height="354.733" Width="451.067"
+        ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"
         Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Closing="MainWindow_Closing" ContentRendered="MainWindow_OnContentRendered"
-        mah:ValidationHelper.ShowValidationErrorOnMouseOver="True" mah:ValidationHelper.CloseOnMouseLeftButtonDown="True" 
-        NonActiveWindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" 
+        mah:ValidationHelper.ShowValidationErrorOnMouseOver="True" mah:ValidationHelper.CloseOnMouseLeftButtonDown="True"
+        NonActiveWindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
         WindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}">
     <mah:MetroWindow.TitleTemplate>
         <DataTemplate>
@@ -24,16 +24,16 @@
                        Margin="8 -1 8 0"
                        FontFamily="Microsoft YaHei UI"
                        FontWeight="Bold"
-                       FontSize="16"/>
+                       FontSize="16" />
         </DataTemplate>
     </mah:MetroWindow.TitleTemplate>
     <mah:MetroWindow.IconTemplate>
         <DataTemplate>
-            <Grid Width="{TemplateBinding Width}"                 
-                  Height="{TemplateBinding Height}"                 
-                  Margin="4"                 
-                  Background="Transparent"                 
-                  RenderOptions.EdgeMode="Aliased"                 
+            <Grid Width="{TemplateBinding Width}"
+                  Height="{TemplateBinding Height}"
+                  Margin="4"
+                  Background="Transparent"
+                  RenderOptions.EdgeMode="Aliased"
                   RenderOptions.BitmapScalingMode="HighQuality">
                 <Image Source="copy.ico"></Image>
             </Grid>
@@ -49,42 +49,42 @@
         </Grid>
 
         <Grid Margin="5,91,5,0" Background="#FFEBEBEB" VerticalAlignment="Top" Height="100">
-            <mah:ToggleSwitch x:Name="SwitchMain" MinWidth="0" ContentDirection="LeftToRight" Content="合并换行" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="6,0,0,0"  ToolTip="复制文本后，直接粘贴到Word中即可" IsOn="True"/>
-            <mah:ToggleSwitch x:Name="SwitchSpace" MinWidth="0" ContentDirection="LeftToRight" Content="去除空格" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="6,33,0,0"  ToolTip="仅对中文有效"/>
-            <mah:ToggleSwitch x:Name="SwitchWidth" MinWidth="0" ContentDirection="LeftToRight" Content="全角转半" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="6,65,0,0" ToolTip="全角转半角"/>
-            <mah:ToggleSwitch x:Name="SwitchTranslate" MinWidth="0" ContentDirection="LeftToRight" Content="翻译开关"     FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="117,0,0,0" Toggled="Trans_OnToggled" MouseRightButtonUp="TranslateText_Clicked" ToolTip="右键自定义Key"/>
-            <mah:ToggleSwitch x:Name="SwitchManyPopups" MinWidth="0" ContentDirection="LeftToRight" Content="多个弹窗" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="117,33,0,0" ToolTip="开启后，每次翻译会新弹出一个窗口" IsEnabled="False" Toggled="SwitchManyPopups_OnToggled"/>
-            <mah:ToggleSwitch x:Name="SwitchAutoStart" MinWidth="0" ContentDirection="LeftToRight" Content="开机启动" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="117,65,0,0" Toggled="SwitchAutoStart_OnToggled"/>
+            <mah:ToggleSwitch x:Name="SwitchMain" MinWidth="0" ContentDirection="LeftToRight" Content="合并换行" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="6,0,0,0"  ToolTip="复制文本后，直接粘贴到Word中即可" IsOn="True" />
+            <mah:ToggleSwitch x:Name="SwitchSpace" MinWidth="0" ContentDirection="LeftToRight" Content="去除空格" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="6,33,0,0"  ToolTip="仅对中文有效" />
+            <mah:ToggleSwitch x:Name="SwitchWidth" MinWidth="0" ContentDirection="LeftToRight" Content="全角转半" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="6,65,0,0" ToolTip="全角转半角" />
+            <mah:ToggleSwitch x:Name="SwitchTranslate" MinWidth="0" ContentDirection="LeftToRight" Content="翻译开关"     FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="117,0,0,0" Toggled="Trans_OnToggled" MouseRightButtonUp="TranslateText_Clicked" ToolTip="右键自定义Key" />
+            <mah:ToggleSwitch x:Name="SwitchManyPopups" MinWidth="0" ContentDirection="LeftToRight" Content="多个弹窗" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="117,33,0,0" ToolTip="开启后，每次翻译会新弹出一个窗口" IsEnabled="False" Toggled="SwitchManyPopups_OnToggled" />
+            <mah:ToggleSwitch x:Name="SwitchAutoStart" MinWidth="0" ContentDirection="LeftToRight" Content="开机启动" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="117,65,0,0" Toggled="SwitchAutoStart_OnToggled" />
             <mah:ToggleSwitch x:Name="SwitchPopup" MinWidth="0" ContentDirection="LeftToRight" Content="翻译弹窗" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="229,0,0,0" IsEnabled="False" />
-            <mah:ToggleSwitch x:Name="SwitchCopyOriginal" MinWidth="0" ContentDirection="LeftToRight" Content="复制原文" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="229,33,0,0" ToolTip="开启后，复制原文，翻译结果仅弹窗显示" IsEnabled="False" Toggled="SwitchManyPopups_OnToggled"/>
-            <!--<mah:ToggleSwitch x:Name="SwitchDictionary" MinWidth="0" ContentDirection="LeftToRight" Content="单词词典" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="229,65,0,0" IsEnabled="False" Toggled="SwitchManyPopups_OnToggled"/>-->
-            <Button x:Name="AddReplace" FontFamily="Microsoft YaHei UI" Content="自定义替换字符" HorizontalAlignment="Left" Margin="240,68,0,0" VerticalAlignment="Top" Width="82" Click="DiyReplace"/>
+            <mah:ToggleSwitch x:Name="SwitchCopyOriginal" MinWidth="0" ContentDirection="LeftToRight" Content="复制原文" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="229,33,0,0" ToolTip="开启后，复制原文，翻译结果仅弹窗显示" IsEnabled="False" Toggled="SwitchManyPopups_OnToggled" />
+            <!--<mah:ToggleSwitch x:Name="SwitchDictionary" MinWidth="0" ContentDirection="LeftToRight" Content="单词词典" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="229,65,0,0" IsEnabled="False" Toggled="SwitchManyPopups_OnToggled" />-->
+            <Button x:Name="AddReplace" FontFamily="Microsoft YaHei UI" Content="自定义替换字符" HorizontalAlignment="Left" Margin="240,68,0,0" VerticalAlignment="Top" Width="82" Click="DiyReplace" />
 
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="338,9,0,0" FontWeight="Bold" FontSize="11" FontFamily="Microsoft YaHei UI">从</TextBlock>
             <ComboBox x:Name="TransFromComboBox" HorizontalAlignment="Right" Margin="0,3,5.8,0" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" FontSize="11" Width="78" SelectionChanged="TransFromComboBox_SelectionChanged">
-                <ComboBoxItem IsSelected="True" Content="检测语言"/>
-                <ComboBoxItem Content="中文"/>
-                <ComboBoxItem Content="英语"/>
-                <ComboBoxItem Content="日语"/>
-                <ComboBoxItem Content="法语"/>
-                <ComboBoxItem Content="德语"/>
-                <ComboBoxItem Content="俄语"/>
-                <ComboBoxItem Content="韩语"/>
-                <ComboBoxItem Content="繁体中文"/>
-                <!--<ComboBoxItem Content="文言文"/>-->
+                <ComboBoxItem IsSelected="True" Content="检测语言" />
+                <ComboBoxItem Content="中文" />
+                <ComboBoxItem Content="英语" />
+                <ComboBoxItem Content="日语" />
+                <ComboBoxItem Content="法语" />
+                <ComboBoxItem Content="德语" />
+                <ComboBoxItem Content="俄语" />
+                <ComboBoxItem Content="韩语" />
+                <ComboBoxItem Content="繁体中文" />
+                <!--<ComboBoxItem Content="文言文" />-->
             </ComboBox>
 
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="338,42,0,0" FontWeight="Bold" FontSize="11" FontFamily="Microsoft YaHei UI">到</TextBlock>
             <ComboBox x:Name="TransToComboBox" HorizontalAlignment="Right" Margin="0,36,5.8,0" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" FontSize="11" Width="78" SelectionChanged="TransToComboBox_SelectionChanged">
-                <ComboBoxItem IsSelected="True" Content="中文"/>
-                <ComboBoxItem Content="英语"/>
-                <ComboBoxItem Content="日语"/>
-                <ComboBoxItem Content="法语"/>
-                <ComboBoxItem Content="德语"/>
-                <ComboBoxItem Content="俄语"/>
-                <ComboBoxItem Content="韩语"/>
-                <ComboBoxItem Content="繁体中文"/>
-                <!--<ComboBoxItem Content="文言文"/>-->
+                <ComboBoxItem IsSelected="True" Content="中文" />
+                <ComboBoxItem Content="英语" />
+                <ComboBoxItem Content="日语" />
+                <ComboBoxItem Content="法语" />
+                <ComboBoxItem Content="德语" />
+                <ComboBoxItem Content="俄语" />
+                <ComboBoxItem Content="韩语" />
+                <ComboBoxItem Content="繁体中文" />
+                <!--<ComboBoxItem Content="文言文" />-->
             </ComboBox>
 
             <!--<TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="14" Margin="246,68,0,0">翻译引擎</TextBlock>-->
@@ -93,7 +93,6 @@
                 <ComboBoxItem>百度翻译</ComboBoxItem>
                 <ComboBoxItem ToolTip="目前仅支持英译中。DeepL虽好，但服务器不稳定，翻译速度有时会极慢，属正常现象。" Selected="DeepL_OnSelected" Unselected="DeepL_OnUnselected">DeepL</ComboBoxItem>
             </ComboBox>
-
         </Grid>
 
         <!--<Line X1="0" Y1="0" X2="450" Y2="0" Stroke="#FF3A4FEE" StrokeThickness="2" Margin="0,126,0.4,0" VerticalAlignment="Top" />-->
@@ -103,17 +102,17 @@
             <StackPanel Margin="15,0,0,0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <StackPanel.Resources>
                     <Style TargetType="{x:Type TextBlock}">
-                        <Setter Property="Margin" Value="0,8,0,0"/>
+                        <Setter Property="Margin" Value="0,8,0,0" />
                     </Style>
                 </StackPanel.Resources>
                 <TextBlock x:Name="TextBlockContact" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"><Run Text="遇到问题，或有建议，可在公众号与我联系" /></TextBlock>
                 <TextBlock x:Name="TextBlockGzh"    HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"><Run Text="新版本会通过该公众号发布，欢迎关注" /></TextBlock>
                 <TextBlock x:Name="TextBlockGithub"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"><Run Text="项目已开源，欢迎Star" /></TextBlock>
-                <TextBlock x:Name="TextBlockPay"     HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,8"  TextAlignment="Center" FontSize="14"><Run Text="如果您觉得好用，点击" /><Run Text="这里" ToolTip="感谢您的支持!" MouseUp="ShowPay" FontWeight="Bold" Cursor="Hand"/><Run Text="请我吃肉" /></TextBlock>
+                <TextBlock x:Name="TextBlockPay"     HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,8"  TextAlignment="Center" FontSize="14"><Run Text="如果您觉得好用，点击" /><Run Text="这里" ToolTip="感谢您的支持!" MouseUp="ShowPay" FontWeight="Bold" Cursor="Hand" /><Run Text="请我吃肉" /></TextBlock>
             </StackPanel>
 
-            <!--<emoji:TextBlock FontSize="18" Text="❤" Margin="266,28,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>-->
-            <emoji:TextBlock x:Name="Meat" FontSize="18" Text="🍖" Margin="240,83,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" MouseDown="MeatDown" MouseUp="MeatUp" MouseLeave="MeatLeave" Cursor="Hand"/>
+            <!--<emoji:TextBlock FontSize="18" Text="❤" Margin="266,28,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />-->
+            <emoji:TextBlock x:Name="Meat" FontSize="18" Text="🍖" Margin="240,83,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" MouseDown="MeatDown" MouseUp="MeatUp" MouseLeave="MeatLeave" Cursor="Hand" />
 
             <Button Margin="157,57,0,0" Click="Github_Click" Cursor="Hand" VerticalAlignment="Top" ToolTip="点我跳转到Github" HorizontalAlignment="Left" Height="22" Width="18">
                 <Button.Template>
@@ -124,17 +123,14 @@
                 </Button.Template>
             </Button>
 
-            <Image Source="/image/wechatgzh.jpg"  VerticalAlignment="Center" HorizontalAlignment="Right" ToolTip="听说这里能够获取新版本，还有许多好玩的" Margin="0,0,20,0"/>
-            <!--<TextBlock x:Name="TextBlockGzh" HorizontalAlignment="Left" Margin="231,0,0,0" TextWrapping="Wrap" FontSize="10" TextAlignment="Center" VerticalAlignment="Center" LineHeight="14"><Run Text="关 注 公 众 号"/><LineBreak /><Run Language="zh-cn" Text="获 取 船 新 版 本"/></TextBlock>-->
-
+            <Image Source="/image/wechatgzh.jpg"  VerticalAlignment="Center" HorizontalAlignment="Right" ToolTip="听说这里能够获取新版本，还有许多好玩的" Margin="0,0,20,0" />
+            <!--<TextBlock x:Name="TextBlockGzh" HorizontalAlignment="Left" Margin="231,0,0,0" TextWrapping="Wrap" FontSize="10" TextAlignment="Center" VerticalAlignment="Center" LineHeight="14"><Run Text="关 注 公 众 号" /><LineBreak /><Run Language="zh-cn" Text="获 取 船 新 版 本" /></TextBlock>-->
         </Grid>
 
         <!--<Line X1="0" Y1="0" X2="450" Y2="0" Stroke="#FF3A4FEE" StrokeThickness="2" Margin="0,206,0,0" VerticalAlignment="Top" />-->
-
-
     </Grid>
 
     <!--<Window.CommandBindings>
-        <CommandBinding Command="{x:Static copyPlusPlus:MainWindow.Copy}" Executed="MyCommandExecuted"/>
+        <CommandBinding Command="{x:Static copyPlusPlus:MainWindow.Copy}" Executed="MyCommandExecuted" />
     </Window.CommandBindings>-->
 </mah:MetroWindow>

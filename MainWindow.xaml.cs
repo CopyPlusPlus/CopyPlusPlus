@@ -80,7 +80,7 @@ namespace CopyPlusPlus
             try
             {
                 //// 全局监测Ctrl+C
-                HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
+                //HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
                 HotKeyManagerCopy.KeyPressed += CopyPressed;
                 // 其他全局快捷键
                 //HotKeyManager.Register(Key.Escape, ModifierKeys.None);
@@ -116,17 +116,20 @@ namespace CopyPlusPlus
             TransEngineComboBox.SelectedIndex = Convert.ToInt32(checkList[10]);
 
             globalMouseHook = Hook.GlobalEvents();
-            globalMouseHook.MouseDoubleClick += async (o, args) => await MouseDoubleClicked(o, args);
+            globalMouseHook.MouseDoubleClick += MouseDoubleClicked;
             globalMouseHook.MouseDragStarted += async (o, args) => await MouseDragStarted(o, args);
-            globalMouseHook.MouseDragFinished += async (o, args) => await MouseDragFinished(o, args);
+            globalMouseHook.MouseDragFinished += MouseDragFinished;
         }
 
-        private async Task MouseDoubleClicked(object sender, System.Windows.Forms.MouseEventArgs e)
+        private async void MouseDoubleClicked(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             IDataObject tmpClipboard = System.Windows.Clipboard.GetDataObject();
             System.Windows.Clipboard.Clear();
+            //Thread.Sleep(100);
+            await Task.Delay(50);
             System.Windows.Forms.SendKeys.SendWait("^c");
-            Thread.Sleep(10);
+            //Thread.Sleep(50);
+            await Task.Delay(50);
 
             if (System.Windows.Clipboard.ContainsText())
             {
@@ -143,8 +146,23 @@ namespace CopyPlusPlus
         {
         }
 
-        private async Task MouseDragFinished(object sender, System.Windows.Forms.MouseEventArgs e)
+        private async void MouseDragFinished(object sender, System.Windows.Forms.MouseEventArgs e)
         {
+            IDataObject tmpClipboard = System.Windows.Clipboard.GetDataObject();
+            System.Windows.Clipboard.Clear();
+            await Task.Delay(100);
+            System.Windows.Forms.SendKeys.SendWait("^c");
+            await Task.Delay(50);
+
+            if (System.Windows.Clipboard.ContainsText())
+            {
+                string text = System.Windows.Clipboard.GetText();
+                MessageBox.Show(text);
+            }
+            else
+            {
+                System.Windows.Clipboard.SetDataObject(tmpClipboard);
+            }
         }
 
         //全局复制事件

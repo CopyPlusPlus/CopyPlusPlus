@@ -13,8 +13,6 @@
         <MenuItem Header="退出" Command="{Binding ExitApplicationCommand}" />
     </ContextMenu>
 
-    
-    
     <!-- Globally declared notify icon -->
     <tb:TaskbarIcon x:Key="MyNotifyIcon"
                     IconSource="../copy.ico"
@@ -23,12 +21,10 @@
                     DoubleClickCommand="{Binding ShowWindowCommand}"
                     ContextMenu="{StaticResource SysTrayMenu}"
                     Visibility="Collapsed">
-        
+
         <!-- self-assign a data context (could also be done programmatically) -->
         <tb:TaskbarIcon.DataContext>
             <local:NotifyIconViewModel />
         </tb:TaskbarIcon.DataContext>
-
     </tb:TaskbarIcon>
-
 </ResourceDictionary>

@@ -7,8 +7,7 @@
         mc:Ignorable="d"
         Title="自定义字符替换" Height="179.813" Width="338.762" WindowStartupLocation="CenterOwner">
     <Grid>
-        <Image x:Name="施工_png" Margin="55,23,183,33.5" Source="images/Working.png" Stretch="Fill"/>
-        <Label x:Name="label" Content="施工中" HorizontalAlignment="Left" Margin="190,54,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
-
+        <Image x:Name="施工_png" Margin="55,23,183,33.5" Source="images/Working.png" Stretch="Fill" />
+        <Label x:Name="label" Content="施工中" HorizontalAlignment="Left" Margin="190,54,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" />
     </Grid>
 </Window>

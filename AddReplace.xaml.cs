@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 
-
 namespace CopyPlusPlus
 {
     /// <summary>

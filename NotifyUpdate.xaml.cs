@@ -1,6 +1,6 @@
-﻿using System;
+﻿using CopyPlusPlus.Properties;
+using System;
 using System.Windows;
-using CopyPlusPlus.Properties;
 
 namespace CopyPlusPlus
 {

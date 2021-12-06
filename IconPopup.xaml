@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CopyPlusPlus"
         mc:Ignorable="d"
-        Title="IconPopup" Height="8.402" Width="8.939" Opacity="0.8" Background="Transparent" AllowsTransparency="True" WindowStyle="None" ShowInTaskbar="True" Topmost="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+        Title="IconPopup" Height="23" Width="23" Opacity="0.8" Background="Transparent" AllowsTransparency="True" WindowStyle="None" ShowInTaskbar="True" Topmost="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
     <Grid>
-        <Image x:Name="image" Source="/images/icon-small.png"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Image x:Name="image" Source="/images/icon-small.png"  HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
 </Window>

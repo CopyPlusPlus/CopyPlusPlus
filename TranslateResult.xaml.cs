@@ -8,7 +8,7 @@ namespace CopyPlusPlus
     /// </summary>
     public partial class TranslateResult : Window
     {
-        public static RoutedCommand EscEvent= new RoutedCommand();
+        public static RoutedCommand EscEvent = new RoutedCommand();
 
         public TranslateResult()
         {

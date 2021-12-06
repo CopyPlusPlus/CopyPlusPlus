@@ -53,6 +53,7 @@ namespace CopyPlusPlus
 
         //全局快捷键
         public HotKeyManager HotKeyManagerCopy = new HotKeyManager();
+
         public HotKeyManager HotKeyManager = new HotKeyManager();
 
         private IKeyboardMouseEvents globalMouseHook;
@@ -155,9 +156,14 @@ namespace CopyPlusPlus
             {
                 string text = System.Windows.Clipboard.GetText();
                 //MessageBox.Show(text);
-                IconPopup iconPopup = new IconPopup();
-                iconPopup.Left = new Point(e.Location.X, e.Location.Y).X - ActualWidth;
-                iconPopup.Top = e.Location.Y - ActualHeight;
+
+                var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
+                var mouse = transform.Transform(new Point(e.X, e.Y));
+                IconPopup iconPopup = new IconPopup
+                {
+                    Left = mouse.X + 10,
+                    Top = mouse.Y - 40
+                };
                 iconPopup.Show();
             }
             else

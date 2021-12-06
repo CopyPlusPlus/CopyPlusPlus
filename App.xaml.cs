@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using Hardcodet.Wpf.TaskbarNotification;
 
 namespace CopyPlusPlus
 {
@@ -38,7 +37,6 @@ namespace CopyPlusPlus
             {
                 //mainWindow.WindowState = WindowState.Minimized;
                 mainWindow.OnAutoStart(true);
-
             }
             else
             {

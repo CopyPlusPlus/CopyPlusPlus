@@ -2,7 +2,7 @@
 
 namespace CopyPlusPlus.Languages
 {
-    class BaiduLanguage
+    internal class BaiduLanguage
     {
         public static Dictionary<string, string> GetLanguage = new Dictionary<string, string>()
         {

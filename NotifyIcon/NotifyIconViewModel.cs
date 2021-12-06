@@ -66,11 +66,11 @@ namespace CopyPlusPlus.NotifyIcon
 
         //Store status before disable
         private bool _disableStatus;
+
         private bool _switch1Before;
         private bool _switch2Before;
         private bool _switch3Before;
         private bool _switch4Before;
-
 
         public ICommand DisableApp
         {

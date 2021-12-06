@@ -2,7 +2,7 @@
 
 namespace CopyPlusPlus.Languages
 {
-    class GoogleLanguage
+    internal class GoogleLanguage
     {
         public static Dictionary<string, string> GetLanguage = new Dictionary<string, string>()
         {

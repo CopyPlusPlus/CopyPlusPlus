@@ -420,10 +420,6 @@ namespace CopyPlusPlus
         //如果第一次切换到单个弹窗，则新开一个窗口，不把以前的窗口覆盖
         private bool _firstlySwitch = true;
 
-        private System.Drawing.Point mouseSecondPoint;
-        private bool isMouseDown;
-        private object mouseFirstPoint;
-
         private void SwitchManyPopups_OnToggled(object sender, RoutedEventArgs e)
         {
             if (!SwitchManyPopups.IsOn) _firstlySwitch = true;

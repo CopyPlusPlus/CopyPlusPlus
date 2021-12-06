@@ -283,5 +283,14 @@
   <ItemGroup>
     <Resource Include="images\icon-small.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\translate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\copy.svg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

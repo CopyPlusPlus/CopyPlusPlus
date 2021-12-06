@@ -118,12 +118,12 @@
                 <Button.Template>
                     <ControlTemplate>
                         <!--<iconPacks:PackIconFeatherIcons Kind="Github" Background="Transparent" />-->
-                        <Image Source="/image/GitHub.png" />
+                        <Image Source="/images/GitHub.png" />
                     </ControlTemplate>
                 </Button.Template>
             </Button>
 
-            <Image Source="/image/wechatgzh.jpg"  VerticalAlignment="Center" HorizontalAlignment="Right" ToolTip="听说这里能够获取新版本，还有许多好玩的" Margin="0,0,20,0" />
+            <Image Source="/images/wechatgzh.jpg"  VerticalAlignment="Center" HorizontalAlignment="Right" ToolTip="听说这里能够获取新版本，还有许多好玩的" Margin="0,0,20,0" />
             <!--<TextBlock x:Name="TextBlockGzh" HorizontalAlignment="Left" Margin="231,0,0,0" TextWrapping="Wrap" FontSize="10" TextAlignment="Center" VerticalAlignment="Center" LineHeight="14"><Run Text="关 注 公 众 号" /><LineBreak /><Run Language="zh-cn" Text="获 取 船 新 版 本" /></TextBlock>-->
         </Grid>
 

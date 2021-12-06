@@ -112,6 +112,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="API.cs" />
+    <Compile Include="IconPopup.xaml.cs">
+      <DependentUpon>IconPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Languages\BaiduLanguage.cs" />
     <Compile Include="Languages\DeepLanguage.cs" />
     <Compile Include="Languages\GoogleLanguage.cs" />
@@ -134,6 +137,10 @@
     <Compile Include="AddReplace.xaml.cs">
       <DependentUpon>AddReplace.xaml</DependentUpon>
     </Compile>
+    <Page Include="IconPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NotifyIcon\TrayIocn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -198,10 +205,10 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="image\AliPay.png" />
-    <Resource Include="image\GitHub.png" />
-    <Resource Include="image\Wechat.png" />
-    <Resource Include="image\wechatgzh.jpg" />
+    <Resource Include="images\AliPay.png" />
+    <Resource Include="images\GitHub.png" />
+    <Resource Include="images\Wechat.png" />
+    <Resource Include="images\wechatgzh.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="copy.ico" />
@@ -271,7 +278,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="image\Working.png" />
+    <Resource Include="images\Working.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icon-small.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="老板大气！感谢老板！" Height="161.605" Width="386.806" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False">
     <Grid>
-        <Image Source="/image/Wechat.png" Margin="50,0,0,0" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Left" ToolTip="欢迎使用微信支付" />
-        <Image Source="/image/AliPay.png" Margin="0,0,50,0" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Right" ToolTip="欢迎使用支付宝" />
+        <Image Source="/images/Wechat.png" Margin="50,0,0,0" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Left" ToolTip="欢迎使用微信支付" />
+        <Image Source="/images/AliPay.png" Margin="0,0,50,0" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Right" ToolTip="欢迎使用支付宝" />
     </Grid>
 </Window>

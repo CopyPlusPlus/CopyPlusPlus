@@ -117,7 +117,6 @@ namespace CopyPlusPlus
 
             globalMouseHook = Hook.GlobalEvents();
             globalMouseHook.MouseDoubleClick += MouseDoubleClicked;
-            globalMouseHook.MouseDragStarted += async (o, args) => await MouseDragStarted(o, args);
             globalMouseHook.MouseDragFinished += MouseDragFinished;
         }
 
@@ -142,15 +141,11 @@ namespace CopyPlusPlus
             }
         }
 
-        private async Task MouseDragStarted(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-        }
-
         private async void MouseDragFinished(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             IDataObject tmpClipboard = System.Windows.Clipboard.GetDataObject();
             System.Windows.Clipboard.Clear();
-            await Task.Delay(100);
+            await Task.Delay(50);
             System.Windows.Forms.SendKeys.SendWait("^c");
             await Task.Delay(50);
 

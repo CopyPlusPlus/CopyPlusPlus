@@ -1,296 +1,292 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0B8D97A2-76CB-490C-A40D-F20559394E41}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>CopyPlusPlus</RootNamespace>
-    <AssemblyName>Copy++</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-    <PublishUrl>E:\Develop\CopyPlusPlus\CopyPlusPlus-New\Copy++\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>2</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <PublishWizardCompleted>true</PublishWizardCompleted>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>0</WarningLevel>
-    <Prefer32Bit>true</Prefer32Bit>
-    <DebugSymbols>false</DebugSymbols>
-    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>copy.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestCertificateThumbprint>9B7CF327758F7A0B36ADF66591248EE812E6751F</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>CopyPlusPlus_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <TargetZone>LocalIntranet</TargetZone>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>false</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>CopyPlusPlus.App</StartupObject>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Design" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="API.cs" />
-    <Compile Include="IconPopup.xaml.cs">
-      <DependentUpon>IconPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Languages\BaiduLanguage.cs" />
-    <Compile Include="Languages\DeepLanguage.cs" />
-    <Compile Include="Languages\GoogleLanguage.cs" />
-    <Compile Include="Json.cs" />
-    <Compile Include="KeyInput.xaml.cs">
-      <DependentUpon>KeyInput.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="NotifyIcon\DelegateCommand.cs" />
-    <Compile Include="NotifyIcon\NotifyIconViewModel.cs" />
-    <Compile Include="NotifyIcon\ReopenMainWindowCommand.cs" />
-    <Compile Include="NotifyUpdate.xaml.cs">
-      <DependentUpon>NotifyUpdate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PayMe.xaml.cs">
-      <DependentUpon>PayMe.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TranslateResult.xaml.cs">
-      <DependentUpon>TranslateResult.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="AddReplace.xaml.cs">
-      <DependentUpon>AddReplace.xaml</DependentUpon>
-    </Compile>
-    <Page Include="IconPopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="NotifyIcon\TrayIocn.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="KeyInput.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="NotifyUpdate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PayMe.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TranslateResult.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="AddReplace.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="app.config" />
-    <None Include="Properties\app.manifest" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\AliPay.png" />
-    <Resource Include="images\GitHub.png" />
-    <Resource Include="images\Wechat.png" />
-    <Resource Include="images\wechatgzh.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="copy.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.6">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.6 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Costura.Fody">
-      <Version>5.2.0</Version>
-      <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Emoji.Wpf">
-      <Version>0.3.3</Version>
-    </PackageReference>
-    <PackageReference Include="GlobalHotKey">
-      <Version>1.1.0</Version>
-    </PackageReference>
-    <PackageReference Include="H.InputSimulator">
-      <Version>1.1.0</Version>
-    </PackageReference>
-    <PackageReference Include="Hardcodet.NotifyIcon.Wpf">
-      <Version>1.1.0</Version>
-    </PackageReference>
-    <PackageReference Include="MahApps.Metro">
-      <Version>2.4.6</Version>
-    </PackageReference>
-    <PackageReference Include="MouseKeyHook">
-      <Version>5.6.0</Version>
-    </PackageReference>
-    <PackageReference Include="NETStandard.Library">
-      <Version>2.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="System.Net.Http">
-      <Version>4.3.4</Version>
-    </PackageReference>
-    <PackageReference Include="System.Text.Encoding">
-      <Version>4.3.0</Version>
-    </PackageReference>
-    <PackageReference Include="System.Text.Encoding.CodePages">
-      <Version>4.5.1</Version>
-    </PackageReference>
-    <PackageReference Include="TextCopy">
-      <Version>4.3.1</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BaiduTrans\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Translate\GoogleTranslateFreeApi-master\GoogleTranslateFreeApi\GoogleTranslateFreeApi.csproj">
-      <Project>{eb492747-46b1-466a-9d03-b819fe92a147}</Project>
-      <Name>GoogleTranslateFreeApi</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\Working.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\icon-small.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\translate.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="images\copy.svg" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+	<Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+	<PropertyGroup>
+		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+		<ProjectGuid>{0B8D97A2-76CB-490C-A40D-F20559394E41}</ProjectGuid>
+		<OutputType>WinExe</OutputType>
+		<RootNamespace>CopyPlusPlus</RootNamespace>
+		<AssemblyName>Copy++</AssemblyName>
+		<TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+		<FileAlignment>512</FileAlignment>
+		<ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+		<WarningLevel>4</WarningLevel>
+		<Deterministic>true</Deterministic>
+		<TargetFrameworkProfile />
+		<IsWebBootstrapper>false</IsWebBootstrapper>
+		<NuGetPackageImportStamp>
+		</NuGetPackageImportStamp>
+		<PublishUrl>E:\Develop\CopyPlusPlus\CopyPlusPlus-New\Copy++\</PublishUrl>
+		<Install>true</Install>
+		<InstallFrom>Disk</InstallFrom>
+		<UpdateEnabled>false</UpdateEnabled>
+		<UpdateMode>Foreground</UpdateMode>
+		<UpdateInterval>7</UpdateInterval>
+		<UpdateIntervalUnits>Days</UpdateIntervalUnits>
+		<UpdatePeriodically>false</UpdatePeriodically>
+		<UpdateRequired>false</UpdateRequired>
+		<MapFileExtensions>true</MapFileExtensions>
+		<ApplicationRevision>2</ApplicationRevision>
+		<ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+		<UseApplicationTrust>false</UseApplicationTrust>
+		<PublishWizardCompleted>true</PublishWizardCompleted>
+		<BootstrapperEnabled>true</BootstrapperEnabled>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>full</DebugType>
+		<Optimize>false</Optimize>
+		<OutputPath>bin\Debug\</OutputPath>
+		<DefineConstants>DEBUG;TRACE</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+		<Prefer32Bit>false</Prefer32Bit>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<DebugType>none</DebugType>
+		<Optimize>false</Optimize>
+		<OutputPath>bin\Release\</OutputPath>
+		<DefineConstants>TRACE</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>0</WarningLevel>
+		<Prefer32Bit>true</Prefer32Bit>
+		<DebugSymbols>false</DebugSymbols>
+		<GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+	<PropertyGroup>
+		<ApplicationIcon>copy.ico</ApplicationIcon>
+	</PropertyGroup>
+	<PropertyGroup>
+		<ManifestCertificateThumbprint>9B7CF327758F7A0B36ADF66591248EE812E6751F</ManifestCertificateThumbprint>
+	</PropertyGroup>
+	<PropertyGroup>
+		<ManifestKeyFile>CopyPlusPlus_TemporaryKey.pfx</ManifestKeyFile>
+	</PropertyGroup>
+	<PropertyGroup>
+		<GenerateManifests>false</GenerateManifests>
+	</PropertyGroup>
+	<PropertyGroup>
+		<TargetZone>LocalIntranet</TargetZone>
+	</PropertyGroup>
+	<PropertyGroup>
+		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+	</PropertyGroup>
+	<PropertyGroup>
+		<SignManifests>false</SignManifests>
+	</PropertyGroup>
+	<PropertyGroup>
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+	</PropertyGroup>
+	<PropertyGroup>
+		<StartupObject>CopyPlusPlus.App</StartupObject>
+	</PropertyGroup>
+	<ItemGroup>
+		<Reference Include="System" />
+		<Reference Include="System.ComponentModel.Composition" />
+		<Reference Include="System.ComponentModel.DataAnnotations" />
+		<Reference Include="System.Configuration" />
+		<Reference Include="System.Data" />
+		<Reference Include="System.Design" />
+		<Reference Include="System.Drawing" />
+		<Reference Include="System.IO.Compression.FileSystem" />
+		<Reference Include="System.Numerics" />
+		<Reference Include="System.Web" />
+		<Reference Include="System.Web.Extensions" />
+		<Reference Include="System.Windows.Forms" />
+		<Reference Include="System.Xaml" />
+		<Reference Include="System.Xml" />
+		<Reference Include="System.Core" />
+		<Reference Include="System.Xml.Linq" />
+		<Reference Include="System.Data.DataSetExtensions" />
+		<Reference Include="WindowsBase" />
+		<Reference Include="PresentationCore" />
+		<Reference Include="PresentationFramework" />
+	</ItemGroup>
+	<ItemGroup>
+		<ApplicationDefinition Include="App.xaml">
+			<Generator>MSBuild:Compile</Generator>
+			<SubType>Designer</SubType>
+		</ApplicationDefinition>
+		<Compile Include="API.cs" />
+		<Compile Include="IconPopup.xaml.cs">
+			<DependentUpon>IconPopup.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="Languages\BaiduLanguage.cs" />
+		<Compile Include="Languages\DeepLanguage.cs" />
+		<Compile Include="Languages\GoogleLanguage.cs" />
+		<Compile Include="Json.cs" />
+		<Compile Include="KeyInput.xaml.cs">
+			<DependentUpon>KeyInput.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="NotifyIcon\DelegateCommand.cs" />
+		<Compile Include="NotifyIcon\NotifyIconViewModel.cs" />
+		<Compile Include="NotifyIcon\ReopenMainWindowCommand.cs" />
+		<Compile Include="NotifyUpdate.xaml.cs">
+			<DependentUpon>NotifyUpdate.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="PayMe.xaml.cs">
+			<DependentUpon>PayMe.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="TranslateResult.xaml.cs">
+			<DependentUpon>TranslateResult.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="AddReplace.xaml.cs">
+			<DependentUpon>AddReplace.xaml</DependentUpon>
+		</Compile>
+		<Page Include="IconPopup.xaml">
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="NotifyIcon\TrayIocn.xaml">
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="KeyInput.xaml">
+			<Generator>MSBuild:Compile</Generator>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Include="MainWindow.xaml">
+			<Generator>MSBuild:Compile</Generator>
+			<SubType>Designer</SubType>
+		</Page>
+		<Compile Include="App.xaml.cs">
+			<DependentUpon>App.xaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Include="MainWindow.xaml.cs">
+			<DependentUpon>MainWindow.xaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Page Include="NotifyUpdate.xaml">
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="PayMe.xaml">
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="TranslateResult.xaml">
+			<Generator>MSBuild:Compile</Generator>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Include="AddReplace.xaml">
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Include="Properties\AssemblyInfo.cs">
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Include="Properties\Resources.Designer.cs">
+			<AutoGen>True</AutoGen>
+			<DesignTime>True</DesignTime>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+		<Compile Include="Properties\Settings.Designer.cs">
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Settings.settings</DependentUpon>
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+		</Compile>
+		<EmbeddedResource Include="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<None Include="app.config" />
+		<None Include="Properties\app.manifest" />
+		<None Include="Properties\Settings.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+		<None Include="README.md" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="images\AliPay.png" />
+		<Resource Include="images\GitHub.png" />
+		<Resource Include="images\Wechat.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="copy.ico" />
+	</ItemGroup>
+	<ItemGroup>
+		<BootstrapperPackage Include=".NETFramework,Version=v4.6">
+			<Visible>False</Visible>
+			<ProductName>Microsoft .NET Framework 4.6 %28x86 and x64%29</ProductName>
+			<Install>true</Install>
+		</BootstrapperPackage>
+		<BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+			<Visible>False</Visible>
+			<ProductName>.NET Framework 3.5 SP1</ProductName>
+			<Install>false</Install>
+		</BootstrapperPackage>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Costura.Fody">
+			<Version>5.2.0</Version>
+			<!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Emoji.Wpf">
+			<Version>0.3.3</Version>
+		</PackageReference>
+		<PackageReference Include="GlobalHotKey">
+			<Version>1.1.0</Version>
+		</PackageReference>
+		<PackageReference Include="H.InputSimulator">
+			<Version>1.1.0</Version>
+		</PackageReference>
+		<PackageReference Include="Hardcodet.NotifyIcon.Wpf">
+			<Version>1.1.0</Version>
+		</PackageReference>
+		<PackageReference Include="MahApps.Metro">
+			<Version>2.4.6</Version>
+		</PackageReference>
+		<PackageReference Include="MouseKeyHook">
+			<Version>5.6.0</Version>
+		</PackageReference>
+		<PackageReference Include="NETStandard.Library">
+			<Version>2.0.3</Version>
+		</PackageReference>
+		<PackageReference Include="Newtonsoft.Json">
+			<Version>13.0.1</Version>
+		</PackageReference>
+		<PackageReference Include="System.Net.Http">
+			<Version>4.3.4</Version>
+		</PackageReference>
+		<PackageReference Include="System.Text.Encoding">
+			<Version>4.3.0</Version>
+		</PackageReference>
+		<PackageReference Include="System.Text.Encoding.CodePages">
+			<Version>4.5.1</Version>
+		</PackageReference>
+		<PackageReference Include="TextCopy">
+			<Version>4.3.1</Version>
+		</PackageReference>
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="BaiduTrans\" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Translate\GoogleTranslateFreeApi-master\GoogleTranslateFreeApi\GoogleTranslateFreeApi.csproj">
+			<Project>{eb492747-46b1-466a-9d03-b819fe92a147}</Project>
+			<Name>GoogleTranslateFreeApi</Name>
+		</ProjectReference>
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="images\Working.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="images\translate.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="images\icon.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="images\wechatgzh.png" />
+	</ItemGroup>
+	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

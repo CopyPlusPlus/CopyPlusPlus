@@ -139,6 +139,8 @@ namespace CopyPlusPlus
             {
                 System.Windows.Clipboard.SetDataObject(tmpClipboard);
             }
+            Console.WriteLine(e.Location.X);
+            Console.WriteLine(e.Location.Y);
         }
 
         private async void MouseDragFinished(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -152,7 +154,11 @@ namespace CopyPlusPlus
             if (System.Windows.Clipboard.ContainsText())
             {
                 string text = System.Windows.Clipboard.GetText();
-                MessageBox.Show(text);
+                //MessageBox.Show(text);
+                IconPopup iconPopup = new IconPopup();
+                iconPopup.Left = new Point(e.Location.X, e.Location.Y).X - ActualWidth;
+                iconPopup.Top = e.Location.Y - ActualHeight;
+                iconPopup.Show();
             }
             else
             {

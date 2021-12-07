@@ -57,7 +57,7 @@
             <mah:ToggleSwitch x:Name="SwitchPopup" MinWidth="0" ContentDirection="LeftToRight" Content="翻译弹窗" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="229,0,0,0" IsEnabled="False" />
             <mah:ToggleSwitch x:Name="SwitchCopyOriginal" MinWidth="0" ContentDirection="LeftToRight" Content="复制原文" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="229,33,0,0" ToolTip="开启后，复制原文，翻译结果仅弹窗显示" IsEnabled="False" Toggled="SwitchManyPopups_OnToggled" />
             <!--<mah:ToggleSwitch x:Name="SwitchDictionary" MinWidth="0" ContentDirection="LeftToRight" Content="单词词典" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="229,65,0,0" IsEnabled="False" Toggled="SwitchManyPopups_OnToggled" />-->
-            <Button x:Name="AddReplace" FontFamily="Microsoft YaHei UI" Content="自定义替换字符" HorizontalAlignment="Left" Margin="240,68,0,0" VerticalAlignment="Top" Width="82" Click="DiyReplace" />
+            <Button x:Name="AddReplace" FontFamily="Microsoft YaHei UI" Content="自定义替换字符" HorizontalAlignment="Left" Margin="239,68,0,0" VerticalAlignment="Top" Width="82" Click="DiyReplace" />
 
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="338,9,0,0" FontWeight="Bold" FontSize="11" FontFamily="Microsoft YaHei UI">从</TextBlock>
             <ComboBox x:Name="TransFromComboBox" HorizontalAlignment="Right" Margin="0,3,5.8,0" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" FontSize="11" Width="78" SelectionChanged="TransFromComboBox_SelectionChanged">
@@ -93,9 +93,11 @@
                 <ComboBoxItem ToolTip="目前仅支持英译中。DeepL虽好，但服务器不稳定，翻译速度有时会极慢，属正常现象。" Selected="DeepL_OnSelected" Unselected="DeepL_OnUnselected">DeepL</ComboBoxItem>
             </ComboBox>
 
-            <Line X1="0" Y1="0" X2="0" Y2="100" Stroke="DimGray" StrokeThickness="2" Margin="112,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <Line X1="0" Y1="0" X2="0" Y2="100" Stroke="DimGray" StrokeThickness="2" Margin="224,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <Line X1="0" Y1="0" X2="0" Y2="100" Stroke="DimGray" StrokeThickness="2" Margin="334,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <Line X1="0" Y1="0" X2="0" Y2="70" Stroke="#7F696969" StrokeThickness="1" Margin="112,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="63" />
+            <Line X1="0" Y1="0" X2="222" Y2="0" Stroke="#7F696969" StrokeThickness="1" Margin="112,63,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="214" />
+            <Line X1="0" Y1="0" X2="0" Y2="70" Stroke="#7F696969" StrokeThickness="1" Margin="326,63,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37"  />
+
+            <!--<Line X1="0" Y1="0" X2="0" Y2="100" Stroke="#7F696969" StrokeThickness="1" Margin="334,2,0,2" HorizontalAlignment="Left" VerticalAlignment="Center" />-->
         </Grid>
 
         <!--<Line X1="0" Y1="0" X2="450" Y2="0" Stroke="#FF3A4FEE" StrokeThickness="2" Margin="0,126,0.4,0" VerticalAlignment="Top" />-->

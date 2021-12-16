@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="IconPopup" Opacity="1" Background="Transparent" AllowsTransparency="True" WindowStyle="None" ShowInTaskbar="False" Topmost="True" ResizeMode="NoResize" Width="68" Height="32">
     <Grid>
-        <Image x:Name="image1" Source="/images/icon.png" Cursor="Hand" HorizontalAlignment="Left" Margin="2,2,0,2"  RenderOptions.BitmapScalingMode="HighQuality" />
-        <Image x:Name="image2" Source="/images/translate.png" Cursor="Hand" HorizontalAlignment="Right" Margin="0,2,2,2" RenderOptions.BitmapScalingMode="HighQuality" />
+        <Image x:Name="Image1" Source="/images/icon-circle.png" Cursor="Hand" HorizontalAlignment="Left" Margin="2,2,0,2"  RenderOptions.BitmapScalingMode="HighQuality" />
+        <Image x:Name="Image2" Source="/images/translate-circle.png" Cursor="Hand" HorizontalAlignment="Right" Margin="0,2,2,2" RenderOptions.BitmapScalingMode="HighQuality" />
     </Grid>
 </Window>

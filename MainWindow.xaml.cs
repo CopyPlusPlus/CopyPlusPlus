@@ -9,7 +9,6 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows;
@@ -29,6 +28,7 @@ using WindowsInput;
 using WindowsInput.Native;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MessageBox = System.Windows.MessageBox;
 using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
 
@@ -92,11 +92,11 @@ namespace CopyPlusPlus
             {
                 //// 全局监测Ctrl+C
                 //HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
-                HotKeyManagerCopy.KeyPressed += CopyPressed;
+                //HotKeyManagerCopy.KeyPressed += CopyPressed;
                 // 其他全局快捷键
                 //HotKeyManager.Register(Key.Escape, ModifierKeys.None);
-                HotKeyManager.Register(Key.C, ModifierKeys.Shift | ModifierKeys.Control);
-                HotKeyManager.KeyPressed += HotKeyPressed;
+                //HotKeyManager.Register(Key.C, ModifierKeys.Shift | ModifierKeys.Control);
+                //HotKeyManager.KeyPressed += HotKeyPressed;
             }
             catch
             {
@@ -106,11 +106,20 @@ namespace CopyPlusPlus
             //局部快捷键
             //Copy.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Control));
 
-            //生成随机数,随机读取API
-            var random = new Random();
-            var i = random.Next(0, Api.BaiduApi.GetLength(0) - 1);
-            TranslateId = Api.BaiduApi[i, 0];
-            TranslateKey = Api.BaiduApi[i, 1];
+            // 读取 key
+            if (Settings.Default.AppID != "None" && Settings.Default.SecretKey != "None")
+            {
+                TranslateId = Settings.Default.AppID;
+                TranslateKey = Settings.Default.SecretKey;
+            }
+            else
+            {
+                //生成随机数,随机读取API
+                var random = new Random();
+                var i = random.Next(0, Api.BaiduApi.GetLength(0) - 1);
+                TranslateId = Api.BaiduApi[i, 0];
+                TranslateKey = Api.BaiduApi[i, 1];
+            }
 
             //读取上次关闭时保存的每个Switch的状态
             var checkList = Settings.Default.SwitchCheck.Cast<string>().ToList();
@@ -127,35 +136,30 @@ namespace CopyPlusPlus
             TransEngineComboBox.SelectedIndex = Convert.ToInt32(checkList[10]);
 
             globalMouseHook = Hook.GlobalEvents();
-            globalMouseHook.MouseDoubleClick += MouseDoubleClicked;
-            globalMouseHook.MouseDragFinished += MouseDragFinished;
+
+            globalMouseHook.MouseClick += OnMouseClick;
+            globalMouseHook.MouseDoubleClick += OnMouseDoubleClick;
+            globalMouseHook.MouseDragFinished += OnMouseDragFinished;
+            globalMouseHook.KeyPress += OnKeyPress;
+
+
         }
 
-        private async void MouseDoubleClicked(object sender, MouseEventArgs e)
+        private void OnKeyPress(object sender, KeyPressEventArgs e)
         {
-            var tmpClipboard = Clipboard.GetDataObject();
-            Clipboard.Clear();
-            //Thread.Sleep(100);
-            await Task.Delay(50);
-            SendKeys.SendWait("^c");
-            //Thread.Sleep(50);
-            await Task.Delay(50);
-
-            if (Clipboard.ContainsText())
-            {
-                var text = Clipboard.GetText();
-                MessageBox.Show(text);
-            }
-            else
-            {
-                Clipboard.SetDataObject(tmpClipboard);
-            }
-
-            Console.WriteLine(e.Location.X);
-            Console.WriteLine(e.Location.Y);
+            Console.WriteLine(e.KeyChar);
         }
 
-        private async void MouseDragFinished(object sender, MouseEventArgs e)
+        private void OnMouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Clicks != 1) return;
+
+            (Application.Current.Windows
+                .Cast<Window>()
+                .LastOrDefault(window => window is IconPopup popup))?.Close();
+        }
+
+        private async void OnMouseDoubleClick(object sender, MouseEventArgs e)
         {
             var tmpClipboard = Clipboard.GetDataObject();
             Clipboard.Clear();
@@ -166,27 +170,55 @@ namespace CopyPlusPlus
             if (Clipboard.ContainsText())
             {
                 var text = Clipboard.GetText();
-                //MessageBox.Show(text);
+                ClipboardChanged(text);
 
                 var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
                 var mouse = transform.Transform(new Point(e.X, e.Y));
                 var iconPopup = new IconPopup
                 {
                     Left = mouse.X + 10,
-                    Top = mouse.Y - 40
+                    Top = mouse.Y + 20
                 };
                 iconPopup.Show();
             }
             else
             {
-                Clipboard.SetDataObject(tmpClipboard);
+                if (tmpClipboard != null) Clipboard.SetDataObject(tmpClipboard);
+            }
+        }
+
+        private async void OnMouseDragFinished(object sender, MouseEventArgs e)
+        {
+            var tmpClipboard = Clipboard.GetDataObject();
+            Clipboard.Clear();
+            await Task.Delay(50);
+            SendKeys.SendWait("^c");
+            await Task.Delay(50);
+
+            if (Clipboard.ContainsText())
+            {
+                var text = Clipboard.GetText();
+                ClipboardChanged(text);
+
+                var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
+                var mouse = transform.Transform(new Point(e.X, e.Y));
+                var iconPopup = new IconPopup
+                {
+                    Left = mouse.X + 10,
+                    Top = mouse.Y + 20
+                };
+                iconPopup.Show();
+            }
+            else
+            {
+                if (tmpClipboard != null) Clipboard.SetDataObject(tmpClipboard);
             }
         }
 
         //全局复制事件
         private void CopyPressed(object sender, KeyPressedEventArgs e)
         {
-            if (e.HotKey.Key == Key.C) ClipboardChanged();
+            //if (e.HotKey.Key == Key.C) ClipboardChanged();
         }
 
         private void HotKeyPressed(object sender, KeyPressedEventArgs e)
@@ -236,56 +268,61 @@ namespace CopyPlusPlus
         //private string _textLast = "";
 
         //private void ClipboardChanged(object sender, EventArgs e)
-        private void ClipboardChanged()
+        private void ClipboardChanged(string text)
         {
             //取消Ctr+C快捷键
-            HotKeyManagerCopy.Dispose();
-            Thread.Sleep(10);
-            new InputSimulator().Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_C);
-            Thread.Sleep(10);
+            //HotKeyManagerCopy.Dispose();
+            //Thread.Sleep(10);
+            //new InputSimulator().Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_C);
+            //Thread.Sleep(10);
 
-            if (Clipboard.ContainsText())
-            {
-                //Thread.Sleep(500);
+            //if (Clipboard.ContainsText())
+            //{
+            //Thread.Sleep(500);
 
-                //var text = Clipboard.GetText();
+            //var text = Clipboard.GetText();
 
-                // Get the cut / copied text.
-                //string text;
-                //try
-                //{
-                //    text = Clipboard.GetText();
-                //}
-                //catch
-                //{
-                //    text = Clipboard.GetText();
-                //}
+            // Get the cut / copied text.
+            //string text;
+            //try
+            //{
+            //    text = Clipboard.GetText();
+            //}
+            //catch
+            //{
+            //    text = Clipboard.GetText();
+            //}
 
-                //TextCopy.Clipboard clipboard =new TextCopy.Clipboard();
-                //string text = clipboard.GetText();
+            //TextCopy.Clipboard clipboard =new TextCopy.Clipboard();
+            //string text = clipboard.GetText();
 
-                var text = ClipboardService.GetText();
+            //var text = ClipboardService.GetText();
 
-                //if (text != _textLast && _textLast != "-")
-                //{
-                // 去掉 CAJ viewer 造成的莫名的空格符号
-                text = text.Replace("", "");
+            //if (text != _textLast && _textLast != "-")
+            //{
 
-                // 全角转半角
-                if (SwitchWidth.IsOn) text = text.Normalize(NormalizationForm.FormKC);
+            // 去掉 CAJ viewer 造成的莫名的空格符号
+            text = text.Replace("", "");
 
-                if (SwitchMain.IsOn || SwitchSpace.IsOn)
+            // 全角转半角
+            if (SwitchWidth.IsOn) text = text.Normalize(NormalizationForm.FormKC);
+
+            if (SwitchMain.IsOn || SwitchSpace.IsOn)
+                if (text.Length > 1)
+                {
+                    // 判断文本是否包含中文
+                    var isChinese = Regex.IsMatch(text, @"[\u4e00-\u9fa5]");
+
                     for (var counter = 0; counter < text.Length - 1; counter++)
                     {
-                        //合并换行
+                        // 合并换行
                         if (SwitchMain.IsOn)
-                            if (text[counter + 1].ToString() == "\r")
+                            if (text[counter + 1] == '\r')
                             {
-                                //如果检测到句号结尾,则不去掉换行
-                                //if (text[counter].ToString() == "." || text[counter].ToString() == "。") continue;
-                                if (text[counter].ToString() == "。") continue;
+                                // 如果检测到句号结尾,则不去掉换行
+                                if (text[counter] == '。') continue;
 
-                                //去除换行
+                                // 去除换行
                                 try
                                 {
                                     text = text.Remove(counter + 1, 2);
@@ -297,128 +334,124 @@ namespace CopyPlusPlus
 
                                 //判断英文单词或,结尾,则加一个空格
                                 if (Regex.IsMatch(text[counter].ToString(), "[a-zA-Z]") ||
-                                    text[counter].ToString() == ",")
+                                    text[counter] == ',')
                                     text = text.Insert(counter + 1, " ");
 
                                 //判断"-"结尾,且前一个字符为英文单词,则去除"-"
-                                if (text[counter].ToString() == "-" &&
+                                if (text[counter] == '-' &&
                                     Regex.IsMatch(text[counter - 1].ToString(), "[a-zA-Z]"))
                                     text = text.Remove(counter, 1);
                             }
 
-                        //检测到中文时去除空格
-                        if (SwitchSpace.IsOn && Regex.IsMatch(text, @"[\u4e00-\u9fa5]") &&
-                            text[counter].ToString() == " ")
+                        // 对中文去除空格
+                        if (SwitchSpace.IsOn && isChinese &&
+                            text[counter] == ' ')
                             text = text.Remove(counter, 1);
                     }
-
-                if (SwitchTranslate.IsOn)
-                //判断是否和选中要翻译的语言相同-----移至弹窗时,检测text是否一样
-                //if (!Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
-                //if (TransToComboBox.Text != GoogleLanguage.GetLanguage.FirstOrDefault(x => x.Value == GoogleTrans(text.Substring(0, Math.Max(text.Length, 4)), true)).Key)
-                {
-                    var appId = TranslateId;
-                    var secretKey = TranslateKey;
-                    if (Settings.Default.AppID != "None" && Settings.Default.SecretKey != "None")
-                    {
-                        appId = Settings.Default.AppID;
-                        secretKey = Settings.Default.SecretKey;
-                    }
-
-                    //这个if已经无效
-                    //if (appId == "None" || secretKey == "None")
-                    //{
-                    //    //MessageBox.Show("请先设置翻译接口", "Copy++");
-                    //    Show_InputAPIWindow();
-                    //}
-                    //else
-                    //{
-                    var textBeforeTrans = text;
-                    //Debug.WriteLine(text);
-                    switch (TransEngineComboBox.Text)
-                    {
-                        case "百度翻译":
-                            //判断是否复制原文
-                            if (SwitchCopyOriginal.IsOn)
-                            {
-                                //var tranResult = BaiduTrans(appId, secretKey, text);
-
-                                ShowTrans(BaiduTrans(appId, secretKey, text), textBeforeTrans);
-
-                                //if (tranResult.Length > 4 && tranResult.Substring(0, 4) == "翻译超时")
-                                //{
-                                //    ShowTrans(tranResult, textBeforeTrans);
-                                //    //_textLast = "-";
-                                //}
-                                //else
-                                //{
-                                //    ShowTrans(tranResult, textBeforeTrans);
-                                //}
-                            }
-                            else
-                            {
-                                text = BaiduTrans(appId, secretKey, text);
-                                ShowTrans(text, textBeforeTrans);
-                            }
-
-                            break;
-
-                        case "谷歌翻译":
-
-                            //判断是否复制原文
-                            if (SwitchCopyOriginal.IsOn)
-                            {
-                                ShowTrans(GoogleTrans(text), textBeforeTrans);
-                            }
-                            else
-                            {
-                                text = GoogleTrans(text);
-                                ShowTrans(text, textBeforeTrans);
-                            }
-
-                            break;
-
-                        case "DeepL":
-                            DeepL(text);
-                            break;
-                    }
-
-                    //Debug.WriteLine(text);
                 }
-                //}
 
-                //if (_textLast != "-")
+            if (SwitchTranslate.IsOn)
+            //判断是否和选中要翻译的语言相同-----移至弹窗时,检测text是否一样
+            //if (!Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
+            //if (TransToComboBox.Text != GoogleLanguage.GetLanguage.FirstOrDefault(x => x.Value == GoogleTrans(text.Substring(0, Math.Max(text.Length, 4)), true)).Key)
+            {
+                //var appId = TranslateId;
+                //var secretKey = TranslateKey;
+
+                //这个if已经无效
+                //if (appId == "None" || secretKey == "None")
                 //{
-                //    _textLast = text;
+                //    //MessageBox.Show("请先设置翻译接口", "Copy++");
+                //    Show_InputAPIWindow();
                 //}
+                //else
+                //{
+                var textBeforeTrans = text;
+                //Debug.WriteLine(text);
+                switch (TransEngineComboBox.Text)
+                {
+                    case "百度翻译":
+                        //判断是否复制原文
+                        if (SwitchCopyOriginal.IsOn)
+                        {
+                            //var tranResult = BaiduTrans(appId, secretKey, text);
 
-                //stop monitoring to prevent loop
-                //Clipboard.StopMonitoring();
-                //_windowClipboardManager.ClipboardChanged -= ClipboardChanged;
-                //_windowClipboardManager = null;
+                            ShowTrans(BaiduTrans(TranslateId, TranslateKey, text), textBeforeTrans);
 
-                //Clipboard.SetDataObject(text);
+                            //if (tranResult.Length > 4 && tranResult.Substring(0, 4) == "翻译超时")
+                            //{
+                            //    ShowTrans(tranResult, textBeforeTrans);
+                            //    //_textLast = "-";
+                            //}
+                            //else
+                            //{
+                            //    ShowTrans(tranResult, textBeforeTrans);
+                            //}
+                        }
+                        else
+                        {
+                            text = BaiduTrans(TranslateId, TranslateKey, text);
+                            ShowTrans(text, textBeforeTrans);
+                        }
 
-                ClipboardService.SetText(text);
+                        break;
 
-                //clipboard.SetText(text);
+                    case "谷歌翻译":
 
-                //重设Ctr+C快捷键
-                HotKeyManagerCopy = new HotKeyManager();
-                HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
-                HotKeyManagerCopy.KeyPressed += CopyPressed;
+                        //判断是否复制原文
+                        if (SwitchCopyOriginal.IsOn)
+                        {
+                            ShowTrans(GoogleTrans(text), textBeforeTrans);
+                        }
+                        else
+                        {
+                            text = GoogleTrans(text);
+                            ShowTrans(text, textBeforeTrans);
+                        }
 
-                // _windowClipboardManager.self = true;
+                        break;
 
-                //_windowClipboardManager = new ClipboardManager(this);
-                //_windowClipboardManager.ClipboardChanged += ClipboardChanged;
-                //System.Windows.Clipboard.Flush();
+                    case "DeepL":
+                        DeepL(text);
+                        break;
+                }
 
-                //restart monitoring
-                //InitializeClipboardMonitor();
-                //_windowClipboardManager.ClipboardChanged += ClipboardChanged;
-                //}
+                //Debug.WriteLine(text);
             }
+            //}
+
+            //if (_textLast != "-")
+            //{
+            //    _textLast = text;
+            //}
+
+            //stop monitoring to prevent loop
+            //Clipboard.StopMonitoring();
+            //_windowClipboardManager.ClipboardChanged -= ClipboardChanged;
+            //_windowClipboardManager = null;
+
+            //Clipboard.SetDataObject(text);
+
+            ClipboardService.SetText(text);
+
+            //clipboard.SetText(text);
+
+            //重设Ctr+C快捷键
+            //HotKeyManagerCopy = new HotKeyManager();
+            //HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
+            //HotKeyManagerCopy.KeyPressed += CopyPressed;
+
+            // _windowClipboardManager.self = true;
+
+            //_windowClipboardManager = new ClipboardManager(this);
+            //_windowClipboardManager.ClipboardChanged += ClipboardChanged;
+            //System.Windows.Clipboard.Flush();
+
+            //restart monitoring
+            //InitializeClipboardMonitor();
+            //_windowClipboardManager.ClipboardChanged += ClipboardChanged;
+            //}
+            //}
         }
 
         private void SwitchManyPopups_OnToggled(object sender, RoutedEventArgs e)
@@ -426,12 +459,26 @@ namespace CopyPlusPlus
             if (!SwitchManyPopups.IsOn) _firstlySwitch = true;
         }
 
+        //翻译结果弹窗
         private void ShowTrans(string text, string textBeforeTrans)
         {
-            //翻译结果弹窗
-            if (SwitchPopup.IsOn && text != textBeforeTrans)
+
+            if (!SwitchPopup.IsOn || text == textBeforeTrans) return;
+            if (SwitchManyPopups.IsOn)
             {
-                if (SwitchManyPopups.IsOn)
+                var translateResult = new TranslateResult { TextBox = { Text = text } };
+
+                //每次弹窗启动位置偏移,未实现
+                //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
+                //translateResult.Left = System.Windows.Forms.Control.MousePosition.X;
+                //translateResult.Top = System.Windows.Forms.Control.MousePosition.Y;
+
+                translateResult.Show();
+                translateResult.TextBox.Focus();
+            }
+            else
+            {
+                if (_firstlySwitch)
                 {
                     var translateResult = new TranslateResult { TextBox = { Text = text } };
 
@@ -442,38 +489,23 @@ namespace CopyPlusPlus
 
                     translateResult.Show();
                     translateResult.TextBox.Focus();
+
+                    _firstlySwitch = false;
+                    return;
+                }
+
+                //Get Window
+                if (!(Application.Current.Windows
+                        .Cast<Window>()
+                        .LastOrDefault(window => window is TranslateResult) is TranslateResult transWindow))
+                {
+                    var translateResult = new TranslateResult { TextBox = { Text = text } };
+                    translateResult.Show();
+                    translateResult.TextBox.Focus();
                 }
                 else
                 {
-                    if (_firstlySwitch)
-                    {
-                        var translateResult = new TranslateResult { TextBox = { Text = text } };
-
-                        //每次弹窗启动位置偏移,未实现
-                        //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
-                        //translateResult.Left = System.Windows.Forms.Control.MousePosition.X;
-                        //translateResult.Top = System.Windows.Forms.Control.MousePosition.Y;
-
-                        translateResult.Show();
-                        translateResult.TextBox.Focus();
-
-                        _firstlySwitch = false;
-                        return;
-                    }
-
-                    //Get Window
-                    if (!(Application.Current.Windows
-                            .Cast<Window>()
-                            .LastOrDefault(window => window is TranslateResult) is TranslateResult transWindow))
-                    {
-                        var translateResult = new TranslateResult { TextBox = { Text = text } };
-                        translateResult.Show();
-                        translateResult.TextBox.Focus();
-                    }
-                    else
-                    {
-                        transWindow.TextBox.Text = text;
-                    }
+                    transWindow.TextBox.Text = text;
                 }
             }
         }

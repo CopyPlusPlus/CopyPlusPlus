@@ -93,9 +93,9 @@
                 <ComboBoxItem ToolTip="目前仅支持英译中。DeepL虽好，但服务器不稳定，翻译速度有时会极慢，属正常现象。" Selected="DeepL_OnSelected" Unselected="DeepL_OnUnselected">DeepL</ComboBoxItem>
             </ComboBox>
 
-            <Line X1="0" Y1="0" X2="0" Y2="100" Stroke="DimGray" StrokeThickness="2" Margin="112,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <!--<Line X1="0" Y1="0" X2="0" Y2="100" Stroke="DimGray" StrokeThickness="2" Margin="112,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
             <Line X1="0" Y1="0" X2="0" Y2="100" Stroke="DimGray" StrokeThickness="2" Margin="224,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <Line X1="0" Y1="0" X2="0" Y2="100" Stroke="DimGray" StrokeThickness="2" Margin="334,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <Line X1="0" Y1="0" X2="0" Y2="100" Stroke="DimGray" StrokeThickness="2" Margin="334,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />-->
         </Grid>
 
         <!--<Line X1="0" Y1="0" X2="450" Y2="0" Stroke="#FF3A4FEE" StrokeThickness="2" Margin="0,126,0.4,0" VerticalAlignment="Top" />-->

@@ -1,4 +1,12 @@
-﻿using System;
+﻿using CopyPlusPlus.Languages;
+using CopyPlusPlus.Properties;
+using Gma.System.MouseKeyHook;
+using GoogleTranslateFreeApi;
+using Hardcodet.Wpf.TaskbarNotification;
+using Microsoft.Win32;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -15,22 +23,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
-using CopyPlusPlus.Languages;
-using CopyPlusPlus.Properties;
-using GlobalHotKey;
-using Gma.System.MouseKeyHook;
-using GoogleTranslateFreeApi;
-using Hardcodet.Wpf.TaskbarNotification;
-using Microsoft.Win32;
-using Newtonsoft.Json;
-using TextCopy;
-using WindowsInput;
-using WindowsInput.Native;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
-using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MessageBox = System.Windows.MessageBox;
 using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
+
+//using TextCopy;
 
 //using WK.Libraries.SharpClipboardNS;
 //.net framework 4.6 not supported
@@ -50,12 +48,12 @@ namespace CopyPlusPlus
 
         public static TaskbarIcon NotifyIcon;
 
-        private readonly IKeyboardMouseEvents globalMouseHook;
+        private readonly IKeyboardMouseEvents globalMouseKeyHook;
 
         //如果第一次切换到单个弹窗，则新开一个窗口，不把以前的窗口覆盖
         private bool _firstlySwitch = true;
 
-        public HotKeyManager HotKeyManager = new HotKeyManager();
+        //public HotKeyManager HotKeyManager = new HotKeyManager();
 
         //private ClipboardManager _windowClipboardManager;
 
@@ -63,7 +61,7 @@ namespace CopyPlusPlus
         //public static RoutedCommand Copy = new RoutedCommand();
 
         //全局快捷键
-        public HotKeyManager HotKeyManagerCopy = new HotKeyManager();
+        //public HotKeyManager HotKeyManagerCopy = new HotKeyManager();
 
         public string TranslateId;
         public string TranslateKey;
@@ -135,28 +133,40 @@ namespace CopyPlusPlus
             TransToComboBox.SelectedIndex = Convert.ToInt32(checkList[9]);
             TransEngineComboBox.SelectedIndex = Convert.ToInt32(checkList[10]);
 
-            globalMouseHook = Hook.GlobalEvents();
+            globalMouseKeyHook = Hook.GlobalEvents();
 
-            globalMouseHook.MouseClick += OnMouseClick;
-            globalMouseHook.MouseDoubleClick += OnMouseDoubleClick;
-            globalMouseHook.MouseDragFinished += OnMouseDragFinished;
-            globalMouseHook.KeyPress += OnKeyPress;
+            globalMouseKeyHook.MouseClick += OnMouseClick;
+            globalMouseKeyHook.MouseDoubleClick += OnMouseDoubleClick;
+            globalMouseKeyHook.MouseDragFinished += OnMouseDragFinished;
+            //globalMouseKeyHook.KeyPress += OnKeyPress;
 
+            var doCopy = Sequence.FromString("Control+C,Control+C");
+            Action actionCopy = ProcessText;
+            Hook.GlobalEvents().OnSequence(new Dictionary<Sequence, Action>
+            {
+                { doCopy, actionCopy }
+            });
+        }
 
+        private void ProcessText()
+        {
+            if (Clipboard.ContainsText())
+                //Console.WriteLine(Clipboard.GetText());
+                ClipboardChanged(Clipboard.GetText());
         }
 
         private void OnKeyPress(object sender, KeyPressEventArgs e)
         {
-            Console.WriteLine(e.KeyChar);
+            //Console.WriteLine(e.KeyChar);
         }
 
-        private void OnMouseClick(object sender, MouseEventArgs e)
+        private static void OnMouseClick(object sender, MouseEventArgs e)
         {
             if (e.Clicks != 1) return;
 
-            (Application.Current.Windows
+            Application.Current.Windows
                 .Cast<Window>()
-                .LastOrDefault(window => window is IconPopup popup))?.Close();
+                .LastOrDefault(window => window is IconPopup popup)?.Close();
         }
 
         private async void OnMouseDoubleClick(object sender, MouseEventArgs e)
@@ -169,17 +179,22 @@ namespace CopyPlusPlus
 
             if (Clipboard.ContainsText())
             {
-                var text = Clipboard.GetText();
-                ClipboardChanged(text);
-
-                var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
-                var mouse = transform.Transform(new Point(e.X, e.Y));
-                var iconPopup = new IconPopup
+                try
                 {
-                    Left = mouse.X + 10,
-                    Top = mouse.Y + 20
-                };
-                iconPopup.Show();
+                    var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
+                    var mouse = transform.Transform(new Point(e.X, e.Y));
+                    var iconPopup = new IconPopup
+                    {
+                        Left = mouse.X + 10,
+                        Top = mouse.Y + 20
+                    };
+                    iconPopup.Show();
+                    iconPopup.CopiedText = Clipboard.GetText();
+                }
+                catch
+                {
+                    // ignored
+                }
             }
             else
             {
@@ -197,17 +212,22 @@ namespace CopyPlusPlus
 
             if (Clipboard.ContainsText())
             {
-                var text = Clipboard.GetText();
-                ClipboardChanged(text);
-
-                var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
-                var mouse = transform.Transform(new Point(e.X, e.Y));
-                var iconPopup = new IconPopup
+                try
                 {
-                    Left = mouse.X + 10,
-                    Top = mouse.Y + 20
-                };
-                iconPopup.Show();
+                    var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
+                    var mouse = transform.Transform(new Point(e.X, e.Y));
+                    var iconPopup = new IconPopup
+                    {
+                        Left = mouse.X + 10,
+                        Top = mouse.Y + 20
+                    };
+                    iconPopup.Show();
+                    iconPopup.CopiedText = Clipboard.GetText();
+                }
+                catch
+                {
+                    // ignored
+                }
             }
             else
             {
@@ -215,27 +235,21 @@ namespace CopyPlusPlus
             }
         }
 
-        //全局复制事件
-        private void CopyPressed(object sender, KeyPressedEventArgs e)
-        {
-            //if (e.HotKey.Key == Key.C) ClipboardChanged();
-        }
+        //private void HotKeyPressed(object sender, KeyPressedEventArgs e)
+        //{
+        //    if (e.HotKey.Key == Key.Escape) CloseResult();
 
-        private void HotKeyPressed(object sender, KeyPressedEventArgs e)
-        {
-            if (e.HotKey.Key == Key.Escape) CloseResult();
-
-            if (e.HotKey.Key == Key.C)
-            {
-                //取消Ctr+C快捷键
-                HotKeyManagerCopy.Dispose();
-                new InputSimulator().Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_C);
-                //重设Ctr+C快捷键
-                HotKeyManagerCopy = new HotKeyManager();
-                HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
-                HotKeyManagerCopy.KeyPressed += CopyPressed;
-            }
-        }
+        //    if (e.HotKey.Key == Key.C)
+        //    {
+        //        //取消Ctr+C快捷键
+        //        HotKeyManagerCopy.Dispose();
+        //        new InputSimulator().Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_C);
+        //        //重设Ctr+C快捷键
+        //        HotKeyManagerCopy = new HotKeyManager();
+        //        HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
+        //        HotKeyManagerCopy.KeyPressed += CopyPressed;
+        //    }
+        //}
 
         //按 Esc 关闭翻译结果
         private void CloseResult()
@@ -268,7 +282,7 @@ namespace CopyPlusPlus
         //private string _textLast = "";
 
         //private void ClipboardChanged(object sender, EventArgs e)
-        private void ClipboardChanged(string text)
+        public void ClipboardChanged(string text)
         {
             //取消Ctr+C快捷键
             //HotKeyManagerCopy.Dispose();
@@ -303,6 +317,7 @@ namespace CopyPlusPlus
 
             // 去掉 CAJ viewer 造成的莫名的空格符号
             text = text.Replace("", "");
+            Console.WriteLine(text);
 
             // 全角转半角
             if (SwitchWidth.IsOn) text = text.Normalize(NormalizationForm.FormKC);
@@ -432,7 +447,7 @@ namespace CopyPlusPlus
 
             //Clipboard.SetDataObject(text);
 
-            ClipboardService.SetText(text);
+            Clipboard.SetText(text);
 
             //clipboard.SetText(text);
 
@@ -462,7 +477,6 @@ namespace CopyPlusPlus
         //翻译结果弹窗
         private void ShowTrans(string text, string textBeforeTrans)
         {
-
             if (!SwitchPopup.IsOn || text == textBeforeTrans) return;
             if (SwitchManyPopups.IsOn)
             {
@@ -734,7 +748,7 @@ namespace CopyPlusPlus
         private void MainWindow_Closed(object sender, EventArgs e)
         {
             // Dispose the hotkey manager.
-            HotKeyManagerCopy.Dispose();
+            //HotKeyManagerCopy.Dispose();
 
             //记录每个Switch的状态,以便下次打开恢复
             Settings.Default.SwitchCheck[0] = SwitchMain.IsOn.ToString();

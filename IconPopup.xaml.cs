@@ -1,18 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Linq;
 using System.Windows;
-using CopyPlusPlus.Languages;
-using CopyPlusPlus.Properties;
-using GoogleTranslateFreeApi;
-using Newtonsoft.Json;
-using TextCopy;
 
 namespace CopyPlusPlus
 {
@@ -21,6 +8,8 @@ namespace CopyPlusPlus
     /// </summary>
     public partial class IconPopup
     {
+        public string CopiedText;
+
         //Get MainWindow
         private readonly MainWindow _mainWindow = Application.Current.Windows
             .Cast<Window>()
@@ -31,5 +20,13 @@ namespace CopyPlusPlus
             InitializeComponent();
         }
 
+        private void OnTranslateClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+        }
+
+        private void OnCopyClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            _mainWindow.ClipboardChanged(CopiedText);
+        }
     }
 }

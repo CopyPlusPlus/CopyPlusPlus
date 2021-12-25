@@ -20,10 +20,6 @@ namespace CopyPlusPlus
             InitializeComponent();
         }
 
-        private void OnTranslateClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-        }
-
         private void OnCopyClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             _mainWindow.ClipboardChanged(CopiedText);

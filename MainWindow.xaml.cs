@@ -1,11 +1,4 @@
-﻿using CopyPlusPlus.Languages;
-using CopyPlusPlus.Properties;
-using Gma.System.MouseKeyHook;
-using GoogleTranslateFreeApi;
-using Hardcodet.Wpf.TaskbarNotification;
-using Microsoft.Win32;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -23,16 +16,17 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using CopyPlusPlus.Languages;
+using CopyPlusPlus.Properties;
+using Gma.System.MouseKeyHook;
+using GoogleTranslateFreeApi;
+using Hardcodet.Wpf.TaskbarNotification;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
 using MessageBox = System.Windows.MessageBox;
 using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
-
-//using TextCopy;
-
-//using WK.Libraries.SharpClipboardNS;
-//.net framework 4.6 not supported
-//using System.Text.Json;
 
 namespace CopyPlusPlus
 {
@@ -44,24 +38,13 @@ namespace CopyPlusPlus
         //Is the translate API being changed or not, bool声明默认值为false
         public static bool ChangeStatus;
 
-        //public SharpClipboard Clipboard;
-
         public static TaskbarIcon NotifyIcon;
 
-        private readonly IKeyboardMouseEvents globalMouseKeyHook;
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
+        private readonly IKeyboardMouseEvents _globalMouseKeyHook;
 
         //如果第一次切换到单个弹窗，则新开一个窗口，不把以前的窗口覆盖
         private bool _firstlySwitch = true;
-
-        //public HotKeyManager HotKeyManager = new HotKeyManager();
-
-        //private ClipboardManager _windowClipboardManager;
-
-        //局部快捷键
-        //public static RoutedCommand Copy = new RoutedCommand();
-
-        //全局快捷键
-        //public HotKeyManager HotKeyManagerCopy = new HotKeyManager();
 
         public string TranslateId;
         public string TranslateKey;
@@ -72,37 +55,6 @@ namespace CopyPlusPlus
 
             NotifyIcon = (TaskbarIcon)FindResource("MyNotifyIcon");
             NotifyIcon.Visibility = Visibility.Collapsed;
-
-            #region 全局快捷键示例
-
-            //Register Ctrl+Alt+F5 hotkey. Save this variable somewhere for the further unregistering.
-            //var hotKey = hotKeyManager.Register(Key.F5, ModifierKeys.Control | ModifierKeys.Alt);
-
-            // Unregister Ctrl+Alt+F5 hotkey.
-            //hotKeyManager.Unregister(hotKey);
-
-            // Dispose the hotkey manager.
-            //hotKeyManager.Dispose();
-
-            #endregion 全局快捷键示例
-
-            try
-            {
-                //// 全局监测Ctrl+C
-                //HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
-                //HotKeyManagerCopy.KeyPressed += CopyPressed;
-                // 其他全局快捷键
-                //HotKeyManager.Register(Key.Escape, ModifierKeys.None);
-                //HotKeyManager.Register(Key.C, ModifierKeys.Shift | ModifierKeys.Control);
-                //HotKeyManager.KeyPressed += HotKeyPressed;
-            }
-            catch
-            {
-                MessageBox.Show("检测到快捷键（Ctrl+C）冲突，请检查后重启软件。\n\n提示：Copy++是否已经打开？");
-            }
-
-            //局部快捷键
-            //Copy.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Control));
 
             // 读取 key
             if (Settings.Default.AppID != "None" && Settings.Default.SecretKey != "None")
@@ -133,12 +85,11 @@ namespace CopyPlusPlus
             TransToComboBox.SelectedIndex = Convert.ToInt32(checkList[9]);
             TransEngineComboBox.SelectedIndex = Convert.ToInt32(checkList[10]);
 
-            globalMouseKeyHook = Hook.GlobalEvents();
+            _globalMouseKeyHook = Hook.GlobalEvents();
 
-            globalMouseKeyHook.MouseClick += OnMouseClick;
-            globalMouseKeyHook.MouseDoubleClick += OnMouseDoubleClick;
-            globalMouseKeyHook.MouseDragFinished += OnMouseDragFinished;
-            //globalMouseKeyHook.KeyPress += OnKeyPress;
+            _globalMouseKeyHook.MouseClick += OnMouseClick;
+            _globalMouseKeyHook.MouseDoubleClick += OnMouseDoubleClick;
+            _globalMouseKeyHook.MouseDragFinished += OnMouseDragFinished;
 
             var doCopy = Sequence.FromString("Control+C,Control+C");
             Action actionCopy = ProcessText;
@@ -151,13 +102,7 @@ namespace CopyPlusPlus
         private void ProcessText()
         {
             if (Clipboard.ContainsText())
-                //Console.WriteLine(Clipboard.GetText());
                 ClipboardChanged(Clipboard.GetText());
-        }
-
-        private void OnKeyPress(object sender, KeyPressEventArgs e)
-        {
-            //Console.WriteLine(e.KeyChar);
         }
 
         private static void OnMouseClick(object sender, MouseEventArgs e)
@@ -235,89 +180,10 @@ namespace CopyPlusPlus
             }
         }
 
-        //private void HotKeyPressed(object sender, KeyPressedEventArgs e)
-        //{
-        //    if (e.HotKey.Key == Key.Escape) CloseResult();
-
-        //    if (e.HotKey.Key == Key.C)
-        //    {
-        //        //取消Ctr+C快捷键
-        //        HotKeyManagerCopy.Dispose();
-        //        new InputSimulator().Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_C);
-        //        //重设Ctr+C快捷键
-        //        HotKeyManagerCopy = new HotKeyManager();
-        //        HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
-        //        HotKeyManagerCopy.KeyPressed += CopyPressed;
-        //    }
-        //}
-
-        //按 Esc 关闭翻译结果
-        private void CloseResult()
-        {
-            if (Application.Current.Windows
-                    .Cast<Window>()
-                    .LastOrDefault(window => window is TranslateResult) is TranslateResult transWindow)
-                transWindow.Close();
-        }
-
-        //局部快捷键
-        //private void MyCommandExecuted(object sender, ExecutedRoutedEventArgs e)
-        //{
-        //    var payMe = new PayMe
-        //    {
-        //        Owner = this
-        //    };
-        //    payMe.Show();
-        //}
-
-        //protected override void OnSourceInitialized(EventArgs e)
-        //{
-        //    base.OnSourceInitialized(e);
-
-        //    //Initialize the clipboard now that we have a window soruce to use
-        //    _windowClipboardManager = new ClipboardManager(this);
-        //    //_windowClipboardManager.ClipboardChanged += ClipboardChanged;
-        //}
-
-        //private string _textLast = "";
-
-        //private void ClipboardChanged(object sender, EventArgs e)
         public void ClipboardChanged(string text)
         {
-            //取消Ctr+C快捷键
-            //HotKeyManagerCopy.Dispose();
-            //Thread.Sleep(10);
-            //new InputSimulator().Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_C);
-            //Thread.Sleep(10);
-
-            //if (Clipboard.ContainsText())
-            //{
-            //Thread.Sleep(500);
-
-            //var text = Clipboard.GetText();
-
-            // Get the cut / copied text.
-            //string text;
-            //try
-            //{
-            //    text = Clipboard.GetText();
-            //}
-            //catch
-            //{
-            //    text = Clipboard.GetText();
-            //}
-
-            //TextCopy.Clipboard clipboard =new TextCopy.Clipboard();
-            //string text = clipboard.GetText();
-
-            //var text = ClipboardService.GetText();
-
-            //if (text != _textLast && _textLast != "-")
-            //{
-
             // 去掉 CAJ viewer 造成的莫名的空格符号
             text = text.Replace("", "");
-            Console.WriteLine(text);
 
             // 全角转半角
             if (SwitchWidth.IsOn) text = text.Normalize(NormalizationForm.FormKC);
@@ -347,12 +213,11 @@ namespace CopyPlusPlus
                                     text = text.Remove(counter + 1, 1);
                                 }
 
-                                //判断英文单词或,结尾,则加一个空格
-                                if (Regex.IsMatch(text[counter].ToString(), "[a-zA-Z]") ||
-                                    text[counter] == ',')
+                                //判断 英文字母 或 英文逗号 结尾, 则加一个空格
+                                if (Regex.IsMatch(text[counter].ToString(), "[a-zA-Z,]"))
                                     text = text.Insert(counter + 1, " ");
 
-                                //判断"-"结尾,且前一个字符为英文单词,则去除"-"
+                                // 判断 连词符- 结尾, 且前一个字符为英文单词, 则去除"-"
                                 if (text[counter] == '-' &&
                                     Regex.IsMatch(text[counter - 1].ToString(), "[a-zA-Z]"))
                                     text = text.Remove(counter, 1);
@@ -366,42 +231,16 @@ namespace CopyPlusPlus
                 }
 
             if (SwitchTranslate.IsOn)
-            //判断是否和选中要翻译的语言相同-----移至弹窗时,检测text是否一样
-            //if (!Regex.IsMatch(text, @"[\u4e00-\u9fa5]"))
-            //if (TransToComboBox.Text != GoogleLanguage.GetLanguage.FirstOrDefault(x => x.Value == GoogleTrans(text.Substring(0, Math.Max(text.Length, 4)), true)).Key)
             {
-                //var appId = TranslateId;
-                //var secretKey = TranslateKey;
-
-                //这个if已经无效
-                //if (appId == "None" || secretKey == "None")
-                //{
-                //    //MessageBox.Show("请先设置翻译接口", "Copy++");
-                //    Show_InputAPIWindow();
-                //}
-                //else
-                //{
                 var textBeforeTrans = text;
-                //Debug.WriteLine(text);
+
                 switch (TransEngineComboBox.Text)
                 {
                     case "百度翻译":
-                        //判断是否复制原文
+                        // 判断是否复制原文
                         if (SwitchCopyOriginal.IsOn)
                         {
-                            //var tranResult = BaiduTrans(appId, secretKey, text);
-
                             ShowTrans(BaiduTrans(TranslateId, TranslateKey, text), textBeforeTrans);
-
-                            //if (tranResult.Length > 4 && tranResult.Substring(0, 4) == "翻译超时")
-                            //{
-                            //    ShowTrans(tranResult, textBeforeTrans);
-                            //    //_textLast = "-";
-                            //}
-                            //else
-                            //{
-                            //    ShowTrans(tranResult, textBeforeTrans);
-                            //}
                         }
                         else
                         {
@@ -413,7 +252,7 @@ namespace CopyPlusPlus
 
                     case "谷歌翻译":
 
-                        //判断是否复制原文
+                        // 判断是否复制原文
                         if (SwitchCopyOriginal.IsOn)
                         {
                             ShowTrans(GoogleTrans(text), textBeforeTrans);
@@ -430,43 +269,9 @@ namespace CopyPlusPlus
                         DeepL(text);
                         break;
                 }
-
-                //Debug.WriteLine(text);
             }
-            //}
-
-            //if (_textLast != "-")
-            //{
-            //    _textLast = text;
-            //}
-
-            //stop monitoring to prevent loop
-            //Clipboard.StopMonitoring();
-            //_windowClipboardManager.ClipboardChanged -= ClipboardChanged;
-            //_windowClipboardManager = null;
-
-            //Clipboard.SetDataObject(text);
 
             Clipboard.SetText(text);
-
-            //clipboard.SetText(text);
-
-            //重设Ctr+C快捷键
-            //HotKeyManagerCopy = new HotKeyManager();
-            //HotKeyManagerCopy.Register(Key.C, ModifierKeys.Control);
-            //HotKeyManagerCopy.KeyPressed += CopyPressed;
-
-            // _windowClipboardManager.self = true;
-
-            //_windowClipboardManager = new ClipboardManager(this);
-            //_windowClipboardManager.ClipboardChanged += ClipboardChanged;
-            //System.Windows.Clipboard.Flush();
-
-            //restart monitoring
-            //InitializeClipboardMonitor();
-            //_windowClipboardManager.ClipboardChanged += ClipboardChanged;
-            //}
-            //}
         }
 
         private void SwitchManyPopups_OnToggled(object sender, RoutedEventArgs e)
@@ -508,7 +313,7 @@ namespace CopyPlusPlus
                     return;
                 }
 
-                //Get Window
+                // Get Window
                 if (!(Application.Current.Windows
                         .Cast<Window>()
                         .LastOrDefault(window => window is TranslateResult) is TranslateResult transWindow))
@@ -615,10 +420,8 @@ namespace CopyPlusPlus
             myResponseStream.Close();
 
             //read json(retString) as a object
-            //var result = System.Text.Json.JsonSerializer.Deserialize<Rootobject>(retString);
-            var result = JsonConvert.DeserializeObject<Rootobject>(retString);
-            if (result.trans_result == null) return "翻译超时，请检查网络，或更换翻译平台。";
-            return result.trans_result[0].dst;
+            var result = JsonConvert.DeserializeObject<Rootobject>(retString)?.trans_result[0].dst;
+            return result ?? "翻译超时，请检查网络，或更换翻译平台。";
         }
 
         // 计算MD5值
@@ -747,9 +550,6 @@ namespace CopyPlusPlus
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
-            // Dispose the hotkey manager.
-            //HotKeyManagerCopy.Dispose();
-
             //记录每个Switch的状态,以便下次打开恢复
             Settings.Default.SwitchCheck[0] = SwitchMain.IsOn.ToString();
             Settings.Default.SwitchCheck[1] = SwitchSpace.IsOn.ToString();
@@ -763,25 +563,16 @@ namespace CopyPlusPlus
             Settings.Default.SwitchCheck[9] = TransToComboBox.SelectedIndex.ToString();
             Settings.Default.SwitchCheck[10] = TransEngineComboBox.SelectedIndex.ToString();
 
-            //已内置Key,无需判断
-            ////判断Swith3状态,避免bug
-            //if (Properties.Settings.Default.AppID == "None" || Properties.Settings.Default.SecretKey == "None")
-            //{
-            //    Properties.Settings.Default.Switch3Check = false;
-            //}
-
             Settings.Default.Save();
         }
 
         private void MainWindow_OnStateChanged(object sender, EventArgs e)
         {
-            if (WindowState == WindowState.Minimized)
-            {
-                NotifyIcon.Visibility = Visibility.Visible;
-                NotifyIcon.ShowBalloonTip("Copy++", "软件已最小化至托盘，点击图标显示主界面，右键可退出", BalloonIcon.Info);
+            if (WindowState != WindowState.Minimized) return;
+            NotifyIcon.Visibility = Visibility.Visible;
+            NotifyIcon.ShowBalloonTip("Copy++", "软件已最小化至托盘，点击图标显示主界面，右键可退出", BalloonIcon.Info);
 
-                Hide();
-            }
+            Hide();
         }
 
         private void MainWindow_Closing(object sender, CancelEventArgs e)
@@ -845,12 +636,6 @@ namespace CopyPlusPlus
                 Owner = this
             };
             payMe.Show();
-
-            //var notifyUpdate = new NotifyUpdate("打扰一下，您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨", "知道啦", "别再提示")
-            //{
-            //    Owner = this
-            //};
-            //notifyUpdate.Show();
         }
 
         private void MeatDown(object sender, MouseButtonEventArgs e)
@@ -870,7 +655,6 @@ namespace CopyPlusPlus
 
         public void OnAutoStart(bool auto)
         {
-            //if (WindowState == WindowState.Minimized)
             if (auto)
             {
                 Show();

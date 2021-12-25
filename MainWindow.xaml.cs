@@ -88,7 +88,7 @@ namespace CopyPlusPlus
             _globalMouseKeyHook = Hook.GlobalEvents();
 
             _globalMouseKeyHook.MouseClick += OnMouseClick;
-            _globalMouseKeyHook.MouseDoubleClick += OnMouseDoubleClick;
+            //_globalMouseKeyHook.MouseDoubleClick += OnMouseDoubleClick;
             _globalMouseKeyHook.MouseDragFinished += OnMouseDragFinished;
 
             var doCopy = Sequence.FromString("Control+C,Control+C");
@@ -99,8 +99,9 @@ namespace CopyPlusPlus
             });
         }
 
-        private void ProcessText()
+        private async void ProcessText()
         {
+            await Task.Delay(50);
             if (Clipboard.ContainsText())
                 ClipboardChanged(Clipboard.GetText());
         }
@@ -164,10 +165,13 @@ namespace CopyPlusPlus
                     var iconPopup = new IconPopup
                     {
                         Left = mouse.X + 10,
-                        Top = mouse.Y + 20
+                        Top = mouse.Y + 20,
+                        ShowActivated = false,
+                        Focusable = false,
+                        CopiedText = Clipboard.GetText()
                     };
                     iconPopup.Show();
-                    iconPopup.CopiedText = Clipboard.GetText();
+
                 }
                 catch
                 {

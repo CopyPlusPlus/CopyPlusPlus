@@ -74,6 +74,8 @@ namespace CopyPlusPlus.Properties {
   <string>0</string>
   <string>0</string>
   <string>0</string>
+  <string>True</string>
+  <string>True</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection SwitchCheck {
             get {

@@ -1,77 +1,85 @@
-﻿using System;
+﻿using CopyPlusPlus.Properties;
+using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace CopyPlusPlus
 {
     /// <summary>
-    /// Interaction logic for KeyInput.xaml
+    ///     Interaction logic for KeyInput.xaml
     /// </summary>
     public partial class KeyInput : Window
     {
+        //Get MainWindow
+        private readonly MainWindow _mainWindow = Application.Current.Windows.Cast<Window>().FirstOrDefault(window => window is MainWindow) as MainWindow;
+
         // Holds a value determining if this is the first time the box has been clicked
         // So that the text value is not always wiped out.
-        private bool _hasBeenClicked1 = false;
+        private bool _hasBeenClicked1;
 
-        private bool _hasBeenClicked2 = false;
+        private bool _hasBeenClicked2;
 
         public KeyInput()
         {
             InitializeComponent();
 
-            if (Properties.Settings.Default.AppID == "none")
-            {
-                textBox1.Text = "点击这里输入";
-            }
-            else
-            {
-                textBox1.Text = Properties.Settings.Default.AppID;
-            }
+            TextBox1.Text = Settings.Default.AppID == "none" ? "点击这里输入" : Settings.Default.AppID;
 
-            if (Properties.Settings.Default.SecretKey == "none")
-            {
-                textBox2.Text = "关闭窗口自动保存";
-            }
-            else
-            {
-                textBox2.Text = Properties.Settings.Default.SecretKey;
-            }
+            TextBox2.Text = Settings.Default.SecretKey == "none" ? "关闭窗口自动保存" : Settings.Default.SecretKey;
         }
 
         private void ClearText(object sender, RoutedEventArgs e)
         {
-            TextBox box = sender as TextBox;
-            if (box.Name == "textBox1")
+            if (!(sender is TextBox box)) return;
+            switch (box.Name)
             {
-                if (!_hasBeenClicked1)
-                {
-                    box.Text = String.Empty;
-                    _hasBeenClicked1 = true;
-                }
-            }
-            if (box.Name == "textBox2")
-            {
-                if (!_hasBeenClicked2)
-                {
-                    box.Text = String.Empty;
-                    _hasBeenClicked2 = true;
-                }
+                case "textBox1":
+                    {
+                        if (!_hasBeenClicked1)
+                        {
+                            box.Text = "";
+                            _hasBeenClicked1 = true;
+                        }
+
+                        break;
+                    }
+                case "textBox2":
+                    {
+                        if (!_hasBeenClicked2)
+                        {
+                            box.Text = "";
+                            _hasBeenClicked2 = true;
+                        }
+
+                        break;
+                    }
             }
         }
 
         private void WriteKey(object sender, EventArgs e)
         {
-            if (textBox1.Text != "点击这里输入" && textBox1.Text != "" && textBox1.Text != " ")
+            if (TextBox1.Text != "点击这里输入" && TextBox1.Text != "" && TextBox1.Text != " ")
             {
-                Properties.Settings.Default.AppID = textBox1.Text;
+                _mainWindow.TranslateId = TextBox1.Text;
+                Settings.Default.AppID = TextBox1.Text;
             }
-            if (textBox2.Text != "关闭窗口自动保存" && textBox2.Text != "" && textBox2.Text != " ")
+            else
             {
-                Properties.Settings.Default.SecretKey = textBox2.Text;
+                TextBox1.Text = "点击这里输入";
             }
-            Properties.Settings.Default.Save();
 
-            MainWindow.ChangeStatus = false;
+            if (TextBox2.Text != "关闭窗口自动保存" && TextBox2.Text != "" && TextBox2.Text != " ")
+            {
+                _mainWindow.TranslateKey = TextBox2.Text;
+                Settings.Default.SecretKey = TextBox2.Text;
+            }
+            else
+            {
+                TextBox2.Text = "关闭窗口自动保存";
+            }
+
+            Settings.Default.Save();
         }
     }
 }

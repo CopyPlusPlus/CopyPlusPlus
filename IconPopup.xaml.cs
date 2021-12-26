@@ -22,7 +22,7 @@ namespace CopyPlusPlus
 
         private void OnCopyClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            _mainWindow.ClipboardChanged(CopiedText);
+            _mainWindow.ProcessText(CopiedText);
         }
     }
 }

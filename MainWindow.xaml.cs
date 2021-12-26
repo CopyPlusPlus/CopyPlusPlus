@@ -25,7 +25,6 @@ using Microsoft.Win32;
 using Newtonsoft.Json;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
-using MessageBox = System.Windows.MessageBox;
 using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
 
 namespace CopyPlusPlus
@@ -35,9 +34,6 @@ namespace CopyPlusPlus
     /// </summary>
     public partial class MainWindow
     {
-        //Is the translate API being changed or not, bool声明默认值为false
-        public static bool ChangeStatus;
-
         public static TaskbarIcon NotifyIcon;
 
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
@@ -45,6 +41,8 @@ namespace CopyPlusPlus
 
         //如果第一次切换到单个弹窗，则新开一个窗口，不把以前的窗口覆盖
         private bool _firstlySwitch = true;
+
+        public int IconPopupX, IconPopupY;
 
         public string TranslateId;
         public string TranslateKey;
@@ -56,6 +54,9 @@ namespace CopyPlusPlus
             NotifyIcon = (TaskbarIcon)FindResource("MyNotifyIcon");
             NotifyIcon.Visibility = Visibility.Collapsed;
 
+            IconPopupX = 10;
+            IconPopupY = 20;
+
             // 读取 key
             if (Settings.Default.AppID != "None" && Settings.Default.SecretKey != "None")
             {
@@ -64,11 +65,8 @@ namespace CopyPlusPlus
             }
             else
             {
-                //生成随机数,随机读取API
-                var random = new Random();
-                var i = random.Next(0, Api.BaiduApi.GetLength(0) - 1);
-                TranslateId = Api.BaiduApi[i, 0];
-                TranslateKey = Api.BaiduApi[i, 1];
+                TranslateId = null;
+                TranslateKey = null;
             }
 
             //读取上次关闭时保存的每个Switch的状态
@@ -84,6 +82,8 @@ namespace CopyPlusPlus
             TransFromComboBox.SelectedIndex = Convert.ToInt32(checkList[8]);
             TransToComboBox.SelectedIndex = Convert.ToInt32(checkList[9]);
             TransEngineComboBox.SelectedIndex = Convert.ToInt32(checkList[10]);
+            SwitchSelectText.IsOn = Convert.ToBoolean(checkList[11]);
+            SwitchShortcut.IsOn = Convert.ToBoolean(checkList[12]);
 
             _globalMouseKeyHook = Hook.GlobalEvents();
 
@@ -91,19 +91,21 @@ namespace CopyPlusPlus
             //_globalMouseKeyHook.MouseDoubleClick += OnMouseDoubleClick;
             _globalMouseKeyHook.MouseDragFinished += OnMouseDragFinished;
 
-            var doCopy = Sequence.FromString("Control+C,Control+C");
-            Action actionCopy = ProcessText;
+            var keySequence = Sequence.FromString("Control+C,Control+C");
+            Action actionAfterCopy = AfterKeySequence;
             Hook.GlobalEvents().OnSequence(new Dictionary<Sequence, Action>
             {
-                { doCopy, actionCopy }
+                { keySequence, actionAfterCopy }
             });
         }
 
-        private async void ProcessText()
+        private async void AfterKeySequence()
         {
+            if (SwitchShortcut.IsOn == false) return;
+
             await Task.Delay(50);
             if (Clipboard.ContainsText())
-                ClipboardChanged(Clipboard.GetText());
+                ProcessText(Clipboard.GetText());
         }
 
         private static void OnMouseClick(object sender, MouseEventArgs e)
@@ -150,6 +152,8 @@ namespace CopyPlusPlus
 
         private async void OnMouseDragFinished(object sender, MouseEventArgs e)
         {
+            if (SwitchSelectText.IsOn == false) return;
+
             var tmpClipboard = Clipboard.GetDataObject();
             Clipboard.Clear();
             await Task.Delay(50);
@@ -164,14 +168,13 @@ namespace CopyPlusPlus
                     var mouse = transform.Transform(new Point(e.X, e.Y));
                     var iconPopup = new IconPopup
                     {
-                        Left = mouse.X + 10,
-                        Top = mouse.Y + 20,
+                        Left = mouse.X + IconPopupX,
+                        Top = mouse.Y + IconPopupY,
                         ShowActivated = false,
                         Focusable = false,
                         CopiedText = Clipboard.GetText()
                     };
                     iconPopup.Show();
-
                 }
                 catch
                 {
@@ -184,7 +187,7 @@ namespace CopyPlusPlus
             }
         }
 
-        public void ClipboardChanged(string text)
+        public void ProcessText(string text)
         {
             // 去掉 CAJ viewer 造成的莫名的空格符号
             text = text.Replace("", "");
@@ -244,11 +247,11 @@ namespace CopyPlusPlus
                         // 判断是否复制原文
                         if (SwitchCopyOriginal.IsOn)
                         {
-                            ShowTrans(BaiduTrans(TranslateId, TranslateKey, text), textBeforeTrans);
+                            ShowTrans(BdTrans(TranslateId, TranslateKey, text), textBeforeTrans);
                         }
                         else
                         {
-                            text = BaiduTrans(TranslateId, TranslateKey, text);
+                            text = BdTrans(TranslateId, TranslateKey, text);
                             ShowTrans(text, textBeforeTrans);
                         }
 
@@ -356,28 +359,31 @@ namespace CopyPlusPlus
             //var text1 = text;
             var result = Task.Run(async () => await translator.TranslateAsync(text, from, to));
             if (result.Wait(TimeSpan.FromSeconds(4)))
-            {
-                if (detect) return result.Result.LanguageDetections[0].Language.ISO639;
-                //Console.WriteLine($"Result 1: {result.MergedTranslation}");
+                return detect ? result.Result.LanguageDetections[0].Language.ISO639 : result.Result.MergedTranslation;
+            //Console.WriteLine($"Result 1: {result.MergedTranslation}");
 
-                //返回值一直为null，所以不用了
-                //if (SwitchDictionary.IsOn)
-                //{
-                //    if(result.Result.ExtraTranslations != null)
-                //        return result.Result.ExtraTranslations.ToString();
-                //}
+            //返回值一直为null，所以不用了
+            //if (SwitchDictionary.IsOn)
+            //{
+            //    if(result.Result.ExtraTranslations != null)
+            //        return result.Result.ExtraTranslations.ToString();
+            //}
 
-                return result.Result.MergedTranslation;
-            }
-
-            if (detect) return "auto";
-
-            return "翻译超时，请检查网络，或更换翻译平台。";
+            return detect ? "auto" : "翻译超时，请检查网络，或更换翻译平台。";
         }
 
         //百度翻译
-        private string BaiduTrans(string appId, string secretKey, string q = "apple")
+        private string BdTrans(string appId, string secretKey, string q = "apple")
         {
+            if (appId == null)
+            {
+                //生成随机数,随机读取API
+                var random = new Random();
+                var i = random.Next(0, Api.BaiduApi.GetLength(0) - 1);
+                TranslateId = Api.BaiduApi[i, 0];
+                TranslateKey = Api.BaiduApi[i, 1];
+            }
+
             //q为原文
 
             // 源语言
@@ -498,38 +504,14 @@ namespace CopyPlusPlus
             //_textLast = "";
         }
 
-        //打开翻译按钮
-        private void TranslateSwitch_Check(object sender, RoutedEventArgs e)
-        {
-            //已内置key,故不用检查
-
-            //string appId = Properties.Settings.Default.AppID;
-            //string secretKey = Properties.Settings.Default.SecretKey;
-            //if (appId == "None" || secretKey == "None")
-            //{
-            //    //MessageBox.Show("请先设置翻译接口", "Copy++");
-            //    Show_InputAPIWindow();
-            //}
-            //switch3Check = true;
-        }
-
-        //点击"翻译"文字
+        // 鼠标右键 翻译开关 文字
         private void TranslateText_Clicked(object sender, MouseButtonEventArgs e)
         {
-            Show_InputAPIWindow(false);
-        }
-
-        private void Show_InputAPIWindow(bool showMessage = true)
-        {
-            var keyinput = new KeyInput
+            var keyInput = new KeyInput
             {
                 Owner = this
             };
-
-            keyinput.Show();
-
-            if (showMessage) MessageBox.Show(keyinput, "请先设置翻译接口", "Copy++");
-            ChangeStatus = true;
+            keyInput.Show();
         }
 
         //private void SwitchUncheck(object sender, RoutedEventArgs e)
@@ -566,6 +548,8 @@ namespace CopyPlusPlus
             Settings.Default.SwitchCheck[8] = TransFromComboBox.SelectedIndex.ToString();
             Settings.Default.SwitchCheck[9] = TransToComboBox.SelectedIndex.ToString();
             Settings.Default.SwitchCheck[10] = TransEngineComboBox.SelectedIndex.ToString();
+            Settings.Default.SwitchCheck[11] = SwitchSelectText.IsOn.ToString();
+            Settings.Default.SwitchCheck[12] = SwitchShortcut.IsOn.ToString();
 
             Settings.Default.Save();
         }

@@ -6,10 +6,10 @@
         mc:Ignorable="d"
         Title="百度翻译接口" Height="138" Width="253" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Closed="WriteKey" Topmost="True" WindowStyle="SingleBorderWindow" ShowInTaskbar="False">
     <Grid VerticalAlignment="Bottom" Height="118" Margin="0,5,0,0">
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Margin="78,31,0,0" Text="点击这里输入" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" GotFocus="ClearText" />
-        <TextBox x:Name="textBox2" HorizontalAlignment="Left" Margin="78,58,0,0" Text="关闭窗口自动保存" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" GotFocus="ClearText" />
-        <Label x:Name="label1" Content="AppID:" HorizontalAlignment="Left" Margin="22,27,0,0" VerticalAlignment="Top" FontWeight="Bold" />
-        <Label x:Name="label2" Content="Key:" HorizontalAlignment="Left" Margin="30,54,0,0" VerticalAlignment="Top" FontWeight="Bold" />
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="19,93,19,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209"><Run Language="zh-cn" Text="不知道怎么操作? 关注公众号获取教程" /></TextBlock>
+        <TextBox x:Name="TextBox1" HorizontalAlignment="Left" Margin="78,31,0,0" Text="点击这里输入" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" GotFocus="ClearText" />
+        <TextBox x:Name="TextBox2" HorizontalAlignment="Left" Margin="78,58,0,0" Text="关闭窗口自动保存" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" GotFocus="ClearText" />
+        <Label Content="AppID:" HorizontalAlignment="Left" Margin="22,27,0,0" VerticalAlignment="Top" FontWeight="Bold" />
+        <Label Content="Key:" HorizontalAlignment="Left" Margin="30,54,0,0" VerticalAlignment="Top" FontWeight="Bold" />
+        <TextBlock HorizontalAlignment="Center" Margin="19,93,19,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209"><Run Language="zh-cn" Text="不知道怎么操作? 关注公众号获取教程" /></TextBlock>
     </Grid>
 </Window>

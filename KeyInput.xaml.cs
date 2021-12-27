@@ -59,13 +59,13 @@ namespace CopyPlusPlus
 
         private void WriteKey(object sender, EventArgs e)
         {
-            if (TextBox1.Text != "点击这里输入" || TextBox1.Text != "" || TextBox1.Text != " ")
+            if (TextBox1.Text != "点击这里输入" && TextBox1.Text != "" && TextBox1.Text != " ")
             {
                 _mainWindow.TranslateId = TextBox1.Text;
                 Settings.Default.AppID = TextBox1.Text;
             }
 
-            if (TextBox2.Text != "关闭窗口自动保存" || TextBox2.Text != "" || TextBox2.Text != " ")
+            if (TextBox2.Text != "关闭窗口自动保存" && TextBox2.Text != "" && TextBox2.Text != " ")
             {
                 _mainWindow.TranslateKey = TextBox2.Text;
                 Settings.Default.SecretKey = TextBox2.Text;

@@ -8,7 +8,7 @@
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                  mc:Ignorable="d" SizeToContent="WidthAndHeight" ResizeMode="CanResizeWithGrip"
                  ShowInTaskbar="False" WindowStartupLocation="CenterScreen" Topmost="True" WindowStyle="SingleBorderWindow"
-                 MaxWidth="700" MaxHeight="1000" Height="100" Width="200" MinWidth="200" MinHeight="100"
+                 MaxWidth="700" MaxHeight="1000" Height="100" Width="200" MinWidth="250" MinHeight="100"
                  WindowTransitionsEnabled="False"
                  NonActiveWindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
                  WindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}">

@@ -52,10 +52,10 @@ namespace CopyPlusPlus
             InitializeComponent();
 
             NotifyIcon = (TaskbarIcon)FindResource("MyNotifyIcon");
-            NotifyIcon.Visibility = Visibility.Collapsed;
+            NotifyIcon.Visibility = Visibility.Visible;
 
             IconPopupX = 10;
-            IconPopupY = 20;
+            IconPopupY = 15;
 
             // 读取 key
             if (Settings.Default.AppID != "None" && Settings.Default.SecretKey != "None")
@@ -579,7 +579,7 @@ namespace CopyPlusPlus
 
         public void HideNotifyIcon()
         {
-            NotifyIcon.Visibility = Visibility.Collapsed;
+            NotifyIcon.Visibility = Visibility.Visible;
         }
 
         public void CheckUpdate()

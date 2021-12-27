@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     TitleCharacterCasing="Normal"
     WindowTransitionsEnabled="False"
-    Title="Copy++ v4.1 本软件完全免费" Height="310" Width="451.067"
+    Title="Copy++ v4.1 本软件完全免费" Height="304" Width="451.067"
     ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"
     Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Closing="MainWindow_Closing"
     ContentRendered="MainWindow_OnContentRendered"
@@ -41,7 +41,7 @@
     </mah:MetroWindow.IconTemplate>
 
     <Grid>
-        <Grid Margin="0,6,0,0" VerticalAlignment="Top" ToolTip="关注公众号，获取更多教程" Height="40">
+        <Grid Margin="0,3,0,0" VerticalAlignment="Top" ToolTip="关注公众号，获取更多教程" Height="40">
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="25,0,0,0" FontSize="13" Width="118" Text="软件两种触发方式：" FontWeight="Bold"/>
 
             <!--<TextBlock x:Name="TextAbstract1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,5,0,0"  FontSize="13" Width="403"><Run Text="1. 划词触发" /></TextBlock>-->
@@ -52,7 +52,7 @@
             <!--<TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="16,46,0,0" FontSize="13" Width="187" Text="祝君创作顺利，走向人生巅峰！"/>-->
         </Grid>
 
-        <Grid Margin="5,55,5,0" Background="#FFEBEBEB" VerticalAlignment="Top" Height="100">
+        <Grid Margin="5,47,5,0" Background="#FFEBEBEB" VerticalAlignment="Top" Height="100">
             <mah:ToggleSwitch x:Name="SwitchMain" MinWidth="0" ContentDirection="LeftToRight" Content="合并换行"
                               FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"
                               VerticalAlignment="Top" Margin="6,0,0,0" ToolTip="复制文本后，直接粘贴到Word中即可" IsOn="True" />
@@ -140,9 +140,9 @@
 
         <!--<Line X1="0" Y1="0" X2="450" Y2="0" Stroke="#FF3A4FEE" StrokeThickness="2" Margin="0,126,0.4,0" VerticalAlignment="Top" />-->
 
-        <Grid VerticalAlignment="Top" Height="116" Margin="0,165,0,0">
+        <Grid VerticalAlignment="Top" Margin="0,154,0,0">
 
-            <StackPanel Margin="22,3,0,0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <StackPanel Margin="22,-3,0,0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <StackPanel.Resources>
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="Margin" Value="0,15,0,0" />
@@ -169,11 +169,11 @@
                 </TextBlock>
             </StackPanel>
 
-            <emoji:TextBlock x:Name="Meat" FontSize="18" Text="🍖" Margin="256,80,0,0" HorizontalAlignment="Left"
+            <emoji:TextBlock x:Name="Meat" FontSize="18" Text="🍖" Margin="256,75,0,0" HorizontalAlignment="Left"
                              VerticalAlignment="Top" MouseDown="MeatDown" MouseUp="MeatUp" MouseLeave="MeatLeave"
                              Cursor="Hand" />
 
-            <Button Margin="166,14,0,0" Click="Github_Click" Cursor="Hand" VerticalAlignment="Top"
+            <Button Margin="166,9,0,0" Click="Github_Click" Cursor="Hand" VerticalAlignment="Top"
                     ToolTip="点我跳转到Github" HorizontalAlignment="Left" Height="22" Width="18">
                 <Button.Template>
                     <ControlTemplate>
@@ -184,7 +184,7 @@
             </Button>
 
             <Image Source="/images/wechatgzh.png" VerticalAlignment="Center" HorizontalAlignment="Left"
-                   ToolTip="听说这里能够获取新版本，还有许多好玩的" Margin="312,0,0,0" Height="110" Width="110" />
+                   ToolTip="听说这里能够获取新版本，还有许多好玩的" Margin="315,0,0,0" Height="110" Width="110" />
             <!--<TextBlock x:Name="TextBlockGzh" HorizontalAlignment="Left" Margin="231,0,0,0" TextWrapping="Wrap" FontSize="10" TextAlignment="Center" VerticalAlignment="Center" LineHeight="14"><Run Text="关 注 公 众 号" /><LineBreak /><Run Language="zh-cn" Text="获 取 船 新 版 本" /></TextBlock>-->
         </Grid>
 

@@ -1,4 +1,11 @@
-﻿using System;
+﻿using CopyPlusPlus.Languages;
+using CopyPlusPlus.Properties;
+using Gma.System.MouseKeyHook;
+using GoogleTranslateFreeApi;
+using Hardcodet.Wpf.TaskbarNotification;
+using Microsoft.Win32;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -16,13 +23,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
-using CopyPlusPlus.Languages;
-using CopyPlusPlus.Properties;
-using Gma.System.MouseKeyHook;
-using GoogleTranslateFreeApi;
-using Hardcodet.Wpf.TaskbarNotification;
-using Microsoft.Win32;
-using Newtonsoft.Json;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
 using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
@@ -60,6 +60,10 @@ namespace CopyPlusPlus
             // 读取 key
             if (Settings.Default.AppID != "None" && Settings.Default.SecretKey != "None")
             {
+                if (string.IsNullOrWhiteSpace(Settings.Default.AppID) || string.IsNullOrWhiteSpace(Settings.Default.SecretKey))
+                {
+                    System.Windows.MessageBox.Show("请检查百度翻译的Key设置");
+                }
                 TranslateId = Settings.Default.AppID;
                 TranslateKey = Settings.Default.SecretKey;
             }

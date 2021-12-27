@@ -1,10 +1,36 @@
-﻿<Window x:Class="CopyPlusPlus.TranslateResult"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:copyPlusPlus="clr-namespace:CopyPlusPlus"
-        mc:Ignorable="d" SizeToContent="WidthAndHeight" ResizeMode="CanResizeWithGrip" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" Topmost="True" WindowStyle="SingleBorderWindow" MaxWidth="700" MaxHeight="1000" Height="100" Width="200" MinWidth="200" MinHeight="100">
+﻿<mah:MetroWindow x:Class="CopyPlusPlus.TranslateResult"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:copyPlusPlus="clr-namespace:CopyPlusPlus"
+                 xmlns:wpf="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
+                 xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                 mc:Ignorable="d" SizeToContent="WidthAndHeight" ResizeMode="CanResizeWithGrip"
+                 ShowInTaskbar="False" WindowStartupLocation="CenterScreen" Topmost="True" WindowStyle="SingleBorderWindow"
+                 MaxWidth="700" MaxHeight="1000" Height="100" Width="200" MinWidth="200" MinHeight="100"
+                 WindowTransitionsEnabled="False"
+                 NonActiveWindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
+                 WindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}">
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Grid Width="{TemplateBinding Width}"
+                  Height="{TemplateBinding Height}"
+                  Margin="4"
+                  Background="Transparent"
+                  RenderOptions.EdgeMode="Aliased"
+                  RenderOptions.BitmapScalingMode="HighQuality">
+                <Image Source="copy.ico" />
+            </Grid>
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button x:Name="Pin" Click="PinSwitch" Background="#FFF6F2F2">
+                <wpf:TextBlock Text="📌" />
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
 
     <TextBox x:Name="TextBox" Text="TextBox" TextWrapping="Wrap" Margin="3,1,3,3" Padding="3,3,3,3"
              IsUndoEnabled="True" AllowDrop="False" AcceptsReturn="True" AcceptsTab="True" AutoWordSelection="True"
@@ -13,4 +39,4 @@
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static copyPlusPlus:TranslateResult.EscEvent}" Executed="EscExecuted" />
     </Window.CommandBindings>
-</Window>
+</mah:MetroWindow>

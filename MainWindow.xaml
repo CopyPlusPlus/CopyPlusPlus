@@ -173,7 +173,7 @@
                              VerticalAlignment="Top" MouseDown="MeatDown" MouseUp="MeatUp" MouseLeave="MeatLeave"
                              Cursor="Hand" />
 
-            <Button Margin="166,9,0,0" Click="Github_Click" Cursor="Hand" VerticalAlignment="Top"
+            <Button Margin="166,8,0,0" Click="Github_Click" Cursor="Hand" VerticalAlignment="Top"
                     ToolTip="点我跳转到Github" HorizontalAlignment="Left" Height="22" Width="18">
                 <Button.Template>
                     <ControlTemplate>

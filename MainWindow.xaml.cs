@@ -589,31 +589,27 @@ namespace CopyPlusPlus
                 //不再检查
                 case "1999/7/24 0:00:00":
                     return;
+
                 //第一次打开初始化日期
                 case "2021/4/16 0:00:00":
                     Settings.Default.LastOpenDate = DateTime.Today;
+                    Settings.Default.Save();
                     break;
 
                 default:
+                    var daySpan = DateTime.Today.Subtract(Settings.Default.LastOpenDate);
+                    if (daySpan.Days > 30)
                     {
-                        var daySpan = DateTime.Today.Subtract(Settings.Default.LastOpenDate);
-                        if (daySpan.Days > 10)
+                        var notifyUpdate = new
+                            NotifyUpdate("打扰一下，您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨",
+                                "知道啦", "别再提示")
                         {
-                            var notifyUpdate = new
-                                NotifyUpdate("打扰一下，您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨",
-                                    "知道啦", "别再提示")
-                            {
-                                Owner = this
-                            };
-                            notifyUpdate.Show();
-                            Settings.Default.LastOpenDate = DateTime.Today;
-                        }
-
-                        break;
+                            Owner = this
+                        };
+                        notifyUpdate.Show();
                     }
+                    break;
             }
-
-            Settings.Default.Save();
         }
 
         private void MainWindow_OnContentRendered(object sender, EventArgs e)

@@ -29,12 +29,14 @@ namespace CopyPlusPlus
         {
             Settings.Default.LastOpenDate = new DateTime(1999, 7, 24);
             Settings.Default.Save();
-            this.Close();
+            Close();
         }
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Settings.Default.LastOpenDate = DateTime.Today;
+            Settings.Default.Save();
+            Close();
         }
     }
 }

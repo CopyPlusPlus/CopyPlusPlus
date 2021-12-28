@@ -584,14 +584,14 @@ namespace CopyPlusPlus
 
         public void CheckUpdate()
         {
-            switch (Settings.Default.LastOpenDate.ToString(CultureInfo.CurrentCulture))
+            switch (Settings.Default.LastOpenDate.ToString("G", CultureInfo.GetCultureInfo("en-US")))
             {
                 //不再检查
-                case "1999/7/24 0:00:00":
+                case "7/24/1999 12:00:00 AM":
                     return;
 
                 //第一次打开初始化日期
-                case "2021/4/16 0:00:00":
+                case "4/16/2021 12:00:00 AM":
                     Settings.Default.LastOpenDate = DateTime.Today;
                     Settings.Default.Save();
                     break;

@@ -667,6 +667,12 @@ namespace CopyPlusPlus
                 key.DeleteValue("CopyPlusPlus", false);
         }
 
+        private void ManualBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Manual manual = new Manual();
+            manual.Show();
+        }
+
         private void DiyReplace(object sender, RoutedEventArgs e)
         {
             var addReplace = new AddReplace

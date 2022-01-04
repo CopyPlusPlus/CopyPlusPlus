@@ -122,6 +122,9 @@
     <Compile Include="KeyInput.xaml.cs">
       <DependentUpon>KeyInput.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Manual.xaml.cs">
+      <DependentUpon>Manual.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NotifyIcon\DelegateCommand.cs" />
     <Compile Include="NotifyIcon\NotifyIconViewModel.cs" />
     <Compile Include="NotifyIcon\ReopenMainWindowCommand.cs" />
@@ -138,6 +141,10 @@
       <DependentUpon>AddReplace.xaml</DependentUpon>
     </Compile>
     <Page Include="IconPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Manual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

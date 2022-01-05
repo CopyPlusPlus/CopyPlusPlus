@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     TitleCharacterCasing="Normal"
     WindowTransitionsEnabled="False"
-    Title="Copy++ v5.0 本软件完全免费" Height="304" Width="451.067"
+    Title="Copy++ v5.0 beta 本软件完全免费" Height="304" Width="451.067"
     ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"
     Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Closing="MainWindow_Closing"
     ContentRendered="MainWindow_OnContentRendered"

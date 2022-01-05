@@ -94,6 +94,7 @@ namespace CopyPlusPlus
             _globalMouseKeyHook.MouseClick += OnMouseClick;
             //_globalMouseKeyHook.MouseDoubleClick += OnMouseDoubleClick;
             _globalMouseKeyHook.MouseDragFinished += OnMouseDragFinished;
+            _globalMouseKeyHook.MouseWheel += OnMouseWheel;
 
             var keySequence = Sequence.FromString("Control+C,Control+C");
             Action actionAfterCopy = AfterKeySequence;
@@ -116,6 +117,13 @@ namespace CopyPlusPlus
         {
             if (e.Clicks != 1) return;
 
+            Application.Current.Windows
+                .Cast<Window>()
+                .LastOrDefault(window => window is IconPopup popup)?.Close();
+        }
+
+        private static void OnMouseWheel(object sender, MouseEventArgs e)
+        {
             Application.Current.Windows
                 .Cast<Window>()
                 .LastOrDefault(window => window is IconPopup popup)?.Close();

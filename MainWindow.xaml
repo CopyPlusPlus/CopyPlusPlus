@@ -45,9 +45,9 @@
 
             <!--<TextBlock x:Name="TextAbstract1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,5,0,0"  FontSize="13" Width="403"><Run Text="1. 划词触发" /></TextBlock>-->
             <!--<TextBlock x:Name="TextAbstract2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,30,0,0" FontSize="13" Width="403"><Run Text="2. 快捷键触发" /></TextBlock>-->
-            <mah:ToggleSwitch x:Name="SwitchSelectText" MinWidth="0" ContentDirection="LeftToRight" Content="划词 " FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" Margin="34,0,0,0" IsOn="True" />
-            <mah:ToggleSwitch x:Name="SwitchShortcut" MinWidth="0" ContentDirection="LeftToRight" Content="Control+C+C " FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" IsOn="True" HorizontalAlignment="Center" />
-            <Button Content="手动处理" HorizontalAlignment="Left" Margin="320,0,0,0" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI" Click="ManualBtn_Click" Height="31" Width="82"/>
+            <mah:ToggleSwitch x:Name="SwitchSelectText" MinWidth="0" ContentDirection="LeftToRight" Content="划词 " FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" Margin="35,0,0,0" IsOn="True" />
+            <mah:ToggleSwitch x:Name="SwitchShortcut" MinWidth="0" ContentDirection="LeftToRight" Content="Control+C+C " FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" IsOn="True" Margin="156,0,0,0" />
+            <Button Content="手动处理" HorizontalAlignment="Left" Margin="338,0,0,0" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI" Click="ManualBtn_Click" Height="20" Width="80"/>
 
             <!--<TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="16,46,0,0" FontSize="13" Width="187" Text="祝君创作顺利，走向人生巅峰！" />-->
         </Grid>

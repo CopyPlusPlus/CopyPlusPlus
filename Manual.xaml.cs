@@ -1,11 +1,11 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace CopyPlusPlus
 {
     /// <summary>
-    /// Interaction logic for Manual.xaml
+    ///     Interaction logic for Manual.xaml
     /// </summary>
     public partial class Manual : Window
     {
@@ -16,9 +16,8 @@ namespace CopyPlusPlus
 
         private void MergeLineBtn_Click(object sender, RoutedEventArgs e)
         {
-            string text = TextBox.Text;
+            var text = TextBox.Text;
             for (var counter = 0; counter < text.Length - 1; counter++)
-            {
                 // 合并换行
                 if (text[counter + 1] == '\r')
                 {
@@ -44,18 +43,22 @@ namespace CopyPlusPlus
                         Regex.IsMatch(text[counter - 1].ToString(), "[a-zA-Z]"))
                         text = text.Remove(counter, 1);
                 }
-            }
+
             TextBox.Text = text;
         }
 
         private void MergeSpacesBtn_Click(object sender, RoutedEventArgs e)
         {
-            string text = TextBox.Text;
+            var text = TextBox.Text;
             for (var counter = 0; counter < text.Length - 1; counter++)
-            {
-                if (text[counter] == ' ') text = text.Remove(counter, 1);
-            }
+                if (text[counter] == ' ')
+                    text = text.Remove(counter, 1);
             TextBox.Text = text;
+        }
+
+        private void WidthBtn_Click(object sender, RoutedEventArgs e)
+        {
+            TextBox.Text = TextBox.Text.Normalize(NormalizationForm.FormKC);
         }
 
         private void CopyBtn_Click(object sender, RoutedEventArgs e)

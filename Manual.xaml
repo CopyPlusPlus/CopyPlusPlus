@@ -7,8 +7,9 @@
         Title="手动处理" Height="355" Width="565">
     <Grid>
         <TextBox x:Name="TextBox" Margin="10,10,10,38" TextWrapping="Wrap" Text="将文本粘贴到这里" FontFamily="Microsoft YaHei UI" GotFocus="TextBox_GotFocus" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
-        <Button Content="合并换行" Margin="20,0,0,7" VerticalAlignment="Bottom" Height="25"  FontFamily="Microsoft YaHei UI" Click="MergeLineBtn_Click" HorizontalAlignment="Left" Width="58" />
-        <Button Content="合并空格" Margin="100,0,0,7" VerticalAlignment="Bottom" Height="25"  FontFamily="Microsoft YaHei UI" Click="MergeSpacesBtn_Click" HorizontalAlignment="Left" Width="58" />
-        <Button Content="复制" Margin="180,0,0,7" VerticalAlignment="Bottom" Height="25"  FontFamily="Microsoft YaHei UI" Click="CopyBtn_Click" HorizontalAlignment="Left" Width="58" />
+        <Button Content="合并换行" Margin="20,0,0,7" VerticalAlignment="Bottom" Height="25" FontFamily="Microsoft YaHei UI" Click="MergeLineBtn_Click" HorizontalAlignment="Left" Width="58" />
+        <Button Content="合并空格" Margin="100,0,0,7" VerticalAlignment="Bottom" Height="25" FontFamily="Microsoft YaHei UI" Click="MergeSpacesBtn_Click" HorizontalAlignment="Left" Width="58" />
+        <Button Content="全角转半" Margin="180,0,0,7" VerticalAlignment="Bottom" Height="25" FontFamily="Microsoft YaHei UI" Click="WidthBtn_Click" HorizontalAlignment="Left" Width="58" />
+        <Button Content="复制" Margin="260,0,0,7" VerticalAlignment="Bottom" Height="25" FontFamily="Microsoft YaHei UI" Click="CopyBtn_Click" HorizontalAlignment="Left" Width="58" />
     </Grid>
 </Window>

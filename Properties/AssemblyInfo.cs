@@ -6,7 +6,7 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CopyPlusPlus")]
-[assembly: AssemblyDescription("Make copy more easily!")]
+[assembly: AssemblyDescription("让复制变得更加简单！")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("CopyPlusPlus")]
 [assembly: AssemblyProduct("CopyPlusPlus")]

@@ -165,6 +165,8 @@ namespace CopyPlusPlus
 
         private async void OnMouseDragFinished(object sender, MouseEventArgs e)
         {
+            if (!GlobalSwitch) return;
+
             if (SwitchSelectText.IsOn == false) return;
 
             var tmpClipboard = Clipboard.GetDataObject();

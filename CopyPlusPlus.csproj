@@ -127,7 +127,6 @@
     </Compile>
     <Compile Include="NotifyIcon\DelegateCommand.cs" />
     <Compile Include="NotifyIcon\NotifyIconViewModel.cs" />
-    <Compile Include="NotifyIcon\ReopenMainWindowCommand.cs" />
     <Compile Include="NotifyUpdate.xaml.cs">
       <DependentUpon>NotifyUpdate.xaml</DependentUpon>
     </Compile>

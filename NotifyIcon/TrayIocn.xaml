@@ -3,8 +3,6 @@
                     xmlns:tb="http://www.hardcodet.net/taskbar"
                     xmlns:local="clr-namespace:CopyPlusPlus.NotifyIcon">
 
-    <local:ReopenMainWindowCommand x:Key="ReopenMainWindowCommand" />
-
     <ContextMenu x:Shared="false" x:Key="SysTrayMenu">
         <!-- <MenuItem Header="显示界面" Command="{StaticResource ReopenMainWindowCommand}" /> -->
         <MenuItem Header="恢复软件" Command="{Binding EnableApp}" />

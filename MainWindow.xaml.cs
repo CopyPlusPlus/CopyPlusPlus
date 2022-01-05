@@ -1,11 +1,4 @@
-﻿using CopyPlusPlus.Languages;
-using CopyPlusPlus.Properties;
-using Gma.System.MouseKeyHook;
-using GoogleTranslateFreeApi;
-using Hardcodet.Wpf.TaskbarNotification;
-using Microsoft.Win32;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -23,8 +16,16 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using CopyPlusPlus.Languages;
+using CopyPlusPlus.Properties;
+using Gma.System.MouseKeyHook;
+using GoogleTranslateFreeApi;
+using Hardcodet.Wpf.TaskbarNotification;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
+using MessageBox = System.Windows.MessageBox;
 using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
 
 namespace CopyPlusPlus
@@ -41,6 +42,8 @@ namespace CopyPlusPlus
 
         //如果第一次切换到单个弹窗，则新开一个窗口，不把以前的窗口覆盖
         private bool _firstlySwitch = true;
+
+        public bool GlobalSwitch = true;
 
         public int IconPopupX, IconPopupY;
 
@@ -60,10 +63,8 @@ namespace CopyPlusPlus
             // 读取 key
             if (Settings.Default.AppID != "None" && Settings.Default.SecretKey != "None")
             {
-                if (string.IsNullOrWhiteSpace(Settings.Default.AppID) || string.IsNullOrWhiteSpace(Settings.Default.SecretKey))
-                {
-                    System.Windows.MessageBox.Show("请检查百度翻译的Key设置");
-                }
+                if (string.IsNullOrWhiteSpace(Settings.Default.AppID) ||
+                    string.IsNullOrWhiteSpace(Settings.Default.SecretKey)) MessageBox.Show("请检查百度翻译的Key设置");
                 TranslateId = Settings.Default.AppID;
                 TranslateKey = Settings.Default.SecretKey;
             }
@@ -201,6 +202,8 @@ namespace CopyPlusPlus
 
         public void ProcessText(string text)
         {
+            if (!GlobalSwitch) return;
+
             // 去掉 CAJ viewer 造成的莫名的空格符号
             text = text.Replace("", "");
 
@@ -611,11 +614,12 @@ namespace CopyPlusPlus
                         var notifyUpdate = new
                             NotifyUpdate("打扰一下，您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨",
                                 "知道啦", "别再提示")
-                        {
-                            Owner = this
-                        };
+                            {
+                                Owner = this
+                            };
                         notifyUpdate.Show();
                     }
+
                     break;
             }
         }
@@ -677,7 +681,7 @@ namespace CopyPlusPlus
 
         private void ManualBtn_Click(object sender, RoutedEventArgs e)
         {
-            Manual manual = new Manual();
+            var manual = new Manual();
             manual.Show();
         }
 

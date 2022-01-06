@@ -171,7 +171,7 @@ namespace CopyPlusPlus
 
             if (SwitchSelectText.IsOn == false) return;
 
-            var tmpClipboard = Clipboard.GetDataObject();
+            var tmpClipboardT = Clipboard.GetText();
             Clipboard.Clear();
             await Task.Delay(50);
             SendKeys.SendWait("^c");
@@ -197,7 +197,7 @@ namespace CopyPlusPlus
                     // ignored
                 }
 
-            if (tmpClipboard != null) Clipboard.SetDataObject(tmpClipboard);
+            Clipboard.SetDataObject(tmpClipboardT);
         }
 
         public void ProcessText(string text)

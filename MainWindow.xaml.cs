@@ -107,6 +107,8 @@ namespace CopyPlusPlus
 
         private async void AfterKeySequence()
         {
+            if(!GlobalSwitch) return;
+
             if (SwitchShortcut.IsOn == false) return;
 
             await Task.Delay(50);
@@ -204,8 +206,6 @@ namespace CopyPlusPlus
 
         public void ProcessText(string text)
         {
-            if (!GlobalSwitch) return;
-
             // 去掉 CAJ viewer 造成的莫名的空格符号
             text = text.Replace("", "");
 
@@ -575,7 +575,7 @@ namespace CopyPlusPlus
         private void MainWindow_OnStateChanged(object sender, EventArgs e)
         {
             if (WindowState != WindowState.Minimized) return;
-            NotifyIcon.Visibility = Visibility.Visible;
+            //NotifyIcon.Visibility = Visibility.Visible;
             NotifyIcon.ShowBalloonTip("Copy++", "软件已最小化至托盘，点击图标显示主界面，右键可退出", BalloonIcon.Info);
 
             Hide();
@@ -684,6 +684,9 @@ namespace CopyPlusPlus
 
         private void ManualBtn_Click(object sender, RoutedEventArgs e)
         {
+            Hide();
+            GlobalSwitch = false;
+
             var manual = new Manual();
             manual.Show();
         }

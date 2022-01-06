@@ -8,21 +8,21 @@
                  mc:Ignorable="d"
                  Title="" Height="152" Width="108" WindowStyle="SingleBorderWindow" Topmost="True"
                  WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False"
+                 Closed="Manual_OnClosed"
                  WindowTransitionsEnabled="False"
-
                  NonActiveWindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
-                 WindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}">
+                 WindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" TitleBarHeight="25">
     <mah:MetroWindow.RightWindowCommands>
-        <mah:WindowCommands>
-            <Button x:Name="Pin" Click="PinSwitch" Background="#FFF6F2F2">
+        <mah:WindowCommands FontSize="10">
+            <Button x:Name="Pin" Click="PinSwitch" Background="#FFFFFEFF">
                 <wpf:TextBlock Text="📌" />
             </Button>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
 
     <Grid>
-        <Button Content="合并换行" Margin="15,10,15,0" FontFamily="Microsoft YaHei UI" Click="MergeLineBtn_Click" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.MetroSquare.Accent}" />
-        <Button Content="合并空格" Margin="15,45,15,0" FontFamily="Microsoft YaHei UI" Click="MergeSpacesBtn_Click" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Flat}" />
-        <Button Content="全角转半" Margin="15,80,15,0" FontFamily="Microsoft YaHei UI" Click="WidthBtn_Click" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Flat}" />
+        <Button Content="合并换行" Margin="15,10,15,0" FontFamily="Microsoft YaHei UI" Click="MergeLineBtn_Click" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" BorderBrush="{x:Null}" Height="29" />
+        <Button Content="合并空格" Margin="15,48,15,0" FontFamily="Microsoft YaHei UI" Click="MergeSpacesBtn_Click" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" BorderBrush="{x:Null}" Height="29" />
+        <Button Content="全角转半" Margin="15,85,15,0" FontFamily="Microsoft YaHei UI" Click="WidthBtn_Click" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" BorderBrush="{x:Null}" Height="30" />
     </Grid>
 </mah:MetroWindow>

@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
@@ -91,7 +93,8 @@ namespace CopyPlusPlus
             if (_widthStatus) return;
             _widthStatus = true;
 
-            if (Clipboard.ContainsText()) Clipboard.SetDataObject(Clipboard.GetText().Normalize(NormalizationForm.FormKC));
+            if (Clipboard.ContainsText())
+                Clipboard.SetDataObject(Clipboard.GetText().Normalize(NormalizationForm.FormKC));
 
             _widthStatus = false;
         }
@@ -100,9 +103,19 @@ namespace CopyPlusPlus
         {
             Topmost = !Topmost;
             var converter = new BrushConverter();
-            Pin.Background = Pin.Background.ToString() == "#FFF6F2F2"
+            Pin.Background = Pin.Background.ToString() == "#FFFFFEFF"
                 ? (Brush)converter.ConvertFromString("#00F6F2F2")
-                : (Brush)converter.ConvertFromString("#FFF6F2F2");
+                : (Brush)converter.ConvertFromString("#FFFFFEFF");
+        }
+
+        private void Manual_OnClosed(object sender, EventArgs e)
+        {
+            //Get MainWindow
+            if (!(Application.Current.Windows.Cast<Window>().FirstOrDefault(window => window is MainWindow) is
+                    MainWindow mainWindow)) return;
+
+            mainWindow.Show();
+            mainWindow.GlobalSwitch = true;
         }
     }
 }

@@ -26,7 +26,7 @@
     </mah:MetroWindow.IconTemplate>
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
-            <Button x:Name="Pin" Click="PinSwitch" Background="#FFF6F2F2">
+            <Button x:Name="Pin" Click="PinSwitch" Background="#FFFFFEFF">
                 <wpf:TextBlock Text="📌" />
             </Button>
         </mah:WindowCommands>

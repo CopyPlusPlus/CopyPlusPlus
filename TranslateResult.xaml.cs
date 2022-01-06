@@ -27,9 +27,9 @@ namespace CopyPlusPlus
         {
             Topmost = !Topmost;
             var converter = new BrushConverter();
-            Pin.Background = Pin.Background.ToString() == "#FFF6F2F2"
+            Pin.Background = Pin.Background.ToString() == "#FFFFFEFF"
                 ? (Brush)converter.ConvertFromString("#00F6F2F2")
-                : (Brush)converter.ConvertFromString("#FFF6F2F2");
+                : (Brush)converter.ConvertFromString("#FFFFFEFF");
         }
     }
 }

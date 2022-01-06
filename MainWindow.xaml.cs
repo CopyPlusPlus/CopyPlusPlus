@@ -250,7 +250,7 @@ namespace CopyPlusPlus
                             }
 
                         // 对中文去除空格
-                        if (!SwitchSpace.IsOn || !isChinese || text[counter] != ' ') continue;
+                        if (!SwitchSpace.IsOn || text[counter] != ' ') continue;
                         text = text.Remove(counter, 1);
                         --counter;
                     }

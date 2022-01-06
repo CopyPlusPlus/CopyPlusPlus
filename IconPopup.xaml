@@ -4,9 +4,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="IconPopup" Opacity="1" Background="Transparent" AllowsTransparency="True" WindowStyle="None" ShowInTaskbar="False" Topmost="True" ResizeMode="NoResize" Width="33" Height="32">
-    <Grid>
-        <Image x:Name="Image1" Source="/images/icon-circle.png" Cursor="Hand" HorizontalAlignment="Center" Margin="2,2,2,2"  RenderOptions.BitmapScalingMode="HighQuality" MouseLeftButtonDown="OnCopyClick" VerticalAlignment="Center" />
+        Title="IconPopup" Opacity="1" Background="Transparent" AllowsTransparency="True" WindowStyle="None" ShowInTaskbar="False" Topmost="True" ResizeMode="NoResize" Width="33" Height="32" Closed="OnClosed">
+    <Grid MouseEnter="Icon_OnMouseEnter" MouseLeave="Icon_OnMouseLeave">
+        <Image x:Name="Icon" Source="/images/icon-circle.png" Cursor="Hand" HorizontalAlignment="Center" Margin="2,2,2,2"  RenderOptions.BitmapScalingMode="HighQuality" MouseLeftButtonDown="OnCopyClick" VerticalAlignment="Center" />
         <!--<Image x:Name="Image2" Source="/images/translate-circle.png" Cursor="Hand" HorizontalAlignment="Right" Margin="0,2,2,2" RenderOptions.BitmapScalingMode="HighQuality" MouseLeftButtonUp="OnTranslateClick" />-->
     </Grid>
 </Window>

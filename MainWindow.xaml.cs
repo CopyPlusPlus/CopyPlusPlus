@@ -107,7 +107,7 @@ namespace CopyPlusPlus
 
         private async void AfterKeySequence()
         {
-            if(!GlobalSwitch) return;
+            if (!GlobalSwitch) return;
 
             if (SwitchShortcut.IsOn == false) return;
 
@@ -214,7 +214,6 @@ namespace CopyPlusPlus
 
             if (SwitchMain.IsOn || SwitchSpace.IsOn)
                 if (text.Length > 1)
-                {
                     // 判断文本是否包含中文
                     //var isChinese = Regex.IsMatch(text, @"[\u4e00-\u9fa5]");
                     //var isChinese = !Regex.IsMatch(text, @"[a-zA-Z]");
@@ -254,7 +253,6 @@ namespace CopyPlusPlus
                         text = text.Remove(counter, 1);
                         --counter;
                     }
-                }
 
             if (SwitchTranslate.IsOn)
             {

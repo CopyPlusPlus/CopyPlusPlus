@@ -58,7 +58,7 @@
                               VerticalAlignment="Top" Margin="6,0,0,0" ToolTip="复制文本后，直接粘贴到Word中即可" IsOn="True" />
             <mah:ToggleSwitch x:Name="SwitchSpace" MinWidth="0" ContentDirection="LeftToRight" Content="去除空格"
                               FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"
-                              VerticalAlignment="Top" Margin="6,33,0,0" ToolTip="仅对中文有效" />
+                              VerticalAlignment="Top" Margin="6,33,0,0" />
             <mah:ToggleSwitch x:Name="SwitchWidth" MinWidth="0" ContentDirection="LeftToRight" Content="全角转半"
                               FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"
                               VerticalAlignment="Top" Margin="6,65,0,0" ToolTip="全角转半角" />

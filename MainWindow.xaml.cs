@@ -216,7 +216,8 @@ namespace CopyPlusPlus
                 if (text.Length > 1)
                 {
                     // 判断文本是否包含中文
-                    var isChinese = Regex.IsMatch(text, @"[\u4e00-\u9fa5]");
+                    //var isChinese = Regex.IsMatch(text, @"[\u4e00-\u9fa5]");
+                    var isChinese = !Regex.IsMatch(text, @"[a-zA-Z]");
 
                     for (var counter = 0; counter < text.Length - 1; counter++)
                     {

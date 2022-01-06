@@ -1,15 +1,28 @@
-﻿<Window x:Class="CopyPlusPlus.Manual"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
-        Title="手动处理" Height="355" Width="565">
+﻿<mah:MetroWindow x:Class="CopyPlusPlus.Manual"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:wpf="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
+                 mc:Ignorable="d"
+                 Title="" Height="152" Width="108" WindowStyle="SingleBorderWindow" Topmost="True"
+                 WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False"
+                 WindowTransitionsEnabled="False"
+
+                 NonActiveWindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
+                 WindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}">
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button x:Name="Pin" Click="PinSwitch" Background="#FFF6F2F2">
+                <wpf:TextBlock Text="📌" />
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+
     <Grid>
-        <TextBox x:Name="TextBox" Margin="10,10,10,38" TextWrapping="Wrap" Text="将文本粘贴到这里" FontFamily="Microsoft YaHei UI" GotFocus="TextBox_GotFocus" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
-        <Button Content="合并换行" Margin="20,0,0,7" VerticalAlignment="Bottom" Height="25" FontFamily="Microsoft YaHei UI" Click="MergeLineBtn_Click" HorizontalAlignment="Left" Width="58" />
-        <Button Content="合并空格" Margin="100,0,0,7" VerticalAlignment="Bottom" Height="25" FontFamily="Microsoft YaHei UI" Click="MergeSpacesBtn_Click" HorizontalAlignment="Left" Width="58" />
-        <Button Content="全角转半" Margin="180,0,0,7" VerticalAlignment="Bottom" Height="25" FontFamily="Microsoft YaHei UI" Click="WidthBtn_Click" HorizontalAlignment="Left" Width="58" />
-        <Button Content="复制" Margin="260,0,0,7" VerticalAlignment="Bottom" Height="25" FontFamily="Microsoft YaHei UI" Click="CopyBtn_Click" HorizontalAlignment="Left" Width="58" />
+        <Button Content="合并换行" Margin="15,10,15,0" FontFamily="Microsoft YaHei UI" Click="MergeLineBtn_Click" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.MetroSquare.Accent}" />
+        <Button Content="合并空格" Margin="15,45,15,0" FontFamily="Microsoft YaHei UI" Click="MergeSpacesBtn_Click" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Flat}" />
+        <Button Content="全角转半" Margin="15,80,15,0" FontFamily="Microsoft YaHei UI" Click="WidthBtn_Click" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Flat}" />
     </Grid>
-</Window>
+</mah:MetroWindow>

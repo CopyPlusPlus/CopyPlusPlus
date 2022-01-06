@@ -1,14 +1,19 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Media;
 
 namespace CopyPlusPlus
 {
     /// <summary>
     ///     Interaction logic for Manual.xaml
     /// </summary>
-    public partial class Manual : Window
+    public partial class Manual
     {
+        private bool _lineStatus;
+        private bool _spaceStatus;
+        private bool _widthStatus;
+
         public Manual()
         {
             InitializeComponent();
@@ -16,7 +21,16 @@ namespace CopyPlusPlus
 
         private void MergeLineBtn_Click(object sender, RoutedEventArgs e)
         {
-            var text = TextBox.Text;
+            if (_lineStatus) return;
+            _lineStatus = true;
+
+            if (!Clipboard.ContainsText()) return;
+            //var thread = new Thread(() =>
+            //{
+            //Thread.CurrentThread.IsBackground = true;
+
+            /* run your code here */
+            var text = Clipboard.GetText();
             for (var counter = 0; counter < text.Length - 1; counter++)
                 // 合并换行
                 if (text[counter + 1] == '\r')
@@ -39,37 +53,56 @@ namespace CopyPlusPlus
                         text = text.Insert(counter + 1, " ");
 
                     // 判断 连词符- 结尾, 且前一个字符为英文单词, 则去除"-"
-                    if (text[counter] == '-' &&
-                        Regex.IsMatch(text[counter - 1].ToString(), "[a-zA-Z]"))
-                        text = text.Remove(counter, 1);
+                    if (text[counter] != '-' || !Regex.IsMatch(text[counter - 1].ToString(), "[a-zA-Z]")) continue;
+                    text = text.Remove(counter, 1);
+                    --counter;
                 }
 
-            TextBox.Text = text;
+            Clipboard.SetDataObject(text);
+            //});
+            //thread.SetApartmentState(ApartmentState.STA);
+            //thread.Start();
+
+            _lineStatus = false;
         }
 
         private void MergeSpacesBtn_Click(object sender, RoutedEventArgs e)
         {
-            var text = TextBox.Text;
+            if (_spaceStatus) return;
+            _spaceStatus = true;
+
+            if (!Clipboard.ContainsText()) return;
+
+            var text = Clipboard.GetText();
             for (var counter = 0; counter < text.Length - 1; counter++)
                 if (text[counter] == ' ')
+                {
                     text = text.Remove(counter, 1);
-            TextBox.Text = text;
+                    --counter;
+                }
+
+            Clipboard.SetDataObject(text);
+
+            _spaceStatus = false;
         }
 
         private void WidthBtn_Click(object sender, RoutedEventArgs e)
         {
-            TextBox.Text = TextBox.Text.Normalize(NormalizationForm.FormKC);
+            if (_widthStatus) return;
+            _widthStatus = true;
+
+            if (Clipboard.ContainsText()) Clipboard.SetDataObject(Clipboard.GetText().Normalize(NormalizationForm.FormKC));
+
+            _widthStatus = false;
         }
 
-        private void CopyBtn_Click(object sender, RoutedEventArgs e)
+        private void PinSwitch(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(TextBox.Text);
-        }
-
-        public void TextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox.Text = string.Empty;
-            TextBox.GotFocus -= TextBox_GotFocus;
+            Topmost = !Topmost;
+            var converter = new BrushConverter();
+            Pin.Background = Pin.Background.ToString() == "#FFF6F2F2"
+                ? (Brush)converter.ConvertFromString("#00F6F2F2")
+                : (Brush)converter.ConvertFromString("#FFF6F2F2");
         }
     }
 }

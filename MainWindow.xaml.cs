@@ -1,11 +1,4 @@
-﻿using CopyPlusPlus.Languages;
-using CopyPlusPlus.Properties;
-using Gma.System.MouseKeyHook;
-using GoogleTranslateFreeApi;
-using Hardcodet.Wpf.TaskbarNotification;
-using Microsoft.Win32;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -23,6 +16,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using CopyPlusPlus.Languages;
+using CopyPlusPlus.Properties;
+using Gma.System.MouseKeyHook;
+using GoogleTranslateFreeApi;
+using Hardcodet.Wpf.TaskbarNotification;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
 using MessageBox = System.Windows.MessageBox;
@@ -242,15 +242,16 @@ namespace CopyPlusPlus
                                     text = text.Insert(counter + 1, " ");
 
                                 // 判断 连词符- 结尾, 且前一个字符为英文单词, 则去除"-"
-                                if (text[counter] == '-' &&
-                                    Regex.IsMatch(text[counter - 1].ToString(), "[a-zA-Z]"))
-                                    text = text.Remove(counter, 1);
+                                if (text[counter] != '-' || !Regex.IsMatch(text[counter - 1].ToString(), "[a-zA-Z]"))
+                                    continue;
+                                text = text.Remove(counter, 1);
+                                --counter;
                             }
 
                         // 对中文去除空格
-                        if (SwitchSpace.IsOn && isChinese &&
-                            text[counter] == ' ')
-                            text = text.Remove(counter, 1);
+                        if (!SwitchSpace.IsOn || !isChinese || text[counter] != ' ') continue;
+                        text = text.Remove(counter, 1);
+                        --counter;
                     }
                 }
 
@@ -616,9 +617,9 @@ namespace CopyPlusPlus
                         var notifyUpdate = new
                             NotifyUpdate("打扰一下，您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨",
                                 "知道啦", "别再提示")
-                        {
-                            Owner = this
-                        };
+                            {
+                                Owner = this
+                            };
                         notifyUpdate.Show();
                     }
 

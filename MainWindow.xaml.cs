@@ -178,7 +178,6 @@ namespace CopyPlusPlus
             await Task.Delay(50);
 
             if (Clipboard.ContainsText())
-            {
                 try
                 {
                     var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
@@ -197,11 +196,8 @@ namespace CopyPlusPlus
                 {
                     // ignored
                 }
-            }
-            else
-            {
-                if (tmpClipboard != null) Clipboard.SetDataObject(tmpClipboard);
-            }
+
+            if (tmpClipboard != null) Clipboard.SetDataObject(tmpClipboard);
         }
 
         public void ProcessText(string text)

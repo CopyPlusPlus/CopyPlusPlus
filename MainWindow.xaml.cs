@@ -233,8 +233,8 @@ namespace CopyPlusPlus
                                     text = text.Remove(counter + 1, 1);
                                 }
 
-                                //判断 英文字母 或 英文逗号 结尾, 则加一个空格
-                                if (Regex.IsMatch(text[counter].ToString(), "[a-zA-Z,]"))
+                                //判断 英文字母 或 英文逗号/句号 结尾, 则加一个空格
+                                if (Regex.IsMatch(text[counter].ToString(), "[a-zA-Z,.]"))
                                     text = text.Insert(counter + 1, " ");
 
                                 // 判断 连词符- 结尾, 且前一个字符为英文单词, 则去除"-"

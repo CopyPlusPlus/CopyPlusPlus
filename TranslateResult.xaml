@@ -11,7 +11,7 @@
                  MaxWidth="700" MaxHeight="1000" Height="100" Width="200" MinWidth="250" MinHeight="100"
                  WindowTransitionsEnabled="False"
                  NonActiveWindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
-                 WindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" MouseEnter="OnMouseEnter" MouseLeave="OnMouseLeave" Closed="OnClosed">
+                 WindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}">
     <mah:MetroWindow.IconTemplate>
         <DataTemplate>
             <Grid Width="{TemplateBinding Width}"

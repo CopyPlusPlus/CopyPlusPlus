@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     TitleCharacterCasing="Normal"
     WindowTransitionsEnabled="False"
-    Title="Copy++ v5.0 beta 本软件完全免费" Height="304" Width="451.067"
+    Title="Copy++ v5.0 本软件完全免费" Height="304" Width="451.067"
     ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"
     Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Closing="MainWindow_Closing"
     ContentRendered="MainWindow_OnContentRendered"
@@ -65,7 +65,7 @@
             <mah:ToggleSwitch x:Name="SwitchTranslate" MinWidth="0" ContentDirection="LeftToRight" Content="翻译开关"
                               FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"
                               VerticalAlignment="Top" Margin="117,0,0,0" Toggled="Trans_OnToggled"
-                              MouseRightButtonUp="TranslateText_Clicked" ToolTip="右键自定义Key" />
+                              MouseRightButtonUp="TranslateText_Clicked" ToolTip="右键点击自定义Key" />
             <mah:ToggleSwitch x:Name="SwitchManyPopups" MinWidth="0" ContentDirection="LeftToRight" Content="多个弹窗"
                               FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"
                               VerticalAlignment="Top" Margin="117,33,0,0" ToolTip="开启后，每次翻译会新弹出一个窗口" IsEnabled="False"

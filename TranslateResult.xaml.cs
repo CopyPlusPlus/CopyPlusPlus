@@ -82,7 +82,7 @@ namespace CopyPlusPlus
             Dispatcher.Invoke(delegate { Opacity = _opacity; });
         }
 
-        private void Icon_OnMouseEnter(object sender, MouseEventArgs e)
+        private void OnMouseEnter(object sender, MouseEventArgs e)
         {
             Dispatcher.Invoke(delegate { Opacity = 1; });
 
@@ -91,7 +91,7 @@ namespace CopyPlusPlus
             _opacity = 1;
         }
 
-        private void Icon_OnMouseLeave(object sender, MouseEventArgs e)
+        private void OnMouseLeave(object sender, MouseEventArgs e)
         {
             Stay();
         }

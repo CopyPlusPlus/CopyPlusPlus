@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Threading;
 using System.Timers;
 using System.Windows;
 using System.Windows.Input;
-using Timer = System.Timers.Timer;
 
 namespace CopyPlusPlus
 {
@@ -45,10 +43,7 @@ namespace CopyPlusPlus
 
         private void OnLeftMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Hide();
-            Thread.Sleep(20);
-            _mainWindow.CopyText();
-            //_mainWindow.ProcessText(CopiedText);
+            _mainWindow.ProcessText(CopiedText);
         }
 
         private static void Stay()

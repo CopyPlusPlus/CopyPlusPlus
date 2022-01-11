@@ -58,8 +58,8 @@ namespace CopyPlusPlus
             NotifyIcon = (TaskbarIcon)FindResource("MyNotifyIcon");
             NotifyIcon.Visibility = Visibility.Visible;
 
-            IconPopupX = 10;
-            IconPopupY = 15;
+            IconPopupX = 8;
+            IconPopupY = 12;
 
             // 读取 key
             if (Settings.Default.AppID != "None" && Settings.Default.SecretKey != "None")
@@ -94,7 +94,6 @@ namespace CopyPlusPlus
             _globalMouseKeyHook = Hook.GlobalEvents();
 
             _globalMouseKeyHook.MouseUp += OnMouseUp;
-            //_globalMouseKeyHook.MouseDoubleClick += OnMouseDoubleClick;
             _globalMouseKeyHook.MouseDragFinished += OnMouseDragFinished;
             _globalMouseKeyHook.MouseWheel += OnMouseWheel;
 
@@ -132,83 +131,39 @@ namespace CopyPlusPlus
                 .LastOrDefault(window => window is IconPopup)?.Close();
         }
 
-        private async void OnMouseDoubleClick(object sender, MouseEventArgs e)
+        private async void OnMouseDragFinished(object sender, MouseEventArgs e)
         {
-            var tmpClipboard = Clipboard.GetDataObject();
+            if (!GlobalSwitch) return;
+
+            if (SwitchSelectText.IsOn == false) return;
+
+            var clipboardBefore = Clipboard.GetDataObject();
+
             Clipboard.Clear();
-            await Task.Delay(50);
             SendKeys.SendWait("^c");
-            await Task.Delay(50);
+            await Task.Delay(500);
 
             if (Clipboard.ContainsText())
-            {
                 try
                 {
                     var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
                     var mouse = transform.Transform(new Point(e.X, e.Y));
                     var iconPopup = new IconPopup
                     {
-                        Left = mouse.X + 10,
-                        Top = mouse.Y + 20
+                        Left = mouse.X + IconPopupX,
+                        Top = mouse.Y + IconPopupY,
+                        ShowActivated = false,
+                        Focusable = false,
+                        CopiedText = Clipboard.GetText()
                     };
                     iconPopup.Show();
-                    iconPopup.CopiedText = Clipboard.GetText();
                 }
                 catch
                 {
                     // ignored
                 }
-            }
-            else
-            {
-                if (tmpClipboard != null) Clipboard.SetDataObject(tmpClipboard);
-            }
-        }
 
-        private void OnMouseDragFinished(object sender, MouseEventArgs e)
-        {
-            if (!GlobalSwitch) return;
-
-            if (SwitchSelectText.IsOn == false) return;
-
-            try
-            {
-                var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
-                var mouse = transform.Transform(new Point(e.X, e.Y));
-                var iconPopup = new IconPopup
-                {
-                    Left = mouse.X + IconPopupX,
-                    Top = mouse.Y + IconPopupY,
-                    ShowActivated = false,
-                    Focusable = false
-                    //CopiedText = Clipboard.GetText()
-                };
-                iconPopup.Show();
-            }
-            catch
-            {
-                // ignored
-            }
-        }
-
-        public async void CopyText()
-        {
-            //var tmpClipboardT = Clipboard.GetText();
-
-            //Clipboard.Clear();
-            //await Task.Delay(10);
-
-            SendKeys.SendWait("^c");
-
-            await Task.Delay(500);
-
-            //if (!Clipboard.ContainsText())
-            //{
-            //    Clipboard.SetDataObject(tmpClipboardT);
-            //    return;
-            //}
-
-            if (Clipboard.ContainsText()) ProcessText(Clipboard.GetText());
+            if (clipboardBefore != null) Clipboard.SetDataObject(clipboardBefore);
         }
 
         public void ProcessText(string text)

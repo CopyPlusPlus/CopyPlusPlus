@@ -40,6 +40,12 @@
         </DataTemplate>
     </mah:MetroWindow.IconTemplate>
 
+    <!--<mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button Content="?" FontWeight="Bold" FontSize="15" ToolTip="点击跳转至使用文档" />
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>-->
+
     <Grid>
         <Grid Margin="0,3,0,0" VerticalAlignment="Top" Height="40">
 

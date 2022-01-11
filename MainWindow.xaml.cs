@@ -111,9 +111,8 @@ namespace CopyPlusPlus
 
             if (SwitchShortcut.IsOn == false) return;
 
-            await Task.Delay(50);
-            if (Clipboard.ContainsText())
-                ProcessText(Clipboard.GetText());
+            await Task.Delay(200);
+            if (Clipboard.ContainsText()) ProcessText(Clipboard.GetText());
         }
 
         private static void OnMouseClick(object sender, MouseEventArgs e)
@@ -193,22 +192,22 @@ namespace CopyPlusPlus
 
         public async void CopyText()
         {
-            var tmpClipboardT = Clipboard.GetText();
+            //var tmpClipboardT = Clipboard.GetText();
 
-            Clipboard.Clear();
-            await Task.Delay(10);
+            //Clipboard.Clear();
+            //await Task.Delay(10);
 
             SendKeys.SendWait("^c");
 
             await Task.Delay(500);
 
-            if (!Clipboard.ContainsText())
-            {
-                Clipboard.SetDataObject(tmpClipboardT);
-                return;
-            }
+            //if (!Clipboard.ContainsText())
+            //{
+            //    Clipboard.SetDataObject(tmpClipboardT);
+            //    return;
+            //}
 
-            ProcessText(Clipboard.GetText());
+            if (Clipboard.ContainsText()) ProcessText(Clipboard.GetText());
         }
 
         public void ProcessText(string text)

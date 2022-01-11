@@ -165,39 +165,50 @@ namespace CopyPlusPlus
             }
         }
 
-        private async void OnMouseDragFinished(object sender, MouseEventArgs e)
+        private void OnMouseDragFinished(object sender, MouseEventArgs e)
         {
             if (!GlobalSwitch) return;
 
             if (SwitchSelectText.IsOn == false) return;
 
+            try
+            {
+                var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
+                var mouse = transform.Transform(new Point(e.X, e.Y));
+                var iconPopup = new IconPopup
+                {
+                    Left = mouse.X + IconPopupX,
+                    Top = mouse.Y + IconPopupY,
+                    ShowActivated = false,
+                    Focusable = false
+                    //CopiedText = Clipboard.GetText()
+                };
+                iconPopup.Show();
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
+        public async void CopyText()
+        {
             var tmpClipboardT = Clipboard.GetText();
+
             Clipboard.Clear();
-            await Task.Delay(50);
+            await Task.Delay(10);
+
             SendKeys.SendWait("^c");
-            await Task.Delay(50);
 
-            if (Clipboard.ContainsText())
-                try
-                {
-                    var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
-                    var mouse = transform.Transform(new Point(e.X, e.Y));
-                    var iconPopup = new IconPopup
-                    {
-                        Left = mouse.X + IconPopupX,
-                        Top = mouse.Y + IconPopupY,
-                        ShowActivated = false,
-                        Focusable = false,
-                        CopiedText = Clipboard.GetText()
-                    };
-                    iconPopup.Show();
-                }
-                catch
-                {
-                    // ignored
-                }
+            await Task.Delay(500);
 
-            Clipboard.SetDataObject(tmpClipboardT);
+            if (!Clipboard.ContainsText())
+            {
+                Clipboard.SetDataObject(tmpClipboardT);
+                return;
+            }
+
+            ProcessText(Clipboard.GetText());
         }
 
         public void ProcessText(string text)

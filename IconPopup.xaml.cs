@@ -43,7 +43,9 @@ namespace CopyPlusPlus
 
         private void OnCopyClick(object sender, MouseButtonEventArgs e)
         {
-            _mainWindow.ProcessText(CopiedText);
+            Hide();
+            _mainWindow.CopyText();
+            //_mainWindow.ProcessText(CopiedText);
         }
 
         private static void Stay()

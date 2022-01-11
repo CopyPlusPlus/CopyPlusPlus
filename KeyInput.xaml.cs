@@ -36,6 +36,8 @@ namespace CopyPlusPlus
             {
                 case "TextBox1":
                     {
+                        if(box.Text != "点击这里输入") return;
+
                         if (!_hasBeenClicked1)
                         {
                             box.Text = "";
@@ -46,6 +48,8 @@ namespace CopyPlusPlus
                     }
                 case "TextBox2":
                     {
+                        if (box.Text != "关闭窗口自动保存") return;
+
                         if (!_hasBeenClicked2)
                         {
                             box.Text = "";

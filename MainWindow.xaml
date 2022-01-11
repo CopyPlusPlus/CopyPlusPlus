@@ -11,7 +11,7 @@
     WindowTransitionsEnabled="False"
     Title="Copy++ v5.0 本软件完全免费" Height="304" Width="451.067"
     ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"
-    Closed="MainWindow_Closed" StateChanged="MainWindow_OnStateChanged" Closing="MainWindow_Closing"
+    Closed="MainWindow_Closed" Closing="MainWindow_Closing"
     ContentRendered="MainWindow_OnContentRendered"
     mah:ValidationHelper.ShowValidationErrorOnMouseOver="True" mah:ValidationHelper.CloseOnMouseLeftButtonDown="True"
     NonActiveWindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"

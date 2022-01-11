@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows;
@@ -92,7 +93,7 @@ namespace CopyPlusPlus
 
             _globalMouseKeyHook = Hook.GlobalEvents();
 
-            _globalMouseKeyHook.MouseClick += OnMouseClick;
+            _globalMouseKeyHook.MouseUp += OnMouseUp;
             //_globalMouseKeyHook.MouseDoubleClick += OnMouseDoubleClick;
             _globalMouseKeyHook.MouseDragFinished += OnMouseDragFinished;
             _globalMouseKeyHook.MouseWheel += OnMouseWheel;
@@ -115,20 +116,20 @@ namespace CopyPlusPlus
             if (Clipboard.ContainsText()) ProcessText(Clipboard.GetText());
         }
 
-        private static void OnMouseClick(object sender, MouseEventArgs e)
+        private static void OnMouseUp(object sender, MouseEventArgs e)
         {
             if (e.Clicks != 1) return;
 
             Application.Current.Windows
                 .Cast<Window>()
-                .LastOrDefault(window => window is IconPopup popup)?.Close();
+                .LastOrDefault(window => window is IconPopup)?.Close();
         }
 
         private static void OnMouseWheel(object sender, MouseEventArgs e)
         {
             Application.Current.Windows
                 .Cast<Window>()
-                .LastOrDefault(window => window is IconPopup popup)?.Close();
+                .LastOrDefault(window => window is IconPopup)?.Close();
         }
 
         private async void OnMouseDoubleClick(object sender, MouseEventArgs e)
@@ -301,7 +302,15 @@ namespace CopyPlusPlus
                 }
             }
 
-            Clipboard.SetText(text);
+            try
+            {
+                Clipboard.SetText(text);
+            }
+            catch
+            {
+                Thread.Sleep(50);
+                Clipboard.SetText(text);
+            }
         }
 
         private void SwitchManyPopups_OnToggled(object sender, RoutedEventArgs e)

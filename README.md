@@ -5,7 +5,7 @@
 [![Release](https://img.shields.io/github/v/release/CopyPlusPlus/CopyPlusPlus?style=flat-square)](https://github.com/CopyPlusPlus/CopyPlusPlus/releases)
 [![Stars](https://img.shields.io/github/stars/CopyPlusPlus/CopyPlusPlus?style=flat-square)](https://github.com/CopyPlusPlus/CopyPlusPlus)
 ![License](https://img.shields.io/github/license/CopyPlusPlus/CopyPlusPlus?style=flat-square)
-![](https://wakatime.com/badge/github/CopyPlusPlus/.CopyPlusPLus.svg)
+![](https://wakatime.com/badge/github/CopyPlusPlus/CopyPlusPLus.svg)
 
 <img src="https://i.loli.net/2021/04/16/v6xChGe1RFmDiIJ.png" alt="image" width="300">
 

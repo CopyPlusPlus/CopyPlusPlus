@@ -16,8 +16,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
+using ControlzEx.Standard;
 using CopyPlusPlus.Languages;
 using CopyPlusPlus.Properties;
 using Gma.System.MouseKeyHook;
@@ -25,11 +25,6 @@ using GoogleTranslateFreeApi;
 using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Win32;
 using Newtonsoft.Json;
-using Application = System.Windows.Application;
-using Clipboard = System.Windows.Clipboard;
-using Cursors = System.Windows.Forms.Cursors;
-using DataFormats = System.Windows.DataFormats;
-using MessageBox = System.Windows.MessageBox;
 using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
 
 namespace CopyPlusPlus
@@ -135,6 +130,11 @@ namespace CopyPlusPlus
                 .LastOrDefault(window => window is IconPopup)?.Close();
         }
 
+        [DllImport("user32.dll")]
+        [Obsolete]
+        private static extern bool GetCursorPos(out POINT lpPoint);
+
+        [Obsolete]
         private void OnMouseDragFinished(object sender, MouseEventArgs e)
         {
             if (!GlobalSwitch) return;
@@ -154,6 +154,8 @@ namespace CopyPlusPlus
 
             //if (Clipboard.ContainsText())
 
+            GetCursorPos(out var p);
+
             try
             {
                 var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
@@ -162,8 +164,7 @@ namespace CopyPlusPlus
                 {
                     Left = mouse.X + IconPopupX,
                     Top = mouse.Y + IconPopupY,
-                    ShowActivated = false,
-                    Focusable = false,
+                    MouseLocation = p
                     //CopiedText = Clipboard.GetText()
                 };
                 iconPopup.Show();

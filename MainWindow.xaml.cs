@@ -26,6 +26,8 @@ using Microsoft.Win32;
 using Newtonsoft.Json;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
+using Cursors = System.Windows.Forms.Cursors;
+using DataFormats = System.Windows.DataFormats;
 using MessageBox = System.Windows.MessageBox;
 using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
 
@@ -138,10 +140,12 @@ namespace CopyPlusPlus
 
             if (SwitchSelectText.IsOn == false) return;
 
-            var clipboardBefore = Clipboard.GetDataObject();
+            var clipboardBefore = Clipboard.GetText();
+            //var clipboardBefore = Clipboard.GetData(DataFormats.Rtf);
 
             Clipboard.Clear();
-            await Task.Delay(50);
+            await Task.Delay(20);
+
             SendKeys.SendWait("^c");
             await Task.Delay(500);
 
@@ -165,7 +169,7 @@ namespace CopyPlusPlus
                     // ignored
                 }
 
-            if (clipboardBefore != null) Clipboard.SetDataObject(clipboardBefore);
+            Clipboard.SetDataObject(clipboardBefore, true);
         }
 
         public void ProcessText(string text)

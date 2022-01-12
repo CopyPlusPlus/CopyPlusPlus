@@ -264,7 +264,6 @@
       <Version>4.5.1</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Translate\GoogleTranslateFreeApi-master\GoogleTranslateFreeApi\GoogleTranslateFreeApi.csproj">
       <Project>{eb492747-46b1-466a-9d03-b819fe92a147}</Project>

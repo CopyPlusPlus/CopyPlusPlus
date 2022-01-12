@@ -7,6 +7,5 @@
         Title="IconPopup" Opacity="1" Background="Transparent" AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize" Width="33" Height="32" Closed="OnClosed" Focusable="False" Topmost="True" ShowActivated="False" ShowInTaskbar="False">
     <Grid MouseEnter="Icon_OnMouseEnter" MouseLeave="Icon_OnMouseLeave">
         <Image x:Name="Icon" Source="/images/icon-circle.png" Cursor="Hand" HorizontalAlignment="Center" Margin="2,2,2,2" RenderOptions.BitmapScalingMode="HighQuality" MouseLeftButtonDown="OnLeftMouseDown" VerticalAlignment="Center" />
-        <!--<Image x:Name="Image2" Source="/images/translate-circle.png" Cursor="Hand" HorizontalAlignment="Right" Margin="0,2,2,2" RenderOptions.BitmapScalingMode="HighQuality" MouseLeftButtonUp="OnTranslateClick" />-->
     </Grid>
 </Window>

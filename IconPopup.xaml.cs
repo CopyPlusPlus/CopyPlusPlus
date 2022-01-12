@@ -38,7 +38,7 @@ namespace CopyPlusPlus
             InitializeComponent();
 
             // Create a timer
-            _stayTimer = new Timer(2000);
+            _stayTimer = new Timer(1111);
             // Hook up the Elapsed event for the timer.
             _stayTimer.Elapsed += OnStayTimedEvent;
 

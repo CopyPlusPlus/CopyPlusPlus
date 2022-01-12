@@ -36,6 +36,8 @@ namespace CopyPlusPlus
     {
         public static TaskbarIcon NotifyIcon;
 
+        private static POINT p;
+
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly IKeyboardMouseEvents _globalMouseKeyHook;
 
@@ -113,6 +115,11 @@ namespace CopyPlusPlus
             if (Clipboard.ContainsText()) ProcessText(Clipboard.GetText());
         }
 
+        [DllImport("user32.dll")]
+        [Obsolete]
+        private static extern bool GetCursorPos(out POINT lpPoint);
+
+        [Obsolete]
         private static async void OnMouseDownExt(object sender, MouseEventArgs e)
         {
             if (e.Clicks != 1) return;
@@ -121,6 +128,8 @@ namespace CopyPlusPlus
             Application.Current.Windows
                 .Cast<Window>()
                 .LastOrDefault(window => window is IconPopup)?.Close();
+
+            GetCursorPos(out p);
         }
 
         private static void OnMouseWheel(object sender, MouseEventArgs e)
@@ -129,10 +138,6 @@ namespace CopyPlusPlus
                 .Cast<Window>()
                 .LastOrDefault(window => window is IconPopup)?.Close();
         }
-
-        [DllImport("user32.dll")]
-        [Obsolete]
-        private static extern bool GetCursorPos(out POINT lpPoint);
 
         [Obsolete]
         private void OnMouseDragFinished(object sender, MouseEventArgs e)
@@ -153,8 +158,6 @@ namespace CopyPlusPlus
             //Thread.Sleep(1111);
 
             //if (Clipboard.ContainsText())
-
-            GetCursorPos(out var p);
 
             try
             {

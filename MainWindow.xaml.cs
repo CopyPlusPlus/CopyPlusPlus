@@ -93,7 +93,7 @@ namespace CopyPlusPlus
 
             _globalMouseKeyHook = Hook.GlobalEvents();
 
-            _globalMouseKeyHook.MouseUp += OnMouseUp;
+            _globalMouseKeyHook.MouseDownExt += OnMouseDownExt;
             _globalMouseKeyHook.MouseDragFinished += OnMouseDragFinished;
             _globalMouseKeyHook.MouseWheel += OnMouseWheel;
 
@@ -115,10 +115,11 @@ namespace CopyPlusPlus
             if (Clipboard.ContainsText()) ProcessText(Clipboard.GetText());
         }
 
-        private static void OnMouseUp(object sender, MouseEventArgs e)
+        private static async void OnMouseDownExt(object sender, MouseEventArgs e)
         {
             if (e.Clicks != 1) return;
 
+            await Task.Delay(5);
             Application.Current.Windows
                 .Cast<Window>()
                 .LastOrDefault(window => window is IconPopup)?.Close();
@@ -140,6 +141,7 @@ namespace CopyPlusPlus
             var clipboardBefore = Clipboard.GetDataObject();
 
             Clipboard.Clear();
+            await Task.Delay(50);
             SendKeys.SendWait("^c");
             await Task.Delay(500);
 
@@ -586,9 +588,9 @@ namespace CopyPlusPlus
                         var notifyUpdate = new
                             NotifyUpdate("打扰一下，您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨",
                                 "知道啦", "别再提示")
-                            {
-                                Owner = this
-                            };
+                        {
+                            Owner = this
+                        };
                         notifyUpdate.Show();
                     }
 

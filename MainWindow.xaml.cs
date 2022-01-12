@@ -36,7 +36,7 @@ namespace CopyPlusPlus
     {
         public static TaskbarIcon NotifyIcon;
 
-        private static POINT p;
+        private static POINT _p;
 
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly IKeyboardMouseEvents _globalMouseKeyHook;
@@ -129,7 +129,7 @@ namespace CopyPlusPlus
                 .Cast<Window>()
                 .LastOrDefault(window => window is IconPopup)?.Close();
 
-            GetCursorPos(out p);
+            GetCursorPos(out _p);
         }
 
         private static void OnMouseWheel(object sender, MouseEventArgs e)
@@ -167,7 +167,7 @@ namespace CopyPlusPlus
                 {
                     Left = mouse.X + IconPopupX,
                     Top = mouse.Y + IconPopupY,
-                    MouseLocation = p
+                    MouseLocation = _p
                     //CopiedText = Clipboard.GetText()
                 };
                 iconPopup.Show();

@@ -15,7 +15,7 @@
     ContentRendered="MainWindow_OnContentRendered"
     mah:ValidationHelper.ShowValidationErrorOnMouseOver="True" mah:ValidationHelper.CloseOnMouseLeftButtonDown="True"
     NonActiveWindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
-    WindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}">
+    WindowTitleBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" ShowActivated="False">
     <mah:MetroWindow.TitleTemplate>
         <DataTemplate>
             <TextBlock Text="{TemplateBinding Content}"

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -134,42 +135,45 @@ namespace CopyPlusPlus
                 .LastOrDefault(window => window is IconPopup)?.Close();
         }
 
-        private async void OnMouseDragFinished(object sender, MouseEventArgs e)
+        private void OnMouseDragFinished(object sender, MouseEventArgs e)
         {
             if (!GlobalSwitch) return;
 
             if (SwitchSelectText.IsOn == false) return;
 
-            var clipboardBefore = Clipboard.GetText();
-            //var clipboardBefore = Clipboard.GetData(DataFormats.Rtf);
+            //var clipboardBefore = Clipboard.GetText();
+            ////var clipboardBefore = Clipboard.GetData(DataFormats.Rtf);
 
-            Clipboard.Clear();
-            await Task.Delay(20);
+            //Clipboard.Clear();
+            ////await Task.Delay(11);
+            //Thread.Sleep(11);
 
-            SendKeys.SendWait("^c");
-            await Task.Delay(500);
+            //SendKeys.SendWait("^c");
+            ////await Task.Delay(666);
+            //Thread.Sleep(1111);
 
-            if (Clipboard.ContainsText())
-                try
+            //if (Clipboard.ContainsText())
+
+            try
+            {
+                var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
+                var mouse = transform.Transform(new Point(e.X, e.Y));
+                var iconPopup = new IconPopup
                 {
-                    var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
-                    var mouse = transform.Transform(new Point(e.X, e.Y));
-                    var iconPopup = new IconPopup
-                    {
-                        Left = mouse.X + IconPopupX,
-                        Top = mouse.Y + IconPopupY,
-                        ShowActivated = false,
-                        Focusable = false,
-                        CopiedText = Clipboard.GetText()
-                    };
-                    iconPopup.Show();
-                }
-                catch
-                {
-                    // ignored
-                }
+                    Left = mouse.X + IconPopupX,
+                    Top = mouse.Y + IconPopupY,
+                    ShowActivated = false,
+                    Focusable = false,
+                    //CopiedText = Clipboard.GetText()
+                };
+                iconPopup.Show();
+            }
+            catch
+            {
+                // ignored
+            }
 
-            Clipboard.SetDataObject(clipboardBefore, true);
+            //Clipboard.SetDataObject(clipboardBefore, true);
         }
 
         public void ProcessText(string text)
@@ -592,9 +596,9 @@ namespace CopyPlusPlus
                         var notifyUpdate = new
                             NotifyUpdate("打扰一下，您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨",
                                 "知道啦", "别再提示")
-                            {
-                                Owner = this
-                            };
+                        {
+                            Owner = this
+                        };
                         notifyUpdate.Show();
                     }
 

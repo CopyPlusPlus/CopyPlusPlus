@@ -1,8 +1,17 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
+using System.Windows.Automation;
+using System.Windows.Forms;
 using System.Windows.Input;
+using Application = System.Windows.Application;
+using Clipboard = System.Windows.Clipboard;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
+using Timer = System.Timers.Timer;
 
 namespace CopyPlusPlus
 {
@@ -21,6 +30,7 @@ namespace CopyPlusPlus
 
         private double _opacity = 1;
 
+        public IntPtr mouseLocation;
         public string CopiedText;
 
         public IconPopup()
@@ -41,9 +51,35 @@ namespace CopyPlusPlus
             Stay();
         }
 
-        private void OnLeftMouseDown(object sender, MouseButtonEventArgs e)
+        [DllImport("user32.dll")]
+        public static extern int SetForegroundWindow(IntPtr hwnd);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr WindowFromPoint(Point point);
+
+        private async void OnLeftMouseDown(object sender, MouseButtonEventArgs e)
         {
-            _mainWindow.ProcessText(CopiedText);
+            Point a = PointToScreen(Mouse.GetPosition(this));
+            Hide();
+            await Task.Delay(10);
+
+            var b = WindowFromPoint(a);
+
+            //var a = WindowFromPoint();
+            SetForegroundWindow(b);
+
+            //AutomationElement element = AutomationElement.FromHandle(WindowFromPoint(mouseLocation));
+            //if (element != null)
+            //{
+            //    element.SetFocus();
+            //}
+
+            await Task.Delay(10);
+
+            SendKeys.SendWait("^c");
+            await Task.Delay(666);
+            //Thread.Sleep(1111);
+            _mainWindow.ProcessText(Clipboard.GetText());
         }
 
         private static void Stay()

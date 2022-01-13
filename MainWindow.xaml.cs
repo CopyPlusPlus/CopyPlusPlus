@@ -674,6 +674,11 @@ namespace CopyPlusPlus
             manual.Show();
         }
 
+        private void OpenHandbook(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://wy-luke.gitee.io/HandBook/");
+        }
+
         private void DiyReplace(object sender, RoutedEventArgs e)
         {
             var addReplace = new AddReplace

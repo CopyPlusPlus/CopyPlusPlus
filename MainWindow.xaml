@@ -41,8 +41,8 @@
     </mah:MetroWindow.IconTemplate>
 
     <mah:MetroWindow.RightWindowCommands>
-        <mah:WindowCommands>
-            <Button Content="?" FontWeight="Bold" FontSize="15" ToolTip="点击跳转至使用文档" />
+        <mah:WindowCommands ToolTip="点击跳转至使用文档">
+            <Button Content="?" FontWeight="Bold" FontSize="15" Click="OpenHandbook" />
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
 

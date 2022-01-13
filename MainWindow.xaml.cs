@@ -48,6 +48,9 @@ namespace CopyPlusPlus
 
         public int IconPopupX, IconPopupY;
 
+        public bool RemainChinese;
+        public bool RemainEnglish;
+
         public string TranslateId;
         public string TranslateKey;
 
@@ -75,7 +78,7 @@ namespace CopyPlusPlus
                 TranslateKey = null;
             }
 
-            //读取上次关闭时保存的每个Switch的状态
+            // 读取上次关闭时保存的每个Switch的状态
             var checkList = Settings.Default.SwitchCheck.Cast<string>().ToList();
             SwitchMain.IsOn = Convert.ToBoolean(checkList[0]);
             SwitchSpace.IsOn = Convert.ToBoolean(checkList[1]);
@@ -91,6 +94,10 @@ namespace CopyPlusPlus
             SwitchSelectText.IsOn = Convert.ToBoolean(checkList[11]);
             SwitchShortcut.IsOn = Convert.ToBoolean(checkList[12]);
 
+            RemainChinese = Settings.Default.RemainChinese;
+            RemainEnglish = Settings.Default.RemainEnglish;
+
+            // 按键绑定
             _globalMouseKeyHook = Hook.GlobalEvents();
 
             _globalMouseKeyHook.MouseDownExt += OnMouseDownExt;
@@ -201,7 +208,8 @@ namespace CopyPlusPlus
                             if (text[counter + 1] == '\r')
                             {
                                 // 如果检测到句号结尾,则不去掉换行
-                                if (text[counter] == '。') continue;
+                                if (text[counter] == '。' && RemainChinese) continue;
+                                if (text[counter] == '.' && RemainEnglish) continue;
 
                                 // 去除换行
                                 try
@@ -213,7 +221,7 @@ namespace CopyPlusPlus
                                     text = text.Remove(counter + 1, 1);
                                 }
 
-                                //判断 英文字母 或 英文逗号/句号 结尾, 则加一个空格
+                                //判断 英文字母 或 英文逗号 或 英文句号 结尾, 则加一个空格
                                 if (Regex.IsMatch(text[counter].ToString(), "[a-zA-Z,.]"))
                                     text = text.Insert(counter + 1, " ");
 
@@ -600,9 +608,9 @@ namespace CopyPlusPlus
                         var notifyUpdate = new
                             NotifyUpdate("打扰一下，您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨",
                                 "知道啦", "别再提示")
-                        {
-                            Owner = this
-                        };
+                            {
+                                Owner = this
+                            };
                         notifyUpdate.Show();
                     }
 
@@ -677,6 +685,23 @@ namespace CopyPlusPlus
         private void OpenHandbook(object sender, RoutedEventArgs e)
         {
             Process.Start("https://wy-luke.gitee.io/HandBook/");
+        }
+
+        private void RemainOriginal(object sender, MouseButtonEventArgs e)
+        {
+            var remain = new RemainOriginal
+            {
+                Owner = this,
+                SwitchChineseOriginal =
+                {
+                    IsOn = RemainChinese
+                },
+                SwitchEnglishOriginal =
+                {
+                    IsOn = RemainEnglish
+                }
+            };
+            remain.Show();
         }
 
         private void DiyReplace(object sender, RoutedEventArgs e)

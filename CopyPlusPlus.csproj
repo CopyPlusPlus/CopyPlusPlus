@@ -133,6 +133,9 @@
     <Compile Include="PayMe.xaml.cs">
       <DependentUpon>PayMe.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RemainOriginal.xaml.cs">
+      <DependentUpon>RemainOriginal.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TranslateResult.xaml.cs">
       <DependentUpon>TranslateResult.xaml</DependentUpon>
     </Compile>
@@ -172,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PayMe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RemainOriginal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

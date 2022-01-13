@@ -61,7 +61,7 @@
         <Grid Margin="5,47,5,0" Background="#FFEBEBEB" VerticalAlignment="Top" Height="100">
             <mah:ToggleSwitch x:Name="SwitchMain" MinWidth="0" ContentDirection="LeftToRight" Content="合并换行"
                               FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"
-                              VerticalAlignment="Top" Margin="6,0,0,0" ToolTip="复制文本后，直接粘贴到Word中即可" IsOn="True" />
+                              VerticalAlignment="Top" Margin="6,0,0,0" ToolTip="复制文本后，直接粘贴到Word中即可" IsOn="True" MouseRightButtonUp="RemainOriginal" />
             <mah:ToggleSwitch x:Name="SwitchSpace" MinWidth="0" ContentDirection="LeftToRight" Content="去除空格"
                               FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"
                               VerticalAlignment="Top" Margin="6,33,0,0" ToolTip="去除所有空格" />

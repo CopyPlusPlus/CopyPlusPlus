@@ -85,5 +85,29 @@ namespace CopyPlusPlus.Properties {
                 this["SwitchCheck"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool RemainChinese {
+            get {
+                return ((bool)(this["RemainChinese"]));
+            }
+            set {
+                this["RemainChinese"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool RemainEnglish {
+            get {
+                return ((bool)(this["RemainEnglish"]));
+            }
+            set {
+                this["RemainEnglish"] = value;
+            }
+        }
     }
 }

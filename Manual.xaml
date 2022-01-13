@@ -21,8 +21,8 @@
     </mah:MetroWindow.RightWindowCommands>
 
     <Grid>
-        <Button Content="合并换行" Margin="15,10,15,0" FontFamily="Microsoft YaHei UI" Click="MergeLineBtn_Click" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" BorderBrush="{x:Null}" Height="29" />
-        <Button Content="合并空格" Margin="15,48,15,0" FontFamily="Microsoft YaHei UI" Click="MergeSpacesBtn_Click" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" BorderBrush="{x:Null}" Height="29" />
-        <Button Content="全角转半" Margin="15,85,15,0" FontFamily="Microsoft YaHei UI" Click="WidthBtn_Click" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" BorderBrush="{x:Null}" Height="30" />
+        <Button Content="合 并 换 行" Margin="12,10,12,0" FontFamily="Microsoft YaHei UI" FontSize="14" Click="MergeLineBtn_Click" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" BorderBrush="{x:Null}" Height="32" Padding="1,2,1,2" UseLayoutRounding="True" FontWeight="Bold" />
+        <Button Content="合 并 空 格" Margin="12,46,12,0" FontFamily="Microsoft YaHei UI" FontSize="14" Click="MergeSpacesBtn_Click" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" BorderBrush="{x:Null}" Height="32" Padding="1,2,1,2" UseLayoutRounding="True" FontWeight="Bold" />
+        <Button Content="全 角 转 半" Margin="12,82,12,0" FontFamily="Microsoft YaHei UI" FontSize="14" Click="WidthBtn_Click" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" BorderBrush="{x:Null}" Height="32" Padding="1,2,1,2" UseLayoutRounding="True" FontWeight="Bold" />
     </Grid>
 </mah:MetroWindow>

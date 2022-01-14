@@ -204,38 +204,40 @@ namespace CopyPlusPlus
                     for (var counter = 0; counter < text.Length - 1; counter++)
                     {
                         // 合并换行
-                        if (SwitchMain.IsOn)
-                            if (text[counter + 1] == '\r')
+                        if (SwitchMain.IsOn && counter >= 0 && text[counter] == '\r')
+                        {
+                            if (counter > 0)
                             {
                                 // 如果检测到句号结尾,则不去掉换行
-                                if (text[counter] == '。' && RemainChinese) continue;
-                                if (text[counter] == '.' && RemainEnglish) continue;
-
-                                // 去除换行
-                                try
-                                {
-                                    text = text.Remove(counter + 1, 2);
-                                }
-                                catch
-                                {
-                                    text = text.Remove(counter + 1, 1);
-                                }
-
-                                //判断 英文字母 或 英文逗号 或 英文句号 结尾, 则加一个空格
-                                if (Regex.IsMatch(text[counter].ToString(), "[a-zA-Z,.]"))
-                                    text = text.Insert(counter + 1, " ");
-
-                                // 判断 连词符- 结尾, 且前一个字符为英文单词, 则去除"-"
-                                if (text[counter] != '-' || !Regex.IsMatch(text[counter - 1].ToString(), "[a-zA-Z]"))
-                                    continue;
-                                text = text.Remove(counter, 1);
-                                --counter;
+                                if (text[counter - 1] == '。' && RemainChinese) continue;
+                                if (text[counter - 1] == '.' && RemainEnglish) continue;
                             }
 
+                            // 去除换行
+                            try
+                            {
+                                text = text.Remove(counter, 2);
+                            }
+                            catch
+                            {
+                                text = text.Remove(counter, 1);
+                            }
+
+                            --counter;
+
+                            // 判断 非负数越界 或 句末
+                            if (counter >= 0 && counter != text.Length - 1)
+                                // 判断 非中文 结尾, 则加一个空格
+                                if (!Regex.IsMatch(text[counter].ToString(), "[ ，。？！《》\u4e00-\u9fa5]"))
+                                    text = text.Insert(counter + 1, " ");
+                        }
+
                         // 去除空格
-                        if (!SwitchSpace.IsOn || text[counter] != ' ') continue;
-                        text = text.Remove(counter, 1);
-                        --counter;
+                        if (SwitchSpace.IsOn && counter >= 0 && text[counter] == ' ')
+                        {
+                            text = text.Remove(counter, 1);
+                            --counter;
+                        }
                     }
 
             if (SwitchTranslate.IsOn)

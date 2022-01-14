@@ -201,7 +201,7 @@ namespace CopyPlusPlus
                     //var isChinese = Regex.IsMatch(text, @"[\u4e00-\u9fa5]");
                     //var isChinese = !Regex.IsMatch(text, @"[a-zA-Z]");
 
-                    for (var counter = 0; counter < text.Length - 1; counter++)
+                    for (var counter = 0; counter < text.Length; ++counter)
                     {
                         // 合并换行
                         if (SwitchMain.IsOn && counter >= 0 && text[counter] == '\r')

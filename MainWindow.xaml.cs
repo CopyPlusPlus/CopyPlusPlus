@@ -281,12 +281,12 @@ namespace CopyPlusPlus
 
             try
             {
-                Clipboard.SetText(text);
+                Clipboard.SetDataObject(text);
             }
             catch
             {
                 Thread.Sleep(50);
-                Clipboard.SetText(text);
+                Clipboard.SetDataObject(text);
             }
         }
 
@@ -692,14 +692,6 @@ namespace CopyPlusPlus
             var remain = new RemainOriginal
             {
                 Owner = this,
-                SwitchChineseOriginal =
-                {
-                    IsOn = RemainChinese
-                },
-                SwitchEnglishOriginal =
-                {
-                    IsOn = RemainEnglish
-                }
             };
             remain.Show();
         }

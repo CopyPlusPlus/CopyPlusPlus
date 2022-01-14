@@ -16,6 +16,7 @@
                           Margin="35,1,0,0" IsOn="True" VerticalAlignment="Top" Toggled="OnChineseToggled" />
 
         <mah:ToggleSwitch x:Name="SwitchEnglishOriginal" MinWidth="0" ContentDirection="LeftToRight" Content="英   文  "
-                          FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" IsOn="True" VerticalAlignment="Top" Margin="35,33,0,0" Toggled="OnEnglishToggled" />
+                          FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"
+                          IsOn="True" VerticalAlignment="Top" Margin="35,33,0,0" Toggled="OnEnglishToggled" />
     </Grid>
 </Window>

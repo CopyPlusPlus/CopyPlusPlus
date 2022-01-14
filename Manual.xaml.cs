@@ -128,10 +128,7 @@ namespace CopyPlusPlus
 
         private void OnMergeRight(object sender, MouseButtonEventArgs e)
         {
-            var remain = new RemainOriginal
-            {
-                Owner = this
-            };
+            var remain = new RemainOriginal();
             remain.Show();
         }
     }

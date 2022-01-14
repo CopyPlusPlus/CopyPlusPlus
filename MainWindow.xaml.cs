@@ -689,10 +689,7 @@ namespace CopyPlusPlus
 
         private void RemainOriginal(object sender, MouseButtonEventArgs e)
         {
-            var remain = new RemainOriginal
-            {
-                Owner = this,
-            };
+            var remain = new RemainOriginal();
             remain.Show();
         }
 

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace CopyPlusPlus
@@ -12,7 +13,13 @@ namespace CopyPlusPlus
     /// </summary>
     public partial class Manual
     {
+        //Get MainWindow
+        private readonly MainWindow _mainWindow =
+            Application.Current.Windows.Cast<Window>().FirstOrDefault(window => window is MainWindow) as MainWindow;
+
+        // 如果正在处理中，再次点击按钮，直接返回
         private bool _lineStatus;
+
         private bool _spaceStatus;
         private bool _widthStatus;
 
@@ -38,7 +45,8 @@ namespace CopyPlusPlus
                 if (text[counter + 1] == '\r')
                 {
                     // 如果检测到句号结尾,则不去掉换行
-                    if (text[counter] == '。') continue;
+                    if (text[counter] == '。' && _mainWindow.RemainChinese) continue;
+                    if (text[counter] == '.' && _mainWindow.RemainEnglish) continue;
 
                     // 去除换行
                     try
@@ -116,6 +124,15 @@ namespace CopyPlusPlus
 
             mainWindow.Show();
             mainWindow.GlobalSwitch = true;
+        }
+
+        private void OnMergeRight(object sender, MouseButtonEventArgs e)
+        {
+            var remain = new RemainOriginal
+            {
+                Owner = this
+            };
+            remain.Show();
         }
     }
 }

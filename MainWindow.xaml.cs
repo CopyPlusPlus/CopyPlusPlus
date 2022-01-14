@@ -228,7 +228,7 @@ namespace CopyPlusPlus
                             // 判断 非负数越界 或 句末
                             if (counter >= 0 && counter != text.Length - 1)
                                 // 判断 非中文 结尾, 则加一个空格
-                                if (!Regex.IsMatch(text[counter].ToString(), "[ ，。？！《》\u4e00-\u9fa5]"))
+                                if (!Regex.IsMatch(text[counter].ToString(), "[\n ，。？！《》\u4e00-\u9fa5]"))
                                     text = text.Insert(counter + 1, " ");
                         }
 

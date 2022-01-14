@@ -61,10 +61,10 @@
         <Grid Margin="5,47,5,0" Background="#FFEBEBEB" VerticalAlignment="Top" Height="100">
             <mah:ToggleSwitch x:Name="SwitchMain" MinWidth="0" ContentDirection="LeftToRight" Content="合并换行"
                               FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"
-                              VerticalAlignment="Top" Margin="6,0,0,0" ToolTip="复制文本后，直接粘贴到Word中即可" IsOn="True" MouseRightButtonUp="RemainOriginal" />
+                              VerticalAlignment="Top" Margin="6,0,0,0" ToolTip="复制后，自动处理，直接粘贴即可&#x0a;右键点击，选择是否自动保留原换行" IsOn="True" MouseRightButtonUp="RemainOriginal" />
             <mah:ToggleSwitch x:Name="SwitchSpace" MinWidth="0" ContentDirection="LeftToRight" Content="去除空格"
                               FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"
-                              VerticalAlignment="Top" Margin="6,33,0,0" ToolTip="去除所有空格" />
+                              VerticalAlignment="Top" Margin="6,33,0,0" ToolTip="复制英文时小心" />
             <mah:ToggleSwitch x:Name="SwitchWidth" MinWidth="0" ContentDirection="LeftToRight" Content="全角转半"
                               FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"
                               VerticalAlignment="Top" Margin="6,65,0,0" ToolTip="全角转半角" />
@@ -74,7 +74,7 @@
                               MouseRightButtonUp="TranslateText_Clicked" ToolTip="右键点击自定义Key" />
             <mah:ToggleSwitch x:Name="SwitchManyPopups" MinWidth="0" ContentDirection="LeftToRight" Content="多个弹窗"
                               FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"
-                              VerticalAlignment="Top" Margin="117,33,0,0" ToolTip="开启后，每次翻译会新弹出一个窗口" IsEnabled="False"
+                              VerticalAlignment="Top" Margin="117,33,0,0" ToolTip="开启后，每次翻译都会新弹出一个窗口" IsEnabled="False"
                               Toggled="SwitchManyPopups_OnToggled" />
             <mah:ToggleSwitch x:Name="SwitchAutoStart" MinWidth="0" ContentDirection="LeftToRight" Content="开机启动"
                               FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"
@@ -84,7 +84,7 @@
                               VerticalAlignment="Top" Margin="229,0,0,0" IsEnabled="False" />
             <mah:ToggleSwitch x:Name="SwitchCopyOriginal" MinWidth="0" ContentDirection="LeftToRight" Content="复制原文"
                               FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI"
-                              VerticalAlignment="Top" Margin="229,33,0,0" ToolTip="开启后，复制原文，翻译结果仅弹窗显示"
+                              VerticalAlignment="Top" Margin="229,33,0,0" ToolTip="开启后,不再自动复制翻译结果"
                               IsEnabled="False" Toggled="SwitchManyPopups_OnToggled" />
             <!--<mah:ToggleSwitch x:Name="SwitchDictionary" MinWidth="0" ContentDirection="LeftToRight" Content="单词词典" FontWeight="Bold" ContentPadding="0,0,-10,0" FontFamily="Microsoft YaHei UI" VerticalAlignment="Top" Margin="229,65,0,0" IsEnabled="False" Toggled="SwitchManyPopups_OnToggled" />-->
             <Button x:Name="AddReplace" FontFamily="Microsoft YaHei UI" Content="自定义替换字符" HorizontalAlignment="Left"

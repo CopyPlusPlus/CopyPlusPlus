@@ -232,7 +232,7 @@ namespace CopyPlusPlus
                                 --counter;
                             }
 
-                        // 对中文去除空格
+                        // 去除空格
                         if (!SwitchSpace.IsOn || text[counter] != ' ') continue;
                         text = text.Remove(counter, 1);
                         --counter;

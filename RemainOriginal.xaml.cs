@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using CopyPlusPlus.Properties;
 
@@ -19,14 +18,19 @@ namespace CopyPlusPlus
             InitializeComponent();
         }
 
-        private void OnClose(object sender, EventArgs e)
+        private void OnChineseToggled(object sender, RoutedEventArgs e)
         {
             _mainWindow.RemainChinese = SwitchChineseOriginal.IsOn;
-            _mainWindow.RemainEnglish = SwitchEnglishOriginal.IsOn;
 
             Settings.Default.RemainChinese = SwitchChineseOriginal.IsOn;
-            Settings.Default.RemainEnglish = SwitchEnglishOriginal.IsOn;
+            Settings.Default.Save();
+        }
 
+        private void OnEnglishToggled(object sender, RoutedEventArgs e)
+        {
+            _mainWindow.RemainEnglish = SwitchEnglishOriginal.IsOn;
+
+            Settings.Default.RemainEnglish = SwitchEnglishOriginal.IsOn;
             Settings.Default.Save();
         }
     }

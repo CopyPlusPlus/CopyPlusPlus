@@ -41,11 +41,13 @@ namespace CopyPlusPlus
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly IKeyboardMouseEvents _globalMouseKeyHook;
 
-        //如果第一次切换到单个弹窗，则新开一个窗口，不把以前的窗口覆盖
+        // 如果第一次切换到单个弹窗，则新开一个窗口，不把以前的窗口覆盖
         private bool _firstlySwitch = true;
 
+        // 用于全局的功能开关
         public bool GlobalSwitch = true;
 
+        // 用于图标弹窗的位置偏移
         public int IconPopupX, IconPopupY;
 
         public bool RemainChinese;
@@ -197,10 +199,6 @@ namespace CopyPlusPlus
 
             if (SwitchMain.IsOn || SwitchSpace.IsOn)
                 if (text.Length > 1)
-                    // 判断文本是否包含中文
-                    //var isChinese = Regex.IsMatch(text, @"[\u4e00-\u9fa5]");
-                    //var isChinese = !Regex.IsMatch(text, @"[a-zA-Z]");
-
                     for (var counter = 0; counter < text.Length; ++counter)
                     {
                         // 合并换行
@@ -297,7 +295,7 @@ namespace CopyPlusPlus
             if (!SwitchManyPopups.IsOn) _firstlySwitch = true;
         }
 
-        //翻译结果弹窗
+        // 翻译结果弹窗
         private void ShowTrans(string text, string textBeforeTrans)
         {
             if (!SwitchPopup.IsOn || text == textBeforeTrans) return;
@@ -305,7 +303,7 @@ namespace CopyPlusPlus
             {
                 var translateResult = new TranslateResult { TextBox = { Text = text } };
 
-                //每次弹窗启动位置偏移,未实现
+                // 每次弹窗启动位置偏移,未实现
                 //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
                 //translateResult.Left = System.Windows.Forms.Control.MousePosition.X;
                 //translateResult.Top = System.Windows.Forms.Control.MousePosition.Y;
@@ -319,7 +317,7 @@ namespace CopyPlusPlus
                 {
                     var translateResult = new TranslateResult { TextBox = { Text = text } };
 
-                    //每次弹窗启动位置偏移,未实现
+                    // 每次弹窗启动位置偏移,未实现
                     //translateResult.WindowStartupLocation = WindowStartupLocation.Manual;
                     //translateResult.Left = System.Windows.Forms.Control.MousePosition.X;
                     //translateResult.Top = System.Windows.Forms.Control.MousePosition.Y;
@@ -354,7 +352,7 @@ namespace CopyPlusPlus
 
         private string GoogleTrans(string text, bool detect = false)
         {
-            //初始化谷歌翻译
+            // 初始化谷歌翻译
             var translator = new GoogleTranslator();
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
@@ -373,7 +371,7 @@ namespace CopyPlusPlus
                 return detect ? result.Result.LanguageDetections[0].Language.ISO639 : result.Result.MergedTranslation;
             //Console.WriteLine($"Result 1: {result.MergedTranslation}");
 
-            //返回值一直为null，所以不用了
+            // 返回值一直为null，所以不用了
             //if (SwitchDictionary.IsOn)
             //{
             //    if(result.Result.ExtraTranslations != null)
@@ -383,23 +381,22 @@ namespace CopyPlusPlus
             return detect ? "auto" : "翻译超时，请检查网络，或更换翻译平台。";
         }
 
-        //百度翻译
+        // 百度翻译，q为原文
         private string BdTrans(string appId, string secretKey, string q = "apple")
         {
             if (appId == null)
             {
-                //生成随机数,随机读取API
+                // 生成随机数,随机读取API
                 var random = new Random();
                 var i = random.Next(0, Api.BaiduApi.GetLength(0) - 1);
                 TranslateId = Api.BaiduApi[i, 0];
                 TranslateKey = Api.BaiduApi[i, 1];
             }
 
-            //q为原文
-
             // 源语言
             //var from = "auto";
             var from = BaiduLanguage.GetLanguage[TransFromComboBox.Text];
+
             // 目标语言
             //var to = "zh";
             var to = BaiduLanguage.GetLanguage[TransToComboBox.Text];
@@ -440,7 +437,7 @@ namespace CopyPlusPlus
             myStreamReader.Close();
             myResponseStream.Close();
 
-            //read json(retString) as a object
+            // read json(retString) as a object
             var result = JsonConvert.DeserializeObject<Rootobject>(retString)?.trans_result[0].dst;
             return result ?? "翻译超时，请检查网络，或更换翻译平台。";
         }
@@ -462,7 +459,7 @@ namespace CopyPlusPlus
             return sb.ToString();
         }
 
-        //DeepL翻译
+        // DeepL翻译
         public void DeepL(string text)
         {
             text = text.Replace(" ", "%20");
@@ -499,7 +496,7 @@ namespace CopyPlusPlus
         {
             //_textLast = "";
 
-            //为不同的翻译引擎设置不同的语言选项
+            // 为不同的翻译引擎设置不同的语言选项
             if (TransEngineComboBox.Text == "谷歌翻译")
             {
             }
@@ -547,7 +544,7 @@ namespace CopyPlusPlus
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
-            //记录每个Switch的状态,以便下次打开恢复
+            // 记录每个Switch的状态,以便下次打开恢复
             Settings.Default.SwitchCheck[0] = SwitchMain.IsOn.ToString();
             Settings.Default.SwitchCheck[1] = SwitchSpace.IsOn.ToString();
             Settings.Default.SwitchCheck[2] = SwitchWidth.IsOn.ToString();
@@ -593,11 +590,11 @@ namespace CopyPlusPlus
         {
             switch (Settings.Default.LastOpenDate.ToString("G", CultureInfo.GetCultureInfo("en-US")))
             {
-                //不再检查
+                // 不再检查
                 case "7/24/1999 12:00:00 AM":
                     return;
 
-                //第一次打开初始化日期
+                // 第一次打开初始化日期
                 case "4/16/2021 12:00:00 AM":
                     Settings.Default.LastOpenDate = DateTime.Today;
                     Settings.Default.Save();
@@ -610,9 +607,9 @@ namespace CopyPlusPlus
                         var notifyUpdate = new
                             NotifyUpdate("打扰一下，您已经使用这个软件版本很久啦！\n\n或许已经有新版本了，欢迎前去公众号获取最新版。✨",
                                 "知道啦", "别再提示")
-                            {
-                                Owner = this
-                            };
+                        {
+                            Owner = this
+                        };
                         notifyUpdate.Show();
                     }
 
@@ -669,7 +666,7 @@ namespace CopyPlusPlus
             var key = Registry.CurrentUser.OpenSubKey(path, true);
             if (key == null) return;
             if (SwitchAutoStart.IsOn)
-                //每次软件路径发生变化，系统会视为新软件，生成新的设置文件，因此不用担心路径发生变化
+                // 每次软件路径发生变化，系统会视为新软件，生成新的设置文件，因此不用担心路径发生变化
                 key.SetValue("CopyPlusPlus", Assembly.GetExecutingAssembly().Location + " /AutoStart");
             else
                 key.DeleteValue("CopyPlusPlus", false);

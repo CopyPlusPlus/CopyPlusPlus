@@ -19,7 +19,6 @@ namespace CopyPlusPlus
 
         // 如果正在处理中，再次点击按钮，直接返回
         private bool _lineStatus;
-
         private bool _spaceStatus;
         private bool _widthStatus;
 
@@ -34,44 +33,41 @@ namespace CopyPlusPlus
             _lineStatus = true;
 
             if (!Clipboard.ContainsText()) return;
-            //var thread = new Thread(() =>
-            //{
-            //Thread.CurrentThread.IsBackground = true;
 
-            /* run your code here */
             var text = Clipboard.GetText();
-            for (var counter = 0; counter < text.Length - 1; counter++)
-                // 合并换行
-                if (text[counter + 1] == '\r')
-                {
-                    // 如果检测到句号结尾,则不去掉换行
-                    if (text[counter] == '。' && _mainWindow.RemainChinese) continue;
-                    if (text[counter] == '.' && _mainWindow.RemainEnglish) continue;
 
-                    // 去除换行
-                    try
+            if (text.Length > 1)
+                for (var counter = 0; counter < text.Length; ++counter)
+                    // 合并换行
+                    if (counter >= 0 && text[counter] == '\r')
                     {
-                        text = text.Remove(counter + 1, 2);
-                    }
-                    catch
-                    {
-                        text = text.Remove(counter + 1, 1);
-                    }
+                        if (counter > 0)
+                        {
+                            // 如果检测到句号结尾,则不去掉换行
+                            if (text[counter - 1] == '。' && _mainWindow.RemainChinese) continue;
+                            if (text[counter - 1] == '.' && _mainWindow.RemainEnglish) continue;
+                        }
 
-                    //判断 英文字母 或 英文逗号 结尾, 则加一个空格
-                    if (Regex.IsMatch(text[counter].ToString(), "[a-zA-Z,]"))
-                        text = text.Insert(counter + 1, " ");
+                        // 去除换行
+                        try
+                        {
+                            text = text.Remove(counter, 2);
+                        }
+                        catch
+                        {
+                            text = text.Remove(counter, 1);
+                        }
 
-                    // 判断 连词符- 结尾, 且前一个字符为英文单词, 则去除"-"
-                    if (text[counter] != '-' || !Regex.IsMatch(text[counter - 1].ToString(), "[a-zA-Z]")) continue;
-                    text = text.Remove(counter, 1);
-                    --counter;
-                }
+                        --counter;
+
+                        // 判断 非负数越界 或 句末
+                        if (counter >= 0 && counter != text.Length - 1)
+                            // 判断 非中文 结尾, 则加一个空格
+                            if (!Regex.IsMatch(text[counter].ToString(), "[\n ，。？！《》\u4e00-\u9fa5]"))
+                                text = text.Insert(counter + 1, " ");
+                    }
 
             Clipboard.SetDataObject(text);
-            //});
-            //thread.SetApartmentState(ApartmentState.STA);
-            //thread.Start();
 
             _lineStatus = false;
         }
@@ -85,7 +81,7 @@ namespace CopyPlusPlus
 
             var text = Clipboard.GetText();
             for (var counter = 0; counter < text.Length - 1; counter++)
-                if (text[counter] == ' ')
+                if (counter >= 0 && text[counter] == ' ')
                 {
                     text = text.Remove(counter, 1);
                     --counter;
@@ -118,12 +114,8 @@ namespace CopyPlusPlus
 
         private void Manual_OnClosed(object sender, EventArgs e)
         {
-            //Get MainWindow
-            if (!(Application.Current.Windows.Cast<Window>().FirstOrDefault(window => window is MainWindow) is
-                    MainWindow mainWindow)) return;
-
-            mainWindow.Show();
-            mainWindow.GlobalSwitch = true;
+            _mainWindow.Show();
+            _mainWindow.GlobalSwitch = true;
         }
 
         private void OnMergeRight(object sender, MouseButtonEventArgs e)
